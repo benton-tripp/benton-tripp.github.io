@@ -1,5 +1,1 @@
-Here you can say lots of fun things about your site.
-
-Maybe say a some things about yourself.
-
-Or maybe what you plan to blog about.
+Hello! My name is Benton Tripp. I am a student at North Carolina State University, enrolled in the Master's program in Geospatial Information Science and Technology (MGIST), as well as the Master's certificate program in Applied Statistics and Data Management. I graduated with a degree in Data Analytics in 2020, and have since been working in data analytics and data science positions, most recently as a Quantitative Analyst at Tennessee Valley Authority (TVA). I live near Raleigh, NC with my wife and baby girl.
