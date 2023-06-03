@@ -1,7 +1,5 @@
 Programming Background
 ================
-Benton Tripp
-2023-06-03
 
 ## My R Programming Background
 

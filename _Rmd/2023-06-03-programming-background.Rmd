@@ -1,7 +1,5 @@
 ---
 title: Programming Background
-author: "Benton Tripp"
-date: "`r Sys.Date()`"
 ---
 
 ## My R Programming Background
