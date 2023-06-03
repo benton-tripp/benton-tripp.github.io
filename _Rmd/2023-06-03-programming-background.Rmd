@@ -1,0 +1,72 @@
+---
+title: Programming Background
+author: "Benton Tripp"
+date: "`r Sys.Date()`"
+---
+
+## My R Programming Background
+
+About a year and a half ago (around December, 2021), I was working for a data science consulting company called Elder Research in downtown Raleigh as a data analyst. For the majority of my projects up to that point, I had relied solely on Python and SQL to manage the data and perform analytics for our company's clients. However, I was asked to participate in a project where some enhancements were being made to an existing forecasting project written solely in R. My initial tasks were relatively simple, but within six months I had developed a relatively complex addition to their existing framework that reconciled the hierarchical forecasts into coherent forecasts.
+
+This being said, although I have regularly used R since that time, there are still vast gaps in my knowledge. As a self-taught R user, I am fully aware that I missed out on many essentials. I have to continually work towards improving my understanding of these basic concepts as well as explore new ideas and packages in an effort to keep pace with the powerful language that R is.
+
+### R vs Python
+
+R is meant for statistics, and so that will always be what it is best for. However, improvements over the years have brought in a lot of functionality available in other languages. Python, for example, has always been considered the "go-to" language for data-processing and machine learning (it was my own personal preference for several years). However, many R packages (in my opinion) outperform popular Python packages that serve the same purpose. My favorite example is the R `data.table` package, which [FAR outperforms the popular Python `pandas` and `dask` libraries in pretty much everything](https://h2oai.github.io/db-benchmark/). Even `dplyr` has [recently implemented a `data.table` back-end called `dtplyr`](https://dtplyr.tidyverse.org/). Beyond data processing advantages of `data.table` over `pandas`, I have also found that R is neck-and-neck with Python in most ML use-cases. Packages like `caret` and `tidymodels` enable R to perform similarly to Python's popular `scikit-learn`, and a plethora of R packages exist that offer all of the different modern ML algorithms. 
+
+Although I could continue to compare the two languages (it is a rather hot-topic), I will just summarize and say that the line is most definitely blurring when it comes to differentiating between R and Python. However, there are some things that I still prefer in both.
+
+### Things I like about R
+
+As mentioned previously, R is second-to-none when it comes to statistics. Although many programming languages (such as SAS or Python) are more than capable of accomplishing the majority of the same tasks, R is open-source, and was primarily created for statistics. As a result, it tends to have the most advanced statistical concepts readily available.
+
+### Things I like about Python
+
+Python is still my preferred language when it comes to more general programming tasks. Although R is becoming more multi-purpose, it still falls short in many ways. Python offers powerful solutions to tasks in automation, web development, cyber-security, and more that are just not available (or as thorough) in R.
+
+### Is R Difficult to Learn?
+
+In my own experience, R was not difficult to learn. However, I think that this is mostly due to the fact that I had already been programming in Python for several years prior to my learning R. So my perspective might be biased. It is often described as a difficult language to learn, but in my opinion, that is the case with any programming language. It is not the sort of thing that can be completely mastered in a day or even a year.
+
+I understand that none of this necessarily answers the question of whether or not R is actually difficult to learn, but I don't think there is one answer. It all depends on a person's background and commitment. But I feel that it is certainly possible for any person committed enough to learn the R language.
+
+## Example R Markdown Output
+
+```{r render-github-doc, eval=F, echo=F}
+rmarkdown::render(input = "_Rmd/2023-06-03-programming-background.Rmd", 
+                  output_format = "github_document", 
+                  output_dir = "_posts", 
+                  output_options = list(html_preview = F))
+```
+
+```{r setup, echo=F, message=F, warning=F}
+knitr::opts_chunk$set(fig.path = "../images/")
+```
+
+```{r mtcars-clusters, message=F, warning=F}
+# Load necessary libraries
+library(ggplot2)
+library(cluster)
+
+# Perform K-means clustering
+set.seed(42)  # Set seed for reproducibility
+kmeans_result <- kmeans(mtcars[,c("wt", "hp")], centers = 3, iter.max=100)
+
+# Add the cluster result to the data
+mtcars$cluster <- as.factor(kmeans_result$cluster)
+
+# Create a scatterplot
+ggplot(mtcars, aes(x = wt, y = hp, color = cluster)) +
+  geom_point(size = 4, alpha = 0.6) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800", "#33AA0A")) +
+  labs(x = "Car Weight",
+       y = "Horsepower",
+       color = "Cluster",
+       title = "K-Means Clustering of Cars by Weight and Horsepower") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = "bottom") +
+  ggrepel::geom_text_repel(aes(label = rownames(mtcars)))  # Adding car names as labels
+
+```
+
