@@ -6,6 +6,8 @@ Analyzing JSON Data with R
 I recently created a vignette demonstrating how R can be used to query data from the [Pokémon API](https://pokeapi.co/), and then used in a simple analysis. The vignette can be found here: [Vignette - Pokémon Species Analysis](https://benton-tripp.github.io/poke-vignette/), and the GitHub repository can be found here: [benton-tripp /
 poke-vignette](https://github.com/benton-tripp/poke-vignette). The vignette presents a comprehensive analysis of Pokémon species data, demonstrating the power of R in handling and analyzing complex data structures. 
 
+<hr>
+
 ## Vignette - Pokémon Species Analysis (Summary)
 
 The vignette is divided into several sections, each focusing on a different aspect of the data and the analytical techniques used: 
@@ -39,15 +41,13 @@ Perhaps the most informative result provided during EDA is the heatmap generated
 
 ## Conclusion
 
-
-
 ### Challenges
 
-
+Perhaps the biggest challenge of creating this vignette was the initial data "cleaning" process. The data pulled from the API existed in nested lists (originally JSON text), and they weren't in a "symmetrical" format that allowed for a consistent extraction process. Some of the variables took special care to handle, including some through the use of recursive functions.
 
 ### What would I do Differently
 
-
+One of the biggest challenges that I often face is that I tend to skip over EDA and jump right into the analysis. Although this project was meant to be small, I still could have spent more time exploring the data before jumping into things like PCA and clustering. 
 
 ### Final Thoughts
 
