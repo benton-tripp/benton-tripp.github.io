@@ -1,12 +1,14 @@
-Analyzing JSON data with R
+Analyzing JSON Data with R
 ================
 
-## Using the R to analyze data from the Pokémon API
+## Using the R to Analyze Data from the Pokémon API
 
 I recently created a vignette demonstrating how R can be used to query data from the [Pokémon API](https://pokeapi.co/), and then used in a simple analysis. The vignette can be found here: [Vignette - Pokémon Species Analysis](https://benton-tripp.github.io/poke-vignette/), and the GitHub repository can be found here: [benton-tripp /
-poke-vignette](https://github.com/benton-tripp/poke-vignette). 
+poke-vignette](https://github.com/benton-tripp/poke-vignette). The vignette presents a comprehensive analysis of Pokémon species data, demonstrating the power of R in handling and analyzing complex data structures. 
 
-The vignette presents a comprehensive analysis of Pokémon species data, demonstrating the power of R in handling and analyzing complex data structures. The analysis is divided into several sections, each focusing on a different aspect of the data and the analytical techniques used.
+## Vignette - Pokémon Species Analysis (Summary)
+
+The vignette is divided into several sections, each focusing on a different aspect of the data and the analytical techniques used: 
 
 ### Data Acquisition and Preparation
 
@@ -22,7 +24,34 @@ The vignette delves deeper into the data by performing a Principal Component Ana
 
 Clustering, on the other hand, is a technique used to group similar data points together. In this vignette, the `factoextra` package is used to perform K-means clustering on the PCA results. The goal is to identify groups of Pokémon species that share similar characteristics.
 
-### Conclusion
+### Results
 
-The vignette concludes with a summary of the findings and a reflection on the analytical process. It demonstrates the potential of R in handling and analyzing complex data structures, and the power of data analysis in extracting meaningful insights from raw data. The Pokémon API serves as a fun and interesting data source for this demonstration, but the techniques and methods used can be applied to any data analysis task.
+Probably the most interesting results from this analysis are the interactive plots generated at the conclusion of the analysis, found at the following locations:
+
+- [Interactive 2-Dimensional Scatter Plot of PCA/Clustering Results]([Vignette - Pokémon Species Analysis](https://benton-tripp.github.io/poke-vignette/plots/plot_2d.html))
+- [Interactive 3-Dimensional Scatter Plot of PCA/Clustering Results]([Vignette - Pokémon Species Analysis](https://benton-tripp.github.io/poke-vignette/plots/plot_2d.html))
+
+Perhaps the most informative result provided during EDA is the heatmap generated from the correlation of the different numeric variables:
+
+![](../images/corr-heatmap-1.png)<!-- -->
+
+<hr>
+
+## Conclusion
+
+
+
+### Challenges
+
+
+
+### What would I do Differently
+
+
+
+### Final Thoughts
+
+The vignette demonstrates the potential of R in handling and analyzing complex data structures, and the power of data analysis in extracting meaningful insights from raw data. The Pokémon API serves as a fun and interesting data source for this demonstration, but the techniques and methods used can be applied to any data analysis task.
+
+
 
