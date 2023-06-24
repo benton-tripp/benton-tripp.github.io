@@ -30,8 +30,8 @@ Clustering, on the other hand, is a technique used to group similar data points 
 
 Probably the most interesting results from this analysis are the interactive plots generated at the conclusion of the analysis, found at the following locations:
 
-- [Interactive 2-Dimensional Scatter Plot of PCA/Clustering Results]([Vignette - Pokémon Species Analysis](https://benton-tripp.github.io/poke-vignette/plots/plot_2d.html))
-- [Interactive 3-Dimensional Scatter Plot of PCA/Clustering Results]([Vignette - Pokémon Species Analysis](https://benton-tripp.github.io/poke-vignette/plots/plot_2d.html))
+- [Interactive 2-Dimensional Scatter Plot of PCA/Clustering Results](https://benton-tripp.github.io/poke-vignette/plots/plot_2d.html)
+- [Interactive 3-Dimensional Scatter Plot of PCA/Clustering Results](https://benton-tripp.github.io/poke-vignette/plots/plot_3d.html)
 
 Perhaps the most informative result provided during EDA is the heatmap generated from the correlation of the different numeric variables:
 
