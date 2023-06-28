@@ -1,0 +1,65 @@
+---
+title: R you ready for this? My favorite features of R
+---
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T, message=F, warning=F)
+```
+
+
+```{r render-github-doc, eval=F, echo=F}
+rmarkdown::render(input = "_Rmd/2023-06-26-r-you-ready-for-this.Rmd", 
+                  output_format = "github_document", 
+                  output_dir = "_posts", 
+                  output_options = list(html_preview = F))
+```
+
+## What's the best part about the R language? Well... It's hard to choose
+
+I have never been good at "picking favorites." I absolutely despise get-to-know-you questions like "What is your favorite food?" Or "Where is your dream vacation?" I am the type of person who appreciates variety, practicality, and novelty. These are the very qualities that make the R language so appealing to me. For this post, (in the interest of brevity), I will focus in on novelty and highlight a selection of unique features exclusive to the R language.
+
+### Formula Syntax
+
+While other languages might have similar ways to specify models, the specific syntax and flexibility of R's formula interface is quite unique. It's one of the features that makes R particularly well-suited for statistical modeling and data analysis.
+
+For example, a simple linear regression:
+
+```{r formula-example}
+# Load the built-in 'mtcars' dataset
+data(mtcars)
+
+# Fit a linear regression model using the formula syntax
+model <- lm(mpg ~ cyl + hp, data = mtcars)
+
+# Print the model summary
+summary(model)
+```
+
+In this example, `mpg ~ cyl + hp` is a formula that specifies a model where the miles per gallon (mpg) is explained by the number of cylinders (cyl) and horsepower (hp).
+
+### Piping
+
+Although the concept itself is not unique (other languages such as Python or JavaScript have "chaining"), piping is an elegant way of keeping R code organized, interpretable, and efficient. The pipe operator `%>%` (which more recently has been updated to alternatively be `|>`) is simply placed between functions, linking them into a continuous process. For example:
+
+```{r piping-example}
+# Load the necessary library
+library(magrittr) 
+# Can also be loaded through dplyr, which requires magrittr
+
+# Use piping to filter and summarize the mtcars dataset
+mtcars %>%
+  subset(cyl == 6) %>%
+  summarise(mean_mpg = mean(mpg), mean_hp = mean(hp))
+```
+
+### Built-In Data Frame Data Structure
+
+In R, data frames are built into the base language, and many of R's built-in functions and packages are designed to work seamlessly with them. This makes data frames in R particularly easy (and efficient) to work with. Although the concept itself is not unique to R (e.g., the Python language is known for its pandas library), the implementation of a data frame type within the base language sets R apart as a powerful language for data analytics and data science. 
+
+The built-in `mtcars` R dataset, as used in the prior two examples, is an example of an R data frame (see the data structure below):
+
+```{r data-frame-example}
+str(mtcars)
+```
+
+
