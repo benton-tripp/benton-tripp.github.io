@@ -12,8 +12,9 @@ factors.
 
 The analysis can be accessed via the following locations:
 
-- [README.md](https://benton-tripp.github.io/news-popularity-analysis/)
+- [Online News Popularity Analysis - Main Page](https://benton-tripp.github.io/news-popularity-analysis/)
   (published via Github Pages)
+  - Published from the project README.md file.
   - Links to each of the six published reports of the analysis (one for
     each channel type) can be found at this location, along with a brief
     description of the code used to automate the rendering process.
