@@ -1,7 +1,7 @@
 Sharing is Caring - A News Article Popularity Analysis
 ================
 
-## Using the R to Analyze News Article Data and Predict Shares
+## Using R to Analyze News Article Data and Predict Shares
 
 I recently completed an analysis of an online news popularity data set
 from UCI, using R (see <https://doi.org/10.24432/C5NS3V>). The objective
