@@ -1,0 +1,140 @@
+---
+title: Sharing is Caring - A News Article Popularity Analysis
+---
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T, message=F, warning=F)
+```
+
+```{r render-github-doc, eval=F, echo=F}
+rmarkdown::render(input = "_Rmd/2023-07-06-sharing-is-caring.Rmd", 
+                  output_format = "github_document", 
+                  output_dir = "_posts", 
+                  output_options = list(html_preview = F))
+```
+
+## Using the R to Analyze News Article Data and Predict Shares
+
+I recently completed an analysis of an online news popularity data set from UCI, using R (see [https://doi.org/10.24432/C5NS3V](https://doi.org/10.24432/C5NS3V)). The objective of this analysis was to gain an understanding of the factors influencing online news popularity, and develop a predictive model capable of accurately estimating the total shares of a given article given these factors.
+
+The analysis can be accessed via the following locations:
+
+- [README.md](https://benton-tripp.github.io/news-popularity-analysis/) (published via Github Pages)
+  * Links to each of the six published reports of the analysis (one for each channel type) can be found at this location, along with a brief description of the code used to automate the rendering process.
+- [Github Repository](https://github.com/benton-tripp/news-popularity-analysis)
+  * This is the repository containing all of the code/files used in the project (and through which the Github Pages posts are published)
+  
+## Analysis Reflections
+
+### What Would I do Differently?
+
+Initially, I didn't really do much to handle multi-collinearity or linear dependence among the predictors. Although I eventually went back and did more to account for these issues (described in further detail in the published reports), I would probably do this much sooner during EDA/model training in the future.
+
+### What was the Most Difficult Part?
+
+One of the largest challenges was the nature of the data itself. There are a lot of outliers in the data, which can make building an accurate predictive model difficult. For example, consider the distribution of the business articles:
+
+```{r, echo=F}
+
+library(downloader)
+library(tidyverse)
+
+# Define function for downloading/decompressing data from source
+download.decompress <- function(url, output.dir) {
+  # Define zip file output name
+  zip.file <- "download.zip"
+  
+  # Download the file
+  download(url, destfile = zip.file, mode = "wb")
+  
+  # Unzip the file
+  unzip(zip.file, exdir = output.dir)
+  
+  # Delete the zip file after extraction
+  file.remove(zip.file)
+}
+
+# Make sure data directory exists
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+# If data has not yet been downloaded, download/decompress data
+if (!file.exists("data/OnlineNewsPopularity.csv")) {
+  download.decompress(
+    url="https://archive.ics.uci.edu/static/public/332/online+news+popularity.zip",
+    output.dir="data"
+  )
+  # Move from subfolder into data directory
+  for (file in list.files("data/OnlineNewsPopularity")) {
+    file.rename(file.path("data", "OnlineNewsPopularity", file), 
+                file.path("data", file))
+  }
+  # Remove subfolder
+  unlink("data/OnlineNewsPopularity", recursive=T)
+}
+
+# Define data path
+file.loc <- "data/OnlineNewsPopularity.csv"
+
+# Load data
+full.df <- read_csv(file.loc) %>%
+  select(-url, -timedelta) # Remove non-predictive fields 
+
+# Define a function to select the channel
+select.channel <- function(df, channel=c("lifestyle", "entertainment", "bus", 
+                                 "socmed", "tech", "world")) {
+  # Default channel is lifestyle
+  channel <- paste0("data_channel_is_", match.arg(channel))
+  # Make sure it exists
+  if (!(channel %in% names(df))) {
+    stop(paste0("The selected channel `", channel, "` does not exist in the input data"))
+  }
+  # Filter by selected channel, and drop channel vars
+  channels <- names(df)[grepl("data_channel_is", names(df))]
+  df <- df %>%
+    filter(!!sym(channel) == 1) %>%
+    select(-one_of(channels)) %>%
+    select(shares, everything()) # Move to front
+  
+  return(df)
+}
+
+# To load all channels as a list of data frames:
+# 
+# channels <- c("lifestyle", "entertainment", "bus", "socmed", "tech", "world")
+# df.list <- purrr::map(channels, ~select.channel(full.df, .x))
+# names(df.list) <- channels
+
+# Select business channel by default
+selected.channel <- "bus"
+df <- select.channel(full.df, selected.channel)
+
+df %>%
+  summarize(
+    min=min(shares),
+    lower.quartile=quantile(shares, .25),
+    median=median(shares),
+    mean=mean(shares),
+    upper.quartile=quantile(shares, .75),
+    max=max(shares)
+  ) %>%
+  t() %>%
+  as.data.frame() %>%
+  rownames_to_column("Measure") %>%
+  rename(Value=V1) %>%
+  knitr::kable(
+    align = 'l',
+    digits = 0
+  )
+
+```
+
+The maximum number of shares was so far above the normal range of the data, I was unable to accurately predict that value (which was in my test data) despite all of my efforts.
+
+### What are my Key Takeaways?
+
+I spent a bit of time exploring variations of linear regression that are more robust to outliers. I first tested using different regularization methods (e.g., LASSO, Ridge Regression, Elastic Net), but didn't have much luck. In the end, I settled on using quantile regression. At a high level, quantile regression estimates the conditional quantile of the response variable, as opposed to traditional OLS which models the mean of the response variable (given the predictors). Consider how a median of a distribution tends to be more robust to outliers than a mean of the same distribution. Quantile regression uses this to its advantage to help reduce some of the bias introduced by outliers in the training data.
+
+
+
