@@ -141,7 +141,7 @@ ggplot(data.frame(actual=df.test$Volume, predicted=yhat),
   theme_minimal()
 ```
 
-![](C:/Users/bento/st558/benton-tripp.github.io/_posts/2023-07-10-tree-volume-using-random-forests_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](_posts/2023-07-10-tree-volume-using-random-forests_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 Looking at the actual vs predicted values, we can see that the model’s
 predictions are quite close to the actual values. This indicates that
@@ -170,7 +170,7 @@ ggplot(data.frame(Variable = rownames(feature.imp), Importance = feature.imp$Ove
         plot.title = element_text(size = 13))
 ```
 
-![](C:/Users/bento/st558/benton-tripp.github.io/_posts/2023-07-10-tree-volume-using-random-forests_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](_posts/2023-07-10-tree-volume-using-random-forests_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
 
 The feature importance plot shows that the girth of the tree is the most
 important feature for predicting the volume, with an importance score of
