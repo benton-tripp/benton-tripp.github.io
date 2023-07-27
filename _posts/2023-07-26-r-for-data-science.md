@@ -40,10 +40,11 @@ increasingly use R - especially for data science. Additionally, my
 interest in spatial statistics aligns well with R’s capabilities in
 handling GIS and spatial data analysis techniques. I enjoyed putting
 some of the skills I learned in this course to use during the final
-project, when I built a Shiny app that used data science and GIS to
-model the distribution of the three-toed sloth in South America. I
-intend to continue to improve my work through R’s capacity to perform
-complex spatial data science tasks.
+project, when I built a [Shiny
+app](https://github.com/benton-tripp/slothful-seer/tree/main) that used
+data science and GIS to model the distribution of the three-toed sloth
+in South America. I intend to continue to improve my work through R’s
+capacity to perform complex spatial data science tasks.
 
 As the field of data science continues to evolve, I believe that R will
 remain at the forefront of my toolkit, proving indispensable in both
