@@ -13,7 +13,7 @@ rmarkdown::render(input = "_Rmd/2023-07-26-r-for-data-science.Rmd",
                   output_options = list(html_preview = F))
 ```
 
-Why I Now Prefer R for Data Science
+## Why I Now Prefer R for Data Science
 
 In the growing landscape of programming languages used for data science tools, R stands out as my top choice. While I have experience with other languages such as SAS and Python, I find that R most aligns with my preferences. A few key reasons underpin my inclination:
 

@@ -1,7 +1,7 @@
 R for Data Science
 ================
 
-Why I Now Prefer R for Data Science
+## Why I Now Prefer R for Data Science
 
 In the growing landscape of programming languages used for data science
 tools, R stands out as my top choice. While I have experience with other
