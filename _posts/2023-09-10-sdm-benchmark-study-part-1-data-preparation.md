@@ -339,7 +339,7 @@ ggplot(data = ggplot2::map_data("state") %>% filter(region == "oregon")) +
           panel.grid = element_blank())
 ```
 
-![](C:/Users/bento/gis630/benton-tripp.github.io/_posts/2023-09-10-sdm-benchmark-study-part-1-data-preparation_files/figure-gfm/nc-obs-example-1.png)<!-- -->
+![](https://raw.githubusercontent.com/benton-tripp/benton-tripp.github.io/main/_posts/2023-09-10-sdm-benchmark-study-part-1-data-preparation_files/figure-gfm/nc-obs-example-1.png)
 
 ## Rasters
 

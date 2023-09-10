@@ -278,8 +278,7 @@ map_df(states, ~obs[[.x]][, .(.N, state=.x), by=.(common.name)]) %>%
 
 Below is a brief snapshot of the data, filtered to `common.name == "Sandhill Crane"` in Oregon:
 
-```{r nc-obs-example, results='markup'}
-
+``` r
 # OR Sandhill Crane Map
 or.shc <- obs$OR[common.name == "Sandhill Crane"]
 
@@ -297,8 +296,10 @@ ggplot(data = ggplot2::map_data("state") %>% filter(region == "oregon")) +
           axis.title = element_blank(),
           axis.ticks = element_blank(),
           panel.grid = element_blank())
-
 ```
+
+![](https://raw.githubusercontent.com/benton-tripp/benton-tripp.github.io/main/_posts/2023-09-10-sdm-benchmark-study-part-1-data-preparation_files/figure-gfm/nc-obs-example-1.png)
+
 
 ## Rasters
 
