@@ -7,8 +7,8 @@ This is just one of several posts that I will be making regarding a
 study that I am working on, focused on benchmarking and comparing
 different species distribution models (SDMs) using presence-only data. A
 review of the literature that I wrote on this subject can be found
-[here](https://benton-tripp.github.io/docs/lit_review.pdf). My GitHub
-repo for this project can be accessed
+[here](https://github.com/benton-tripp/benton-tripp.github.io/blob/main/_docs/lit_review.pdf).
+My GitHub repo for this project can be accessed
 [here](https://github.com/benton-tripp/presence-only-sdm).
 
 This post is focused on gathering and preparing the data that will be
