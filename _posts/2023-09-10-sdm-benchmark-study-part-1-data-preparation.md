@@ -47,9 +47,6 @@ links in the next section.
   - [Hydrography (Water Bodies & Coast) \| Source
     Page](https://apps.nationalmap.gov/downloader/#/)
     - [Download](https://prd-tnm.s3.amazonaws.com/StagedProducts/Small-scale/data/Hydrography/hydrusm010g.gdb_nt00897.tar.gz)
-  - [Soil \| Source
-    Page](https://www.nrcs.usda.gov/resources/data-and-reports/gridded-national-soil-survey-geographic-database-gnatsgo)
-    - [Download](https://nrcs.app.box.com/v/soils/file/1122196282596)
   - Vegetation Index
     - [USGS Earth Explorer](https://earthexplorer.usgs.gov/) (eVIIRS
       NDVI, 02/23/21-03/08/21 1km; 05/04/21-05/17/21 1km;
@@ -352,8 +349,8 @@ extensively used to represent continuous data such as elevation,
 temperature, or land cover. In this project, raster data serves as the
 basis for various explanatory variables that influence bird species
 distributions, including digital elevation, urban imperviousness, land
-cover, canopy, weather, hydrography, soil, and vegetation index. Each of
-these variables represents environmental conditions that can affect bird
+cover, canopy, weather, hydrography, and vegetation index. Each of these
+variables represents environmental conditions that can affect bird
 habitat and distribution.
 
 ## Raster Pre-Processing
@@ -386,39 +383,13 @@ terra.any <- function(r) {
 
 # Function to fix NA values in a raster (e.g., NULL values are equal to 999, 
 # but should be NA)
-fix.raster.na <- function(data.path, 
-                          na.val, 
-                          raster.name,
-                          states=c("CO", "NC", "OR", "VT")) {
-  
-  for (state in states) {
-    
-    # Set path of the input raster
-    input.raster.path <- file.path(data.path, raster.name)
-    
-    # Create a temporary output path
-    temp.output.path <- file.path(data.path, paste0("temp_", raster.name))
-    
-    # Read the input raster
-    cat(paste0("Loading raster from ", input.raster.path, "...\n"))
-    input.raster <- rast(input.raster.path)
-    
-    # Identify cells with value `na.val`
-    msk <- input.raster == na.val
-    cat("Checking for improperly formatted NA values...\n")
-    if (terra.any(msk)) {
-      cat("Updating NA values...\n")
-      # Set those cells to NA
-      input.raster[msk] <- NA
-      
-      # Save the output raster to the temporary file path
-      cat("Saving updated raster...\n")
-      writeRaster(input.raster, temp.output.path)
-      
-      # Remove temporary prefix and overwrite the original raster
-      file.rename(temp.output.path, input.raster.path)
-    }
+basic.na.fix <- function(r, na.val) {
+  msk <- r == na.val
+  cat("Checking for improperly formatted NA values...\n")
+  if (terra.any(msk)) {
+    r[msk] <- NA
   }
+  r
 }
 
 
@@ -450,9 +421,10 @@ general.raster.preprocessing <- function(
     crs = 5070,
     wildcard = "*.tif",
     resolution = 5000,
-    agg="mean",
+    agg="bilinear",
     recursive.adf.path=F,
-    crop.by.state=T
+    crop.by.state=T,
+    na.val=NULL
 ) {
   # Example usage:
   # general.raster.preprocessing(
@@ -475,7 +447,7 @@ general.raster.preprocessing <- function(
   }
   
   cat("Rasters:", paste(rasters, collapse=", "), "\n")
-  
+
   # Loop through each raster file in the list
   for (i in 1:length(rasters)) {
     
@@ -516,17 +488,30 @@ general.raster.preprocessing <- function(
           rm(masked.raster)
           gc()
           
+          # Fixing NA values
+          if (!is.null(na.val)) {
+            reprojected.raster <- basic.na.fix(reprojected.raster, na.val)
+          }
+          
+          template.raster <- ext(reprojected.raster) %>% 
+            rast(res=rep(resolution, 2), crs=crs(reprojected.raster))
+          
+          
+          
           # Resample
           current.res <- terra::res(reprojected.raster)
           cat("\tCurrent Resolution:", current.res, "\n")
           cat("\tTarget Factor:", resolution/terra::res(reprojected.raster)[1], "\n")
           if (any(current.res != resolution)) {
             cat("\tResampling raster for", state, "\n")
-            resampled.raster <- terra::aggregate(
-              reprojected.raster, 
-              fact=c(resolution/current.res[1], resolution/current.res[2]), 
-              fun = agg, 
-              expand = T) %>% suppressWarnings()
+            # resampled.raster <- terra::aggregate(
+            #   reprojected.raster, 
+            #   fact=c(resolution/current.res[1], resolution/current.res[2]), 
+            #   fun = agg, 
+            #   expand = T) %>% suppressWarnings()
+            resampled.raster <- terra::resample(reprojected.raster, 
+                                                template.raster,
+                                                method=agg)
           } else {
             resampled.raster <- reprojected.raster
           }
@@ -688,7 +673,8 @@ if (!all(file.exists(paste0("data/dem/dem_", states, ".tif")))) {
     out.raster.name = "dem",
     out.path = "data/dem",
     resolution = 5000,
-    wildcard="\\.tif$"
+    wildcard="\\.tif$",
+    agg="bilinear"
   )
 }
 ```
@@ -869,7 +855,8 @@ if (!all(file.exists(paste0("data/prcp/avg_prcp_", states, ".tif")))) {
     out.path="data/prcp",
     out.raster.name="avg_prcp",
     resolution=5000,
-    wildcard="avg_prcp\\.tif$"
+    wildcard="avg_prcp\\.tif$",
+    agg="bilinear"
   )
 }
 
@@ -883,7 +870,8 @@ if (!all(file.exists(paste0("data/tmin/tmin_", states, ".tif")))) {
     out.path="data/tmin",
     out.raster.name="tmin",
     resolution=5000,
-    wildcard="min_temp\\.tif$"
+    wildcard="min_temp\\.tif$",
+    agg="bilinear"
   )
 }
 
@@ -897,7 +885,8 @@ if (!all(file.exists(paste0("data/tmax/tmax_", states, ".tif")))) {
     out.path="data/tmax",
     out.raster.name="tmax",
     resolution=5000,
-    wildcard="max_temp\\.tif$"
+    wildcard="max_temp\\.tif$",
+    agg="bilinear"
   )
 }
 ```
@@ -1018,7 +1007,8 @@ if (!all(file.exists(paste0("data/waterbody/waterbody_", states, ".tif")))) {
     out.path="data/waterbody",
     out.raster.name="waterbody",
     resolution=5000,
-    wildcard="\\.tif$"
+    wildcard="\\.tif$",
+    agg="bilinear"
   )
 }
 ```
@@ -1090,7 +1080,8 @@ if (!all(file.exists(paste0("data/coastline/coastline_", states, ".tif")))) {
     out.path="data/coastline",
     out.raster.name="coastline",
     resolution=5000,
-    wildcard="\\.tif$"
+    wildcard="\\.tif$",
+    agg="bilinear"
   )
 }
 ```
@@ -1105,7 +1096,6 @@ pre-processing steps described previously:
 - Land Cover
 - NDVI
 - Tree Canopy
-- Soil Type
 
 ``` r
 # Urban Imperviousness Pre-Processing
@@ -1119,7 +1109,8 @@ if (!all(file.exists(paste0("data/urban_imperviousness/urban_imperviousness_",
     out.raster.name="urban_imperviousness",
     out.path="data/urban_imperviousness",
     resolution=5000,
-    wildcard="\\.tif$"
+    wildcard="\\.tif$",
+    agg="bilinear"
   )
 }
 
@@ -1135,7 +1126,7 @@ if (!all(file.exists(paste0("data/land_cover/land_cover_", states, ".tif")))) {
     out.path="data/land_cover",
     resolution=5000,
     wildcard="\\.tif$",
-    agg="modal"
+    agg="near"
   )
 }
 
@@ -1157,7 +1148,8 @@ for (season in c("Spring", "Summer", "Fall", "Winter")) {
         out.raster.name=paste0(season, "_NDVI"),
         out.path="data/NDVI",
         wildcard="*1KM\\.VI_NDVI.*\\.tif$",
-        resolution=5000)
+        resolution=5000,
+        agg="bilinear")
       cat("-----------------\n")
     }, error = function(e) {
       cat(paste0("An error occurred while processing ", season, ": ", e$message, "\n"))
@@ -1176,22 +1168,8 @@ if (!all(file.exists(paste0("data/canopy/canopy_", states, ".tif")))) {
     out.raster.name="canopy",
     out.path="data/canopy",
     resolution=5000,
-    wildcard="\\.tif$"
-  )
-}
-
-# Soil Pre-Processing
-
-# Apply General Raster Pre-Processing to Soil
-if (!all(file.exists(paste0("data/soil/soil_", states, ".tif")))) {
-  general.raster.preprocessing(
-    data.path=ext.data.path,
-    raster.name="soil/FY2023_gNATSGO_mukey_grid", 
-    out.path="data/soil",
-    out.raster.name="soil",
-    resolution=5000,
     wildcard="\\.tif$",
-    agg="modal"
+    agg="bilinear"
   )
 }
 ```
