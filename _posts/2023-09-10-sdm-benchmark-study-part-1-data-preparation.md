@@ -83,12 +83,12 @@ There are four regions explored in this analysis from 2016 through 2019
 - Vermont, 2016-2019
 
 For simplicity, only data for the four states that are being used as
-observation area
-(<https://hub.arcgis.com/datasets/1612d351695b467eba75fdf82c10884f/explore?filters=eyJTVEFURV9BQkJSIjpbIkNPIiwiVlQiLCJOQyIsIk9SIl19&location=48.814319%2C163.610769%2C2.35>)
-needs to be downloaded (as a .shp file). By default, the zipped files
-should be saved in *US_State_Boundaries.zip*. Extract the files into a
-folder of the same name within the data directory, and use the following
-code to split the states into separate files:
+observation area needs to be [downloaded (as a .shp
+file)](https://hub.arcgis.com/datasets/1612d351695b467eba75fdf82c10884f/explore?filters=eyJTVEFURV9BQkJSIjpbIkNPIiwiVlQiLCJOQyIsIk9SIl19&location=48.814319%2C163.610769%2C2.35).
+By default, the zipped files should be saved in
+*US_State_Boundaries.zip*. Extract the files into a folder of the same
+name within the data directory, and use the following code to split the
+states into separate files:
 
 ``` r
 # Define the state abbreviations
