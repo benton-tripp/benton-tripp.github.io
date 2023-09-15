@@ -1097,6 +1097,40 @@ pre-processing steps described previously:
 - NDVI
 - Tree Canopy
 
+For land cover, note the 20 different Land Cover hierarchical categories
+(i.e., each of them falls under a “parent” category, see [National Land
+Cover Database Class Legend and
+Description](https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description)):
+
+- Water:
+  - 11: Open Water
+  - 12: Perennial Ice/Snow
+- Developed
+  - 21: Developed, Open Space
+  - 22: Developed, Low Intensity
+  - 23: Developed, Medium Intensity
+  - 24: Developed, High Intensity
+- Barren
+  - 31: Barren Land (Rock/Sand/Clay)
+- Forest
+  - 41: Deciduous Forest
+  - 42: Evergreen Forest
+  - 43: Mixed Forest
+- Shrubland
+  - 51: Dwarf Shrub
+  - 52: Shurb/Scrub
+- Herbaceous
+  - 71: Grassland/Herbaceous
+  - 72: Sedge/Herbaceous
+  - 73: Lichens
+  - 74: Moss
+- Planted/Cultivated
+  - 81: Pasture/Hay
+  - 82: Cultivated Crops
+- Wetlands
+  - 90: Woody Wetlands
+  - 95: Emergent Herbaceous Wetlands
+
 ``` r
 # Urban Imperviousness Pre-Processing
 
