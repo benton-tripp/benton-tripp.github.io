@@ -1,0 +1,245 @@
+<!DOCTYPE html> <html lang=en style><!--
+ Page saved with SingleFile 
+ url: https://benton-tripp.github.io/tree-volume-using-random-forests.html 
+ saved date: Sun Sep 17 2023 10:39:12 GMT-0400 (Eastern Daylight Time)
+--><meta charset=utf-8>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>Tree Volume using Random Forests | Benton’s Portfolio/Blog</title>
+<meta name=generator content="Jekyll v3.9.3">
+<meta property=og:title content="Tree Volume using Random Forests">
+<meta name=author content="Benton Tripp">
+<meta property=og:locale content=en_US>
+<meta name=description content=Introduction>
+<meta property=og:description content=Introduction>
+<link rel=canonical href=https://benton-tripp.github.io/tree-volume-using-random-forests.html>
+<meta property=og:url content=https://benton-tripp.github.io/tree-volume-using-random-forests.html>
+<meta property=og:site_name content="Benton’s Portfolio/Blog">
+<meta property=og:type content=article>
+<meta property=article:published_time content=2023-07-10T00:00:00+00:00>
+<meta name=twitter:card content=summary>
+<meta property=twitter:title content="Tree Volume using Random Forests">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Benton Tripp"},"dateModified":"2023-07-10T00:00:00+00:00","datePublished":"2023-07-10T00:00:00+00:00","description":"Introduction","headline":"Tree Volume using Random Forests","mainEntityOfPage":{"@type":"WebPage","@id":"https://benton-tripp.github.io/tree-volume-using-random-forests.html"},"url":"https://benton-tripp.github.io/tree-volume-using-random-forests.html"}</script>
+<style>body,h1,h2,p,blockquote,pre,hr,ol,ul{margin:0;padding:0}body{font:400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";color:#111;background-color:#fdfdfd;-webkit-text-size-adjust:100%;-webkit-font-feature-settings:"kern"1;-moz-font-feature-settings:"kern"1;-o-font-feature-settings:"kern"1;font-feature-settings:"kern"1;font-kerning:normal;display:flex;min-height:100vh;flex-direction:column}h1,h2,p,blockquote,pre,ul,ol{margin-bottom:15px}main{display:block}img{max-width:100%;vertical-align:middle}ul,ol{margin-left:30px}h1,h2{font-weight:400}a{color:#2a7ae2;text-decoration:none}a:visited{color:#1756a9}a:hover{color:#111;text-decoration:underline}.social-media-list a:hover{text-decoration:none}.social-media-list a:hover .username{text-decoration:underline}blockquote{color:#828282;border-left:4px solid #e8e8e8;padding-left:15px;font-size:18px;letter-spacing:-1px;font-style:italic}blockquote>:last-child{margin-bottom:0}pre,code{font-size:15px;border:1px solid #e8e8e8;border-radius:3px;background-color:#eef}code{padding:1px 5px}pre{padding:8px 12px;overflow-x:auto}pre>code{border:0;padding-right:0;padding-left:0}.wrapper{max-width:-webkit-calc(800px - (30px*2));max-width:calc(800px - (30px*2));margin-right:auto;margin-left:auto;padding-right:30px;padding-left:30px}@media screen and (max-width:800px){.wrapper{max-width:-webkit-calc(800px - (30px));max-width:calc(800px - (30px));padding-right:15px;padding-left:15px}}.wrapper:after,.footer-col-wrapper:after{content:"";display:table;clear:both}.svg-icon{width:16px;height:16px;display:inline-block;fill:#828282;padding-right:5px;vertical-align:text-top}.social-media-list li+li{padding-top:5px}.site-header{border-top:5px solid #424242;border-bottom:1px solid #e8e8e8;min-height:55.95px;position:relative}.site-title{font-size:26px;font-weight:300;line-height:54px;letter-spacing:-1px;margin-bottom:0;float:left}.site-title,.site-title:visited{color:#424242}.site-nav{float:right;line-height:54px}.site-nav .page-link{color:#111;line-height:1.5}.site-nav .page-link:not(:last-child){margin-right:20px}@media screen and (max-width:600px){.site-nav{position:absolute;top:9px;right:15px;background-color:#fdfdfd;border:1px solid #e8e8e8;border-radius:5px;text-align:right}.site-nav label[for="nav-trigger"]{display:block;float:right;width:36px;height:36px;z-index:2;cursor:pointer}.site-nav .menu-icon>svg{fill:#424242}.site-nav input~.trigger{clear:both;display:none}.site-nav input:checked~.trigger{display:block;padding-bottom:5px}.site-nav .page-link{display:block;padding:5px 10px;margin-left:20px}.site-nav .page-link:not(:last-child){margin-right:0}}.site-footer{border-top:1px solid #e8e8e8;padding:30px 0}.footer-heading{font-size:18px;margin-bottom:15px}.contact-list,.social-media-list{list-style:none;margin-left:0}.footer-col-wrapper{font-size:15px;color:#828282;margin-left:-15px}.footer-col{float:left;margin-bottom:15px;padding-left:15px}.footer-col-1{width:-webkit-calc(35% - (30px/2));width:calc(35% - (30px/2))}.footer-col-2{width:-webkit-calc(20% - (30px/2));width:calc(20% - (30px/2))}.footer-col-3{width:-webkit-calc(45% - (30px/2));width:calc(45% - (30px/2))}@media screen and (max-width:800px){.footer-col-1,.footer-col-2{width:-webkit-calc(50% - (30px/2));width:calc(50% - (30px/2))}.footer-col-3{width:-webkit-calc(100% - (30px/2));width:calc(100% - (30px/2))}}@media screen and (max-width:600px){.footer-col{float:none;width:-webkit-calc(100% - (30px/2));width:calc(100% - (30px/2))}}.page-content{padding:30px 0;flex:1}.post-meta{font-size:14px;color:#828282}.post-header{margin-bottom:30px}.post-title{font-size:42px;letter-spacing:-1px;line-height:1}@media screen and (max-width:800px){.post-title{font-size:36px}}.post-content{margin-bottom:30px}.post-content h2{font-size:32px}@media screen and (max-width:800px){.post-content h2{font-size:28px}}</style><link type=application/atom+xml rel=alternate href=https://benton-tripp.github.io/feed.xml title="Benton's Portfolio/Blog">
+<style>.hljs{display:block;overflow-x:auto;padding:0.5em;color:#333;background:#f8f8f8}.hljs-comment{color:#998;font-style:italic}.sf-hidden{display:none!important}</style><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style><body><header class=site-header role=banner>
+ <div class=wrapper><a class=site-title rel=author href=https://benton-tripp.github.io/>Benton's Portfolio/Blog</a><nav class=site-nav>
+ <input type=checkbox id=nav-trigger class="nav-trigger sf-hidden">
+ <label for=nav-trigger>
+ <span class="menu-icon sf-hidden">
+ <svg viewBox="0 0 18 15" width=18px height=15px>
+ <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+ </svg>
+ </span>
+ </label>
+ <div class=trigger><a class=page-link href=https://benton-tripp.github.io/archive>Blog Archive</a></div>
+ </nav></div>
+</header>
+<main class=page-content aria-label=Content>
+ <div class=wrapper>
+ <style>hr{margin-top:30px;margin-bottom:20px}.post_navi{display:flex}.post_navi-label{font-size:0.8em;opacity:0.5}.post_navi .post_navi-item{padding:0 2.2em;width:50%;position:relative;color:inherit!important}.post_navi .nav_prev{text-align:left}.post_navi .nav_next{text-align:right}.post_navi .nav_prev .post_navi-arrow{left:0}.post_navi .nav_next .post_navi-arrow{right:0}.post_navi .post_navi-arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5em;opacity:0.3}</style>
+<article class="post h-entry" itemscope itemtype=http://schema.org/BlogPosting>
+ <header class=post-header>
+ <h1 class="post-title p-name" itemprop="name headline">Tree Volume using Random Forests</h1>
+ <p class=post-meta>
+ <time class=dt-published datetime=2023-07-10T00:00:00+00:00 itemprop=datePublished>Jul 10, 2023
+ </time>
+ • <span itemprop=author itemscope itemtype=http://schema.org/Person><span class="p-author h-card" itemprop=name>Benton Tripp</span></span></p>
+ </header>
+ <div class=share-links>
+ <style class=sf-hidden>#share-buttons{display:inline-block;vertical-align:middle}#share-buttons:after{content:"";display:block;clear:both}#share-buttons>div{position:relative;height:36px;width:32px;float:left;text-align:center}#share-buttons>div>svg{fill:#d5d5d5}#share-buttons>div:hover{cursor:pointer}#share-buttons>div.facebook:hover>svg{fill:#3B5998}#share-buttons>div.twitter:hover>svg{fill:#55ACEE}#share-buttons>div.linkedin:hover>svg{fill:#0077b5}#share-buttons>div.gplus:hover>svg{fill:#dd4b39}#share-buttons>div.mail:hover>svg{fill:#7D7D7D}#share-buttons>div.facebook>svg{height:18px;margin-top:9px}#share-buttons>div.twitter>svg{height:20px;margin-top:8px}#share-buttons>div.linkedin>svg{height:19px;margin-top:7px}#share-buttons>div.gplus>svg{height:17px;margin-top:9px;position:relative;left:1px}#share-buttons>div.mail>svg{height:14px;margin-top:11px}</style>
+<span style=color:silver>Share on: </span><div id=share-buttons>
+ <div class=facebook title="Share this on Facebook">
+ <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"></path></svg></div>
+ <div class=twitter title="Share this on Twitter">
+ <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"></path></svg></div>
+ <div class=linkedin title="Share this on Linkedin">
+ <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"></path></svg></div>
+ <div class=gplus title="Share this on Google Plus">
+ <svg viewBox="0 0 2304 1792" xmlns=http://www.w3.org/2000/svg><path d="M1437 913q0 208-87 370.5t-248 254-369 91.5q-149 0-285-58t-234-156-156-234-58-285 58-285 156-234 234-156 285-58q286 0 491 192l-199 191q-117-113-292-113-123 0-227.5 62t-165.5 168.5-61 232.5 61 232.5 165.5 168.5 227.5 62q83 0 152.5-23t114.5-57.5 78.5-78.5 49-83 21.5-74h-416v-252h692q12 63 12 122zm867-122v210h-209v209h-210v-209h-209v-210h209v-209h210v209h209z"></path></svg></div>
+ <div class=mail title="Share this through Email">
+ <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"></path></svg></div>
+</div>
+ </div>
+ <div class="post-content e-content" itemprop=articleBody>
+ <h2 id=introduction>Introduction</h2>
+<p>The Random Forest algorithm is a versatile machine learning algorithm
+capable of performing both regression and classification tasks. It is a
+type of ensemble learning method, where a group of weak models (in this
+case decision trees) combine to form a strong model. In Random Forest,
+we grow multiple decision trees as opposed to a single tree. To classify
+a new object based on attributes, each tree gives a classification. The
+forest chooses the classification having the most votes (for all the
+trees in the forest) and in case of regression, it takes the average of
+outputs by different trees.</p>
+<p>I often prefer Random Forests over other methods like linear regression,
+gradient boosting, or k-nearest neighbors for several reasons:</p>
+<ul>
+ <li>Robustness: Random Forests are less likely to overfit than other
+methods due to the randomness injected into the model building
+process.</li>
+ <li>Versatility: They can handle both numerical and categorical data, and
+they can handle missing data. It is also unnecessary to scale data
+prior to model training.</li>
+ <li>Parallelizable: The process of building trees is easily parallelizable
+as each tree is built independently of the others.</li>
+ <li>Performance: They often provide very good predictive performance with
+little tuning required.</li>
+ <li>Feature Importance: They provide a built-in method for estimating
+feature importance.</li>
+</ul>
+<h2 id=random-forest-algorithm>Random Forest Algorithm</h2>
+<p>The Random Forest algorithm works by creating multiple decision trees
+and merging them together to get a more accurate and stable prediction.
+The main concept behind Random Forest is the idea of bagging, which is
+used to reduce the variation in the predictions by combining the result
+of multiple decision trees on different samples of the data set.</p>
+<p>Here is a simplified version of the Random Forest algorithm:</p>
+<ol>
+ <li>Select random samples from a given dataset.</li>
+ <li>Construct a decision tree for each sample and get a prediction
+result from each decision tree.</li>
+ <li>Perform a vote for each predicted result.</li>
+ <li>Select the prediction result with the most votes as the final
+prediction.</li>
+</ol>
+<h2 id=tree-dataset>Tree Dataset</h2>
+<p>The <code>trees</code> dataset used in this example come from the built in R
+<code>datasets</code> package:</p>
+<blockquote>
+ <p><em>This data set provides measurements of the diameter, height and
+volume of timber in 31 felled black cherry trees. Note that the
+diameter (in inches) is erroneously labelled Girth in the data. It is
+measured at 4 ft 6 in above the ground</em> (R Documentation | trees
+{datasets}).</p>
+</blockquote>
+<p>See also Ryan, T. A., Joiner, B. L. and Ryan, B. F. (1976) <em>The Minitab
+Student Handbook</em>. Duxbury Press.</p>
+<h2 id=random-forest-example>Random Forest Example</h2>
+<p>In the following example, we will use the <code>trees</code> dataset to predict the
+volume of a tree based on its girth and height using a Random Forest
+model. We will use the <code>caret</code> package in R to perform the analysis.</p>
+<p>The below code block first splits the data into training and testing
+sets. Then, it defines a control function and a tuning grid for the
+Random Forest model. The model is then fitted on the training data and
+used to make predictions on the test data. The performance of the model
+on the test data is then evaluated.</p>
+<pre><code class=language-r># Import libraries
+library(caret)
+library(tidyverse)
+
+# Set the seed
+set.seed(123)
+
+# Create the index for the train split using the `caret` package
+train.idx &lt;- createDataPartition(seq(1, nrow(trees)), p=0.7, list=F, times=1)
+  
+# Create the training set
+df.train &lt;- trees[train.idx,]
+  
+# Create the testing set
+df.test &lt;- trees[-train.idx,]
+
+# Define the control for the train function
+ctrl &lt;- trainControl(method = "cv", number = 10)
+
+# Define the tuning grid
+rf.tune.grid &lt;- expand.grid(
+  mtry=c(1, 2),
+  splitrule=c("variance", "extratrees", "maxstat"),
+  min.node.size=c(1, 3, 5)
+)
+
+# Fit the random forest model
+fit &lt;- train(Volume ~ ., 
+                data = df.train, 
+                method = "ranger", 
+                trControl = ctrl, 
+                tuneGrid = rf.tune.grid,
+                importance = "impurity",
+                metric = "RMSE")
+
+# Generate predictions on the test data
+yhat &lt;- predict(fit, newdata = df.test)
+metrics &lt;- postResample(yhat, obs=df.test$Volume)
+
+# View the metrics of the model on the test data
+metrics
+</code></pre>
+<pre><code class="hljs powershell"><span class=hljs-comment>##      RMSE  Rsquared       MAE </span>
+<span class=hljs-comment>## 2.8753340 0.9723468 2.6712143</span>
+</code></pre>
+<p>The model performed well with a high R-squared value of 0.97, indicating
+that ~97% of the variance in the tree volume can be explained by the
+girth and height of the tree. The Root Mean Square Error (RMSE) was
+~2.9, which gives us an idea of how much our predictions deviate, on
+average, from the actual values in the dataset. The lower the RMSE, the
+better our model’s predictions are.</p>
+<p>Next, a scatter plot of the predicted vs.&nbsp;actual volume of the trees in
+the test set is generated. The red line represents the line of perfect
+prediction (i.e., where the predicted volume equals the actual volume).</p>
+<pre><code class=language-r># Plot predicted vs. actual volume (using the test set)
+ggplot(data.frame(actual=df.test$Volume, predicted=yhat), 
+       aes(x = actual, y = predicted)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  labs(x = "Actual", y = "Predicted", 
+       title = paste0("Predicted vs Actual Volume")) +
+  theme_minimal()
+</code></pre>
+<p><img src=data:image/png;base64,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 alt></p>
+<p>Looking at the actual vs predicted values, we can see that the model’s
+predictions are quite close to the actual values. This indicates that
+our model is doing a good job of predicting tree volume based on girth
+and height.</p>
+<p>Finally, the importance of each feature in the model is calculated and
+used to generate a bar plot. The importance of a feature is measured by
+the increase in the model’s prediction error after permuting the
+feature. A higher increase in error indicates a more important feature.</p>
+<pre><code class=language-r># Get feature importance of model
+feature.imp &lt;- varImp(fit, scale = F)$importance %&gt;% 
+  arrange(desc(Overall))
+
+ggplot(data.frame(Variable = rownames(feature.imp), Importance = feature.imp$Overall),
+       aes(x=reorder(Variable, Importance), y=Importance)) +
+  geom_col(show.legend = F, fill="darkblue") +
+  labs(x = "Variable", y = "Importance", 
+       title = "Variable Importance") +
+  theme_minimal() +
+  coord_flip() + 
+  theme(text = element_text(size = 11), 
+        axis.title = element_text(size = 12), 
+        plot.title = element_text(size = 13))
+</code></pre>
+<p><img src="data:image/png;base64,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" alt></p>
+<p>The feature importance plot shows that the girth of the tree is the most
+important feature for predicting the volume, with an importance score of
+~5171. This is significantly higher than the importance score of the
+height, which is ~922. This suggests that the girth of a tree is a much
+stronger predictor of its volume than the height.</p>
+ <hr>
+<div class=post_navi><a class="post_navi-item nav_prev" href=https://benton-tripp.github.io/analyzing-json-data-with-R.html title="Analyzing JSON Data with R">
+ <div class=post_navi-arrow>&lt;</div><div class=post_navi-label>Previous Post</div><div><span>Analyzing JSON Data with R</span></div>
+ </a><a class="post_navi-item nav_next" href=https://benton-tripp.github.io/sdm-benchmark-study-part-1-data-preparation.html title="SDM Benchmark Study Part 1: Data Preparation">
+ <div class=post_navi-arrow>&gt;</div><div class=post_navi-label>Next Post</div><div><span>SDM Benchmark Study Part 1: Data Preparation</span></div>
+ </a></div>
+ </div>
+ <a class="u-url sf-hidden" href=https://benton-tripp.github.io/tree-volume-using-random-forests.html hidden></a>
+</article>
+ </div>
+ </main><footer class="site-footer h-card">
+ <data class=u-url href=/></data>
+ <div class=wrapper>
+ <h2 class=footer-heading>Benton's Portfolio/Blog</h2>
+ <div class=footer-col-wrapper>
+ <div class="footer-col footer-col-1">
+ <ul class=contact-list>
+ <li class=p-name>Benton Tripp<li><a class=u-email href=mailto:btripp@ncsu.edu>btripp@ncsu.edu</a></ul>
+ </div>
+ <div class="footer-col footer-col-2"><ul class=social-media-list><li><a href=https://github.com/benton-tripp><svg class=svg-icon><symbol id=github fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414><path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8"></path></symbol><use xlink:href=#github></use></svg> <span class=username>benton-tripp</span></a><li><a href=https://www.linkedin.com/in/bentontripp><svg class=svg-icon><symbol id=linkedin fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414><path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule=nonzero></path></symbol><use xlink:href=#linkedin></use></svg> <span class=username>bentontripp</span></a><li><a href=https://benton-tripp.github.io/feed.xml><svg class=svg-icon><symbol id=rss fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414><path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194 11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0 13.806c0-1.21.983-2.195 2.194-2.195zM10.606 16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"></path></symbol><use xlink:href=#rss></use></svg> <span>rss</span></a></ul>
+</div>
+ <div class="footer-col footer-col-3">
+ <p>This blog is a place for me to document and present different projects I have been working on.</p>
+ </div>
+ </div>
+ </div>
+</footer>
