@@ -1,0 +1,17 @@
+---
+title: "Post Title"
+relative_path: "posts/post_name.html"
+publish_time: "2023-09-10T00:00:00+00:00"
+pusblish_time_formatted: "Sep 10, 2023"
+prev:
+  relative_path: "posts/post_name.html"
+  summary: "Previous Post"
+  title: "Post Title"
+  description: "Post Title"
+next:
+  relative_path: "archive.html"
+  summary: "Blog Archive"
+  title: "Archive"
+  description: "Archive of all previous blog posts"
+footer:
+  p: "This blog is a place for me to document and present different projects I have been working on."
