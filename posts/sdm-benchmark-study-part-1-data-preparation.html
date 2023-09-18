@@ -1,4 +1,5 @@
-<!DOCTYPE html> <html lang=en style>
+<!DOCTYPE html>
+<html lang=en style>
 <meta charset=utf-8>
 <meta http-equiv=X-UA-Compatible content="IE=edge">
 <meta name=viewport content="width=device-width, initial-scale=1">
@@ -16,128 +17,691 @@
 <meta property=article:published_time content=2023-09-10T00:00:00+00:00>
 <meta name=twitter:card content=summary>
 <meta property=twitter:title content="SDM Benchmark Study Part 1: Data Preparation">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Benton Tripp"},"dateModified":"2023-09-10T00:00:00+00:00","datePublished":"2023-09-10T00:00:00+00:00","description":"Overview","headline":"SDM Benchmark Study Part 1: Data Preparation","mainEntityOfPage":{"@type":"WebPage","@id":"https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html"},"url":"https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html"}</script>
-<style>body,h1,h2,h3,h4,p,pre,hr,ol,ul{margin:0;padding:0}body{font:400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";color:#111;background-color:#fdfdfd;-webkit-text-size-adjust:100%;-webkit-font-feature-settings:"kern"1;-moz-font-feature-settings:"kern"1;-o-font-feature-settings:"kern"1;font-feature-settings:"kern"1;font-kerning:normal;display:flex;min-height:100vh;flex-direction:column}h1,h2,h3,h4,p,pre,ul,ol{margin-bottom:15px}main{display:block}img{max-width:100%;vertical-align:middle}ul,ol{margin-left:30px}li>ul{margin-bottom:0}h1,h2,h3,h4{font-weight:400}a{color:#2a7ae2;text-decoration:none}a:visited{color:#1756a9}a:hover{color:#111;text-decoration:underline}.social-media-list a:hover{text-decoration:none}.social-media-list a:hover .username{text-decoration:underline}pre,code{font-size:15px;border:1px solid #e8e8e8;border-radius:3px;background-color:#eef}code{padding:1px 5px}pre{padding:8px 12px;overflow-x:auto}pre>code{border:0;padding-right:0;padding-left:0}.wrapper{max-width:-webkit-calc(800px - (30px*2));max-width:calc(800px - (30px*2));margin-right:auto;margin-left:auto;padding-right:30px;padding-left:30px}@media screen and (max-width:800px){.wrapper{max-width:-webkit-calc(800px - (30px));max-width:calc(800px - (30px));padding-right:15px;padding-left:15px}}.wrapper:after,.footer-col-wrapper:after{content:"";display:table;clear:both}.svg-icon{width:16px;height:16px;display:inline-block;fill:#828282;padding-right:5px;vertical-align:text-top}.social-media-list li+li{padding-top:5px}table{margin-bottom:30px;width:100%;text-align:left;color:#3f3f3f;border-collapse:collapse;border:1px solid #e8e8e8}table tr:nth-child(even){background-color:#f7f7f7}table th,table td{padding:10px 15px}table th{background-color:#f0f0f0;border:1px solid #dedede;border-bottom-color:#c9c9c9}table td{border:1px solid #e8e8e8}.site-header{border-top:5px solid #424242;border-bottom:1px solid #e8e8e8;min-height:55.95px;position:relative}.site-title{font-size:26px;font-weight:300;line-height:54px;letter-spacing:-1px;margin-bottom:0;float:left}.site-title,.site-title:visited{color:#424242}.site-nav{float:right;line-height:54px}.site-nav .page-link{color:#111;line-height:1.5}.site-nav .page-link:not(:last-child){margin-right:20px}@media screen and (max-width:600px){.site-nav{position:absolute;top:9px;right:15px;background-color:#fdfdfd;border:1px solid #e8e8e8;border-radius:5px;text-align:right}.site-nav label[for="nav-trigger"]{display:block;float:right;width:36px;height:36px;z-index:2;cursor:pointer}.site-nav .menu-icon>svg{fill:#424242}.site-nav input~.trigger{clear:both;display:none}.site-nav input:checked~.trigger{display:block;padding-bottom:5px}.site-nav .page-link{display:block;padding:5px 10px;margin-left:20px}.site-nav .page-link:not(:last-child){margin-right:0}}.site-footer{border-top:1px solid #e8e8e8;padding:30px 0}.footer-heading{font-size:18px;margin-bottom:15px}.contact-list,.social-media-list{list-style:none;margin-left:0}.footer-col-wrapper{font-size:15px;color:#828282;margin-left:-15px}.footer-col{float:left;margin-bottom:15px;padding-left:15px}.footer-col-1{width:-webkit-calc(35% - (30px/2));width:calc(35% - (30px/2))}.footer-col-2{width:-webkit-calc(20% - (30px/2));width:calc(20% - (30px/2))}.footer-col-3{width:-webkit-calc(45% - (30px/2));width:calc(45% - (30px/2))}@media screen and (max-width:800px){.footer-col-1,.footer-col-2{width:-webkit-calc(50% - (30px/2));width:calc(50% - (30px/2))}.footer-col-3{width:-webkit-calc(100% - (30px/2));width:calc(100% - (30px/2))}}@media screen and (max-width:600px){.footer-col{float:none;width:-webkit-calc(100% - (30px/2));width:calc(100% - (30px/2))}}.page-content{padding:30px 0;flex:1}.post-meta{font-size:14px;color:#828282}.post-header{margin-bottom:30px}.post-title{font-size:42px;letter-spacing:-1px;line-height:1}@media screen and (max-width:800px){.post-title{font-size:36px}}.post-content{margin-bottom:30px}.post-content h2{font-size:32px}@media screen and (max-width:800px){.post-content h2{font-size:28px}}.post-content h3{font-size:26px}@media screen and (max-width:800px){.post-content h3{font-size:22px}}.post-content h4{font-size:20px}@media screen and (max-width:800px){.post-content h4{font-size:18px}}</style><link type=application/atom+xml rel=alternate href=https://benton-tripp.github.io/feed.xml title="Benton's Portfolio/Blog">
-<style>.sf-hidden{display:none!important}</style><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style><body><header class=site-header role=banner>
- <div class=wrapper><a class=site-title rel=author href=https://benton-tripp.github.io/>Benton's Portfolio/Blog</a><nav class=site-nav>
- <input type=checkbox id=nav-trigger class="nav-trigger sf-hidden">
- <label for=nav-trigger>
- <span class="menu-icon sf-hidden">
- <svg viewBox="0 0 18 15" width=18px height=15px>
- <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
- </svg>
- </span>
- </label>
- <div class=trigger><a class=page-link href=https://benton-tripp.github.io/archive>Blog Archive</a></div>
- </nav></div>
-</header>
-<main class=page-content aria-label=Content>
- <div class=wrapper>
- <style>hr{margin-top:30px;margin-bottom:20px}.post_navi{display:flex}.post_navi-label{font-size:0.8em;opacity:0.5}.post_navi .post_navi-item{padding:0 2.2em;width:50%;position:relative;color:inherit!important}.post_navi .nav_prev{text-align:left}.post_navi .nav_next{text-align:right}.post_navi .nav_prev .post_navi-arrow{left:0}.post_navi .nav_next .post_navi-arrow{right:0}.post_navi .post_navi-arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5em;opacity:0.3}</style>
-<article class="post h-entry" itemscope itemtype=http://schema.org/BlogPosting>
- <header class=post-header>
- <h1 class="post-title p-name" itemprop="name headline">SDM Benchmark Study Part 1: Data Preparation</h1>
- <p class=post-meta>
- <time class=dt-published datetime=2023-09-10T00:00:00+00:00 itemprop=datePublished>Sep 10, 2023
- </time>
- • <span itemprop=author itemscope itemtype=http://schema.org/Person><span class="p-author h-card" itemprop=name>Benton Tripp</span></span></p>
- </header>
- <div class=share-links>
- <style class=sf-hidden>#share-buttons{display:inline-block;vertical-align:middle}#share-buttons:after{content:"";display:block;clear:both}#share-buttons>div{position:relative;height:36px;width:32px;float:left;text-align:center}#share-buttons>div>svg{fill:#d5d5d5}#share-buttons>div:hover{cursor:pointer}#share-buttons>div.facebook:hover>svg{fill:#3B5998}#share-buttons>div.twitter:hover>svg{fill:#55ACEE}#share-buttons>div.linkedin:hover>svg{fill:#0077b5}#share-buttons>div.gplus:hover>svg{fill:#dd4b39}#share-buttons>div.mail:hover>svg{fill:#7D7D7D}#share-buttons>div.facebook>svg{height:18px;margin-top:9px}#share-buttons>div.twitter>svg{height:20px;margin-top:8px}#share-buttons>div.linkedin>svg{height:19px;margin-top:7px}#share-buttons>div.gplus>svg{height:17px;margin-top:9px;position:relative;left:1px}#share-buttons>div.mail>svg{height:14px;margin-top:11px}</style>
-<span style=color:silver>Share on: </span><div id=share-buttons>
- <div class=facebook title="Share this on Facebook">
- <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"></path></svg></div>
- <div class=twitter title="Share this on Twitter">
- <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"></path></svg></div>
- <div class=linkedin title="Share this on Linkedin">
- <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"></path></svg></div>
- <div class=gplus title="Share this on Google Plus">
- <svg viewBox="0 0 2304 1792" xmlns=http://www.w3.org/2000/svg><path d="M1437 913q0 208-87 370.5t-248 254-369 91.5q-149 0-285-58t-234-156-156-234-58-285 58-285 156-234 234-156 285-58q286 0 491 192l-199 191q-117-113-292-113-123 0-227.5 62t-165.5 168.5-61 232.5 61 232.5 165.5 168.5 227.5 62q83 0 152.5-23t114.5-57.5 78.5-78.5 49-83 21.5-74h-416v-252h692q12 63 12 122zm867-122v210h-209v209h-210v-209h-209v-210h209v-209h210v209h209z"></path></svg></div>
- <div class=mail title="Share this through Email">
- <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"></path></svg></div>
-</div>
- </div>
- <div class="post-content e-content" itemprop=articleBody>
- <h2 id=overview>Overview</h2>
-<p>This is just one of several posts that I will be making regarding a
-study that I am working on, focused on benchmarking and comparing
-different species distribution models (SDMs) using presence-only data. A
-review of the literature that I wrote on this subject can be found
-<a href=https://raw.githubusercontent.com/benton-tripp/benton-tripp.github.io/main/_docs/lit_review.pdf>here</a>.
-My GitHub repo for this project can be accessed
-<a href=https://github.com/benton-tripp/presence-only-sdm>here</a>.</p>
-<p>This post is focused on gathering and preparing the data that will be
-used throughout my project. More details on the data can be found in the
-links in the next section.</p>
-<h2 id=data-sources>Data Sources</h2>
-<ul>
- <li>State Boundary Data
- <ul>
- <li><a href="https://hub.arcgis.com/datasets/1612d351695b467eba75fdf82c10884f/explore?filters=eyJTVEFURV9BQkJSIjpbIkNPIiwiVlQiLCJOQyIsIk9SIl19&amp;location=48.814319%2C163.610769%2C2.35">ArcGIS
-Hub</a>
-(Shapefile download with filters set to the 4 states in question)</li>
- </ul>
- </li>
- <li>eBird Observation Data
- <ul>
- <li><a href=https://ebird.org/data/download>eBird Data Access</a></li>
- </ul>
- </li>
- <li>Raster Data
- <ul>
- <li><a href=https://www.sciencebase.gov/catalog/item/5540e111e4b0a658d79395d9>DEM | Source
-Page</a>
- <ul>
- <li>Download by regions (Great Plains, Northeast, Northwest,
-Southeast, Southwest, and Upper Midwest)</li>
- </ul>
- </li>
- <li><a href=https://www.mrlc.gov/data>Urban Imperviousness | Source Page</a>
- <ul>
- <li><em>NLCD 2019 Percent Developed Imperviousness (CONUS), NLCD 2019
-Developed Imperviousness Descriptor (CONUS)</em></li>
- </ul>
- </li>
- <li><a href=https://www.mrlc.gov/data>Land Cover</a>
- <ul>
- <li><em>NLCD 2019 Land Cover (CONUS)</em></li>
- </ul>
- </li>
- <li><a href=https://www.mrlc.gov/data>Canopy</a>
- <ul>
- <li><em>NLCD 2016 USFS Tree Canopy Cover (CONUS)</em></li>
- </ul>
- </li>
- <li><a href=https://www.nacse.org/prism/>Weather (min/max temperature, avg
-precipitation)</a>
- <ul>
- <li>Download weather raster data for “ppt”, “tmax”, “tmin”, 2017-2019
-at a 4km resolution and 30-year monthly normals at an 800m
-resolution</li>
- <li>URL to download 4km data is:
-<em><a href=https://services.nacse.org/prism/data/public/4km/>https://services.nacse.org/prism/data/public/4km/</a></em><variable>/<year></year></variable></li>
- <li>URL to download 800m data is
-<em><a href=https://services.nacse.org/prism/data/public/normals/800m/>https://services.nacse.org/prism/data/public/normals/800m/</a></em><variable>/<month></month></variable></li>
- </ul>
- </li>
- <li><a href=https://apps.nationalmap.gov/downloader/#/>Hydrography (Water Bodies &amp; Coast) | Source
-Page</a>
- <ul>
- <li><a href=https://prd-tnm.s3.amazonaws.com/StagedProducts/Small-scale/data/Hydrography/hydrusm010g.gdb_nt00897.tar.gz>Download</a></li>
- </ul>
- </li>
- <li>Vegetation Index
- <ul>
- <li><a href=https://earthexplorer.usgs.gov/>USGS Earth Explorer</a> (eVIIRS
-NDVI, 02/23/21-03/08/21 1km; 05/04/21-05/17/21 1km;
-09/07/21-09/20/21 1km; 11/30/21-12/13/21 1km)</li>
- </ul>
- </li>
- </ul>
- </li>
-</ul>
-<h2 id=basic-project-setup>Basic Project Setup</h2>
-<pre><code class=language-r># Load necessary libraries
+<script
+  type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Benton Tripp"},"dateModified":"2023-09-10T00:00:00+00:00","datePublished":"2023-09-10T00:00:00+00:00","description":"Overview","headline":"SDM Benchmark Study Part 1: Data Preparation","mainEntityOfPage":{"@type":"WebPage","@id":"https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html"},"url":"https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html"}</script>
+<style>
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  pre,
+  hr,
+  ol,
+  ul {
+    margin: 0;
+    padding: 0
+  }
+
+  body {
+    font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #111;
+    background-color: #fdfdfd;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  pre,
+  ul,
+  ol {
+    margin-bottom: 15px
+  }
+
+  main {
+    display: block
+  }
+
+  img {
+    max-width: 100%;
+    vertical-align: middle
+  }
+
+  ul,
+  ol {
+    margin-left: 30px
+  }
+
+  li>ul {
+    margin-bottom: 0
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400
+  }
+
+  a {
+    color: #2a7ae2;
+    text-decoration: none
+  }
+
+  a:visited {
+    color: #1756a9
+  }
+
+  a:hover {
+    color: #111;
+    text-decoration: underline
+  }
+
+  .social-media-list a:hover {
+    text-decoration: none
+  }
+
+  .social-media-list a:hover .username {
+    text-decoration: underline
+  }
+
+  pre,
+  code {
+    font-size: 15px;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    background-color: #eef
+  }
+
+  code {
+    padding: 1px 5px
+  }
+
+  pre {
+    padding: 8px 12px;
+    overflow-x: auto
+  }
+
+  pre>code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0
+  }
+
+  .wrapper {
+    max-width: -webkit-calc(800px - (30px*2));
+    max-width: calc(800px - (30px*2));
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 30px;
+    padding-left: 30px
+  }
+
+  @media screen and (max-width:800px) {
+    .wrapper {
+      max-width: -webkit-calc(800px - (30px));
+      max-width: calc(800px - (30px));
+      padding-right: 15px;
+      padding-left: 15px
+    }
+  }
+
+  .wrapper:after,
+  .footer-col-wrapper:after {
+    content: "";
+    display: table;
+    clear: both
+  }
+
+  .svg-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    fill: #828282;
+    padding-right: 5px;
+    vertical-align: text-top
+  }
+
+  .social-media-list li+li {
+    padding-top: 5px
+  }
+
+  table {
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: left;
+    color: #3f3f3f;
+    border-collapse: collapse;
+    border: 1px solid #e8e8e8
+  }
+
+  table tr:nth-child(even) {
+    background-color: #f7f7f7
+  }
+
+  table th,
+  table td {
+    padding: 10px 15px
+  }
+
+  table th {
+    background-color: #f0f0f0;
+    border: 1px solid #dedede;
+    border-bottom-color: #c9c9c9
+  }
+
+  table td {
+    border: 1px solid #e8e8e8
+  }
+
+  .site-header {
+    border-top: 5px solid #424242;
+    border-bottom: 1px solid #e8e8e8;
+    min-height: 55.95px;
+    position: relative
+  }
+
+  .site-title {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 54px;
+    letter-spacing: -1px;
+    margin-bottom: 0;
+    float: left
+  }
+
+  .site-title,
+  .site-title:visited {
+    color: #424242
+  }
+
+  .site-nav {
+    float: right;
+    line-height: 54px
+  }
+
+  .site-nav .page-link {
+    color: #111;
+    line-height: 1.5
+  }
+
+  .site-nav .page-link:not(:last-child) {
+    margin-right: 20px
+  }
+
+  @media screen and (max-width:600px) {
+    .site-nav {
+      position: absolute;
+      top: 9px;
+      right: 15px;
+      background-color: #fdfdfd;
+      border: 1px solid #e8e8e8;
+      border-radius: 5px;
+      text-align: right
+    }
+
+    .site-nav label[for="nav-trigger"] {
+      display: block;
+      float: right;
+      width: 36px;
+      height: 36px;
+      z-index: 2;
+      cursor: pointer
+    }
+
+    .site-nav .menu-icon>svg {
+      fill: #424242
+    }
+
+    .site-nav input~.trigger {
+      clear: both;
+      display: none
+    }
+
+    .site-nav input:checked~.trigger {
+      display: block;
+      padding-bottom: 5px
+    }
+
+    .site-nav .page-link {
+      display: block;
+      padding: 5px 10px;
+      margin-left: 20px
+    }
+
+    .site-nav .page-link:not(:last-child) {
+      margin-right: 0
+    }
+  }
+
+  .site-footer {
+    border-top: 1px solid #e8e8e8;
+    padding: 30px 0
+  }
+
+  .footer-heading {
+    font-size: 18px;
+    margin-bottom: 15px
+  }
+
+  .contact-list,
+  .social-media-list {
+    list-style: none;
+    margin-left: 0
+  }
+
+  .footer-col-wrapper {
+    font-size: 15px;
+    color: #828282;
+    margin-left: -15px
+  }
+
+  .footer-col {
+    float: left;
+    margin-bottom: 15px;
+    padding-left: 15px
+  }
+
+  .footer-col-1 {
+    width: -webkit-calc(35% - (30px/2));
+    width: calc(35% - (30px/2))
+  }
+
+  .footer-col-2 {
+    width: -webkit-calc(20% - (30px/2));
+    width: calc(20% - (30px/2))
+  }
+
+  .footer-col-3 {
+    width: -webkit-calc(45% - (30px/2));
+    width: calc(45% - (30px/2))
+  }
+
+  @media screen and (max-width:800px) {
+
+    .footer-col-1,
+    .footer-col-2 {
+      width: -webkit-calc(50% - (30px/2));
+      width: calc(50% - (30px/2))
+    }
+
+    .footer-col-3 {
+      width: -webkit-calc(100% - (30px/2));
+      width: calc(100% - (30px/2))
+    }
+  }
+
+  @media screen and (max-width:600px) {
+    .footer-col {
+      float: none;
+      width: -webkit-calc(100% - (30px/2));
+      width: calc(100% - (30px/2))
+    }
+  }
+
+  .page-content {
+    padding: 30px 0;
+    flex: 1
+  }
+
+  .post-meta {
+    font-size: 14px;
+    color: #828282
+  }
+
+  .post-header {
+    margin-bottom: 30px
+  }
+
+  .post-title {
+    font-size: 42px;
+    letter-spacing: -1px;
+    line-height: 1
+  }
+
+  @media screen and (max-width:800px) {
+    .post-title {
+      font-size: 36px
+    }
+  }
+
+  .post-content {
+    margin-bottom: 30px
+  }
+
+  .post-content h2 {
+    font-size: 32px
+  }
+
+  @media screen and (max-width:800px) {
+    .post-content h2 {
+      font-size: 28px
+    }
+  }
+
+  .post-content h3 {
+    font-size: 26px
+  }
+
+  @media screen and (max-width:800px) {
+    .post-content h3 {
+      font-size: 22px
+    }
+  }
+
+  .post-content h4 {
+    font-size: 20px
+  }
+
+  @media screen and (max-width:800px) {
+    .post-content h4 {
+      font-size: 18px
+    }
+  }
+</style>
+<link type=application/atom+xml rel=alternate href=https://benton-tripp.github.io/feed.xml
+  title="Benton's Portfolio/Blog">
+<style>
+  .sf-hidden {
+    display: none !important
+  }
+</style>
+<meta http-equiv=content-security-policy
+  content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;">
+<style>
+  img[src="data:,"],
+  source[src="data:,"] {
+    display: none !important
+  }
+</style>
+
+<body>
+  <header class=site-header role=banner>
+    <div class=wrapper><a class=site-title rel=author href=https://benton-tripp.github.io />Benton's Portfolio/Blog</a>
+      <nav class=site-nav>
+        <input type=checkbox id=nav-trigger class="nav-trigger sf-hidden">
+        <label for=nav-trigger>
+          <span class="menu-icon sf-hidden">
+            <svg viewBox="0 0 18 15" width=18px height=15px>
+              <path
+                d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z">
+              </path>
+            </svg>
+          </span>
+        </label>
+        <div class=trigger><a class=page-link href=https://benton-tripp.github.io/archive>Blog Archive</a></div>
+      </nav>
+    </div>
+  </header>
+  <main class=page-content aria-label=Content>
+    <div class=wrapper>
+      <style>
+        hr {
+          margin-top: 30px;
+          margin-bottom: 20px
+        }
+
+        .post_navi {
+          display: flex
+        }
+
+        .post_navi-label {
+          font-size: 0.8em;
+          opacity: 0.5
+        }
+
+        .post_navi .post_navi-item {
+          padding: 0 2.2em;
+          width: 50%;
+          position: relative;
+          color: inherit !important
+        }
+
+        .post_navi .nav_prev {
+          text-align: left
+        }
+
+        .post_navi .nav_next {
+          text-align: right
+        }
+
+        .post_navi .nav_prev .post_navi-arrow {
+          left: 0
+        }
+
+        .post_navi .nav_next .post_navi-arrow {
+          right: 0
+        }
+
+        .post_navi .post_navi-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 2.5em;
+          opacity: 0.3
+        }
+      </style>
+      <article class="post h-entry" itemscope itemtype=http://schema.org/BlogPosting>
+        <header class=post-header>
+          <h1 class="post-title p-name" itemprop="name headline">SDM Benchmark Study Part 1: Data Preparation</h1>
+          <p class=post-meta>
+            <time class=dt-published datetime=2023-09-10T00:00:00+00:00 itemprop=datePublished>Sep 10, 2023
+            </time>
+            • <span itemprop=author itemscope itemtype=http://schema.org/Person><span class="p-author h-card"
+                itemprop=name>Benton Tripp</span></span>
+          </p>
+        </header>
+        <div class=share-links>
+          <style class=sf-hidden>
+            #share-buttons {
+              display: inline-block;
+              vertical-align: middle
+            }
+
+            #share-buttons:after {
+              content: "";
+              display: block;
+              clear: both
+            }
+
+            #share-buttons>div {
+              position: relative;
+              height: 36px;
+              width: 32px;
+              float: left;
+              text-align: center
+            }
+
+            #share-buttons>div>svg {
+              fill: #d5d5d5
+            }
+
+            #share-buttons>div:hover {
+              cursor: pointer
+            }
+
+            #share-buttons>div.facebook:hover>svg {
+              fill: #3B5998
+            }
+
+            #share-buttons>div.twitter:hover>svg {
+              fill: #55ACEE
+            }
+
+            #share-buttons>div.linkedin:hover>svg {
+              fill: #0077b5
+            }
+
+            #share-buttons>div.gplus:hover>svg {
+              fill: #dd4b39
+            }
+
+            #share-buttons>div.mail:hover>svg {
+              fill: #7D7D7D
+            }
+
+            #share-buttons>div.facebook>svg {
+              height: 18px;
+              margin-top: 9px
+            }
+
+            #share-buttons>div.twitter>svg {
+              height: 20px;
+              margin-top: 8px
+            }
+
+            #share-buttons>div.linkedin>svg {
+              height: 19px;
+              margin-top: 7px
+            }
+
+            #share-buttons>div.gplus>svg {
+              height: 17px;
+              margin-top: 9px;
+              position: relative;
+              left: 1px
+            }
+
+            #share-buttons>div.mail>svg {
+              height: 14px;
+              margin-top: 11px
+            }
+          </style>
+          <span style=color:silver>Share on: </span>
+          <div id=share-buttons>
+            <div class=facebook title="Share this on Facebook">
+              <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg>
+                <path
+                  d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z">
+                </path>
+              </svg>
+            </div>
+            <div class=twitter title="Share this on Twitter">
+              <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg>
+                <path
+                  d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z">
+                </path>
+              </svg>
+            </div>
+            <div class=linkedin title="Share this on Linkedin">
+              <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg>
+                <path
+                  d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z">
+                </path>
+              </svg>
+            </div>
+            <div class=gplus title="Share this on Google Plus">
+              <svg viewBox="0 0 2304 1792" xmlns=http://www.w3.org/2000/svg>
+                <path
+                  d="M1437 913q0 208-87 370.5t-248 254-369 91.5q-149 0-285-58t-234-156-156-234-58-285 58-285 156-234 234-156 285-58q286 0 491 192l-199 191q-117-113-292-113-123 0-227.5 62t-165.5 168.5-61 232.5 61 232.5 165.5 168.5 227.5 62q83 0 152.5-23t114.5-57.5 78.5-78.5 49-83 21.5-74h-416v-252h692q12 63 12 122zm867-122v210h-209v209h-210v-209h-209v-210h209v-209h210v209h209z">
+                </path>
+              </svg>
+            </div>
+            <div class=mail title="Share this through Email">
+              <svg viewBox="0 0 1792 1792" xmlns=http://www.w3.org/2000/svg>
+                <path
+                  d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z">
+                </path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="post-content e-content" itemprop=articleBody>
+          <h2 id=overview>Overview</h2>
+          <p>This is just one of several posts that I will be making regarding a
+            study that I am working on, focused on benchmarking and comparing
+            different species distribution models (SDMs) using presence-only data. A
+            review of the literature that I wrote on this subject can be found
+            <a
+              href=https://raw.githubusercontent.com/benton-tripp/benton-tripp.github.io/main/_docs/lit_review.pdf>here</a>.
+            My GitHub repo for this project can be accessed
+            <a href=https://github.com/benton-tripp/presence-only-sdm>here</a>.
+          </p>
+          <p>This post is focused on gathering and preparing the data that will be
+            used throughout my project. More details on the data can be found in the
+            links in the next section.</p>
+          <h2 id=data-sources>Data Sources</h2>
+          <ul>
+            <li>State Boundary Data
+              <ul>
+                <li><a
+                    href="https://hub.arcgis.com/datasets/1612d351695b467eba75fdf82c10884f/explore?filters=eyJTVEFURV9BQkJSIjpbIkNPIiwiVlQiLCJOQyIsIk9SIl19&amp;location=48.814319%2C163.610769%2C2.35">ArcGIS
+                    Hub</a>
+                  (Shapefile download with filters set to the 4 states in question)</li>
+              </ul>
+            </li>
+            <li>eBird Observation Data
+              <ul>
+                <li><a href=https://ebird.org/data/download>eBird Data Access</a></li>
+              </ul>
+            </li>
+            <li>Raster Data
+              <ul>
+                <li><a href=https://www.sciencebase.gov/catalog/item/5540e111e4b0a658d79395d9>DEM | Source
+                    Page</a>
+                  <ul>
+                    <li>Download by regions (Great Plains, Northeast, Northwest,
+                      Southeast, Southwest, and Upper Midwest)</li>
+                  </ul>
+                </li>
+                <li><a href=https://www.mrlc.gov/data>Urban Imperviousness | Source Page</a>
+                  <ul>
+                    <li><em>NLCD 2019 Percent Developed Imperviousness (CONUS), NLCD 2019
+                        Developed Imperviousness Descriptor (CONUS)</em></li>
+                  </ul>
+                </li>
+                <li><a href=https://www.mrlc.gov/data>Land Cover</a>
+                  <ul>
+                    <li><em>NLCD 2019 Land Cover (CONUS)</em></li>
+                  </ul>
+                </li>
+                <li><a href=https://www.mrlc.gov/data>Canopy</a>
+                  <ul>
+                    <li><em>NLCD 2016 USFS Tree Canopy Cover (CONUS)</em></li>
+                  </ul>
+                </li>
+                <li><a href=https://www.nacse.org/prism />Weather (min/max temperature, avg
+                  precipitation)</a>
+                  <ul>
+                    <li>Download weather raster data for “ppt”, “tmax”, “tmin”, 2017-2019
+                      at a 4km resolution and 30-year monthly normals at an 800m
+                      resolution</li>
+                    <li>URL to download 4km data is:
+                      <em><a
+                          href=https://services.nacse.org/prism/data/public/4km />https://services.nacse.org/prism/data/public/4km/</a></em>
+                      <variable>/<year></year>
+                      </variable>
+                    </li>
+                    <li>URL to download 800m data is
+                      <em><a
+                          href=https://services.nacse.org/prism/data/public/normals/800m />https://services.nacse.org/prism/data/public/normals/800m/</a></em>
+                      <variable>/<month></month>
+                      </variable>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href=https://apps.nationalmap.gov/downloader/# />Hydrography (Water Bodies &amp; Coast) | Source
+                  Page</a>
+                  <ul>
+                    <li><a
+                        href=https://prd-tnm.s3.amazonaws.com/StagedProducts/Small-scale/data/Hydrography/hydrusm010g.gdb_nt00897.tar.gz>Download</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>Vegetation Index
+                  <ul>
+                    <li><a href=https://earthexplorer.usgs.gov />USGS Earth Explorer</a> (eVIIRS
+                      NDVI, 02/23/21-03/08/21 1km; 05/04/21-05/17/21 1km;
+                      09/07/21-09/20/21 1km; 11/30/21-12/13/21 1km)</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <h2 id=basic-project-setup>Basic Project Setup</h2>
+          <pre><code class=language-r># Load necessary libraries
 library(sf)
 library(terra)
 library(stars)
@@ -153,23 +717,26 @@ library(fs)
 # Hard coded path for downloaded data (in this case, saved in external hard drive)
 ext.data.path &lt;- "D:/AvianAnalyticsData"
 </code></pre>
-<h2 id=boundary-data>Boundary Data</h2>
-<p>There are four regions explored in this analysis from 2016 through 2019
-(corresponding to the 4 boundary datasets):</p>
-<ul>
- <li>Colorado, 2016-2019</li>
- <li>North Carolina, 2016-2019</li>
- <li>Oregon, 2016-2019</li>
- <li>Vermont, 2016-2019</li>
-</ul>
-<p>For simplicity, only data for the four states that are being used as
-observation area needs to be <a href="https://hub.arcgis.com/datasets/1612d351695b467eba75fdf82c10884f/explore?filters=eyJTVEFURV9BQkJSIjpbIkNPIiwiVlQiLCJOQyIsIk9SIl19&amp;location=48.814319%2C163.610769%2C2.35">downloaded (as a .shp
-file)</a>.
-By default, the zipped files should be saved in
-<em>US_State_Boundaries.zip</em>. Extract the files into a folder of the same
-name within the data directory, and use the following code to split the
-states into separate files:</p>
-<pre><code class=language-r># Define the state abbreviations
+          <h2 id=boundary-data>Boundary Data</h2>
+          <p>There are four regions explored in this analysis from 2016 through 2019
+            (corresponding to the 4 boundary datasets):</p>
+          <ul>
+            <li>Colorado, 2016-2019</li>
+            <li>North Carolina, 2016-2019</li>
+            <li>Oregon, 2016-2019</li>
+            <li>Vermont, 2016-2019</li>
+          </ul>
+          <p>For simplicity, only data for the four states that are being used as
+            observation area needs to be <a
+              href="https://hub.arcgis.com/datasets/1612d351695b467eba75fdf82c10884f/explore?filters=eyJTVEFURV9BQkJSIjpbIkNPIiwiVlQiLCJOQyIsIk9SIl19&amp;location=48.814319%2C163.610769%2C2.35">downloaded
+              (as a .shp
+              file)</a>.
+            By default, the zipped files should be saved in
+            <em>US_State_Boundaries.zip</em>. Extract the files into a folder of the same
+            name within the data directory, and use the following code to split the
+            states into separate files:
+          </p>
+          <pre><code class=language-r># Define the state abbreviations
 states &lt;- c("CO", "NC", "OR", "VT")
 
 # Set the output directory
@@ -207,43 +774,43 @@ if (!all(file.exists(output.paths))) {
   }
 }
 </code></pre>
-<h2 id=ebird-data>eBird Data</h2>
-<p>There are four regions explored in this analysis from 2016 through 2019
-(corresponding to the 4 boundary datasets):</p>
-<ul>
- <li>Colorado, 2016-2019</li>
- <li>North Carolina, 2016-2019</li>
- <li>Oregon, 2016-2019</li>
- <li>Vermont, 2016-2019</li>
-</ul>
-<p>Species included are:</p>
-<ul>
- <li>Belted Kingfisher</li>
- <li>Cedar Waxwing</li>
- <li>Downy Woodpecker</li>
- <li>Ruddy Duck</li>
- <li>Sanderling</li>
- <li>Sandhill Crane</li>
- <li>Sharp-shinned Hawk</li>
- <li>Wild Turkey</li>
-</ul>
-<h2 id=observation-data-pre-processing>Observation Data Pre-Processing</h2>
-<ol>
- <li>Download each of the regions from the <a href=https://ebird.org/data/download>eBird Download
-Page</a>, filtered by date range (you
-will need to request access annually). They will initially be
-downloaded as compressed folders, so the contents will need to be
-extracted. There is also an eBird API, but the use of the API is
-beyond the scope of this document.</li>
- <li>Using the R <a href=https://cornelllabofornithology.github.io/auk/><code>auk</code>
-package</a>, the
-contents can be filtered and saved.</li>
- <li>Do some basic pre-processing (i.e., select/rename relevant fields,
-filter by date, filter by approval, and filter by invalid
-observations).</li>
- <li>Save results; View data summary.</li>
-</ol>
-<pre><code class=language-r># Specify where your eBird datasets were downloaded to;
+          <h2 id=ebird-data>eBird Data</h2>
+          <p>There are four regions explored in this analysis from 2016 through 2019
+            (corresponding to the 4 boundary datasets):</p>
+          <ul>
+            <li>Colorado, 2016-2019</li>
+            <li>North Carolina, 2016-2019</li>
+            <li>Oregon, 2016-2019</li>
+            <li>Vermont, 2016-2019</li>
+          </ul>
+          <p>Species included are:</p>
+          <ul>
+            <li>Belted Kingfisher</li>
+            <li>Cedar Waxwing</li>
+            <li>Downy Woodpecker</li>
+            <li>Ruddy Duck</li>
+            <li>Sanderling</li>
+            <li>Sandhill Crane</li>
+            <li>Sharp-shinned Hawk</li>
+            <li>Wild Turkey</li>
+          </ul>
+          <h2 id=observation-data-pre-processing>Observation Data Pre-Processing</h2>
+          <ol>
+            <li>Download each of the regions from the <a href=https://ebird.org/data/download>eBird Download
+                Page</a>, filtered by date range (you
+              will need to request access annually). They will initially be
+              downloaded as compressed folders, so the contents will need to be
+              extracted. There is also an eBird API, but the use of the API is
+              beyond the scope of this document.</li>
+            <li>Using the R <a href=https://cornelllabofornithology.github.io/auk /><code>auk</code>
+              package</a>, the
+              contents can be filtered and saved.</li>
+            <li>Do some basic pre-processing (i.e., select/rename relevant fields,
+              filter by date, filter by approval, and filter by invalid
+              observations).</li>
+            <li>Save results; View data summary.</li>
+          </ol>
+          <pre><code class=language-r># Specify where your eBird datasets were downloaded to;
 ebird.download.dirs &lt;- list.dirs(file.path(ext.data.path, "ebird_downloads"))[-1]
 
 # Specify where the outputs should be saved
@@ -339,7 +906,7 @@ obs &lt;- purrr::map(states, function(.x) {
 
 names(obs) &lt;- states
 </code></pre>
-<pre><code class=language-r># View summary of data
+          <pre><code class=language-r># View summary of data
 map_df(states, ~obs[[.x]][, .(.N, state=.x), by=.(common.name)]) %&gt;%
   setorderv(c("common.name", "state")) %&gt;%
   rename(Species="common.name", `Total Obs.`="N", State="state") %&gt;%
@@ -348,181 +915,182 @@ map_df(states, ~obs[[.x]][, .(.N, state=.x), by=.(common.name)]) %&gt;%
     align = c("l", "l", "l"),
   )
 </code></pre>
-<table>
- <thead>
- <tr>
- <th style=text-align:left>Species</th>
- <th style=text-align:left>Total Obs.</th>
- <th style=text-align:left>State</th>
- </tr>
- </thead>
- <tbody>
- <tr>
- <td style=text-align:left>Belted Kingfisher</td>
- <td style=text-align:left>4552</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Belted Kingfisher</td>
- <td style=text-align:left>4854</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Belted Kingfisher</td>
- <td style=text-align:left>6367</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Belted Kingfisher</td>
- <td style=text-align:left>2089</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Cedar Waxwing</td>
- <td style=text-align:left>3447</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Cedar Waxwing</td>
- <td style=text-align:left>4443</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Cedar Waxwing</td>
- <td style=text-align:left>8896</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Cedar Waxwing</td>
- <td style=text-align:left>4009</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Downy Woodpecker</td>
- <td style=text-align:left>7513</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Downy Woodpecker</td>
- <td style=text-align:left>11280</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Downy Woodpecker</td>
- <td style=text-align:left>8848</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Downy Woodpecker</td>
- <td style=text-align:left>4699</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Ruddy Duck</td>
- <td style=text-align:left>1728</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Ruddy Duck</td>
- <td style=text-align:left>1345</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Ruddy Duck</td>
- <td style=text-align:left>2097</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Ruddy Duck</td>
- <td style=text-align:left>51</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Sanderling</td>
- <td style=text-align:left>131</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Sanderling</td>
- <td style=text-align:left>1495</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Sanderling</td>
- <td style=text-align:left>665</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Sanderling</td>
- <td style=text-align:left>39</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Sandhill Crane</td>
- <td style=text-align:left>1534</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Sandhill Crane</td>
- <td style=text-align:left>125</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Sandhill Crane</td>
- <td style=text-align:left>2472</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Sandhill Crane</td>
- <td style=text-align:left>77</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Sharp-shinned Hawk</td>
- <td style=text-align:left>2258</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Sharp-shinned Hawk</td>
- <td style=text-align:left>1408</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Sharp-shinned Hawk</td>
- <td style=text-align:left>2807</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Sharp-shinned Hawk</td>
- <td style=text-align:left>758</td>
- <td style=text-align:left>VT</td>
- </tr>
- <tr>
- <td style=text-align:left>Wild Turkey</td>
- <td style=text-align:left>2617</td>
- <td style=text-align:left>CO</td>
- </tr>
- <tr>
- <td style=text-align:left>Wild Turkey</td>
- <td style=text-align:left>2420</td>
- <td style=text-align:left>NC</td>
- </tr>
- <tr>
- <td style=text-align:left>Wild Turkey</td>
- <td style=text-align:left>2460</td>
- <td style=text-align:left>OR</td>
- </tr>
- <tr>
- <td style=text-align:left>Wild Turkey</td>
- <td style=text-align:left>2211</td>
- <td style=text-align:left>VT</td>
- </tr>
- </tbody>
-</table>
-<p>Summary of Observation Data</p>
-<p>Below is a brief snapshot of the data, filtered to
-<code>common.name == "Sandhill Crane"</code> in Oregon:</p>
-<pre><code class=language-r># OR Sandhill Crane Map
+          <table>
+            <thead>
+              <tr>
+                <th style=text-align:left>Species</th>
+                <th style=text-align:left>Total Obs.</th>
+                <th style=text-align:left>State</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style=text-align:left>Belted Kingfisher</td>
+                <td style=text-align:left>4552</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Belted Kingfisher</td>
+                <td style=text-align:left>4854</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Belted Kingfisher</td>
+                <td style=text-align:left>6367</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Belted Kingfisher</td>
+                <td style=text-align:left>2089</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Cedar Waxwing</td>
+                <td style=text-align:left>3447</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Cedar Waxwing</td>
+                <td style=text-align:left>4443</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Cedar Waxwing</td>
+                <td style=text-align:left>8896</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Cedar Waxwing</td>
+                <td style=text-align:left>4009</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Downy Woodpecker</td>
+                <td style=text-align:left>7513</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Downy Woodpecker</td>
+                <td style=text-align:left>11280</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Downy Woodpecker</td>
+                <td style=text-align:left>8848</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Downy Woodpecker</td>
+                <td style=text-align:left>4699</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Ruddy Duck</td>
+                <td style=text-align:left>1728</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Ruddy Duck</td>
+                <td style=text-align:left>1345</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Ruddy Duck</td>
+                <td style=text-align:left>2097</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Ruddy Duck</td>
+                <td style=text-align:left>51</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sanderling</td>
+                <td style=text-align:left>131</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sanderling</td>
+                <td style=text-align:left>1495</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sanderling</td>
+                <td style=text-align:left>665</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sanderling</td>
+                <td style=text-align:left>39</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sandhill Crane</td>
+                <td style=text-align:left>1534</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sandhill Crane</td>
+                <td style=text-align:left>125</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sandhill Crane</td>
+                <td style=text-align:left>2472</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sandhill Crane</td>
+                <td style=text-align:left>77</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sharp-shinned Hawk</td>
+                <td style=text-align:left>2258</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sharp-shinned Hawk</td>
+                <td style=text-align:left>1408</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sharp-shinned Hawk</td>
+                <td style=text-align:left>2807</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Sharp-shinned Hawk</td>
+                <td style=text-align:left>758</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Wild Turkey</td>
+                <td style=text-align:left>2617</td>
+                <td style=text-align:left>CO</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Wild Turkey</td>
+                <td style=text-align:left>2420</td>
+                <td style=text-align:left>NC</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Wild Turkey</td>
+                <td style=text-align:left>2460</td>
+                <td style=text-align:left>OR</td>
+              </tr>
+              <tr>
+                <td style=text-align:left>Wild Turkey</td>
+                <td style=text-align:left>2211</td>
+                <td style=text-align:left>VT</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Summary of Observation Data</p>
+          <p>Below is a brief snapshot of the data, filtered to
+            <code>common.name == "Sandhill Crane"</code> in Oregon:
+          </p>
+          <pre><code class=language-r># OR Sandhill Crane Map
 or.shc &lt;- obs$OR[common.name == "Sandhill Crane"]
 
 ggplot(data = ggplot2::map_data("state") %&gt;% filter(region == "oregon")) +
@@ -540,39 +1108,39 @@ ggplot(data = ggplot2::map_data("state") %&gt;% filter(region == "oregon")) +
           axis.ticks = element_blank(),
           panel.grid = element_blank())
 </code></pre>
-<p><img src=data:, alt></p>
-<h2 id=rasters>Rasters</h2>
-<p>Raster data is a type of digital image represented by a grid of pixels,
-where each pixel has an associated value that represents information
-about a particular geographic area. It is one of the two primary ways to
-represent geospatial data (the other being vector data). In
-environmental studies and geographic analysis, raster data is
-extensively used to represent continuous data such as elevation,
-temperature, or land cover. In this project, raster data serves as the
-basis for various explanatory variables that influence bird species
-distributions, including digital elevation, urban imperviousness, land
-cover, canopy, weather, hydrography, and vegetation index. Each of these
-variables represents environmental conditions that can affect bird
-habitat and distribution.</p>
-<h2 id=raster-pre-processing>Raster Pre-Processing</h2>
-<p>Before using raster data for analysis, it is crucial to preprocess them
-to ensure compatibility, accuracy, and relevancy. Raster pre-processing
-includes a series of steps that prepare and standardize the raster
-datasets for subsequent analyses. Along with some general pre-processing
-steps (and corresponding code), the following sections outline specific
-pre-processing steps tailored for each type of explanatory variable
-being used in the analysis.</p>
-<h3 id=general-raster-pre-processing-steps>General Raster Pre-Processing Steps</h3>
-<ol>
- <li>Load the environmental raster datasets &amp; State Boundary data</li>
- <li>Reproject to CRS EPSG:5070</li>
- <li>Resample each to a common resolution (e.g., 5000 x 5000 meters)</li>
- <li>Mask each raster using State Boundary data</li>
-</ol>
-<p>Following the pre-processing of all rasters, it will also be necessary
-to ensure that the extents of each of the rasters (by state) match, and
-to crop them if necessary to produce uniform extents.</p>
-<pre><code class=language-r># `terra` equivalent of base R `any()` function
+          <p><img src=data:, alt></p>
+          <h2 id=rasters>Rasters</h2>
+          <p>Raster data is a type of digital image represented by a grid of pixels,
+            where each pixel has an associated value that represents information
+            about a particular geographic area. It is one of the two primary ways to
+            represent geospatial data (the other being vector data). In
+            environmental studies and geographic analysis, raster data is
+            extensively used to represent continuous data such as elevation,
+            temperature, or land cover. In this project, raster data serves as the
+            basis for various explanatory variables that influence bird species
+            distributions, including digital elevation, urban imperviousness, land
+            cover, canopy, weather, hydrography, and vegetation index. Each of these
+            variables represents environmental conditions that can affect bird
+            habitat and distribution.</p>
+          <h2 id=raster-pre-processing>Raster Pre-Processing</h2>
+          <p>Before using raster data for analysis, it is crucial to preprocess them
+            to ensure compatibility, accuracy, and relevancy. Raster pre-processing
+            includes a series of steps that prepare and standardize the raster
+            datasets for subsequent analyses. Along with some general pre-processing
+            steps (and corresponding code), the following sections outline specific
+            pre-processing steps tailored for each type of explanatory variable
+            being used in the analysis.</p>
+          <h3 id=general-raster-pre-processing-steps>General Raster Pre-Processing Steps</h3>
+          <ol>
+            <li>Load the environmental raster datasets &amp; State Boundary data</li>
+            <li>Reproject to CRS EPSG:5070</li>
+            <li>Resample each to a common resolution (e.g., 5000 x 5000 meters)</li>
+            <li>Mask each raster using State Boundary data</li>
+          </ol>
+          <p>Following the pre-processing of all rasters, it will also be necessary
+            to ensure that the extents of each of the rasters (by state) match, and
+            to crop them if necessary to produce uniform extents.</p>
+          <pre><code class=language-r># `terra` equivalent of base R `any()` function
 terra.any &lt;- function(r) {
   freqs &lt;- freq(r)
   any(freqs[,1] == 1)
@@ -788,18 +1356,19 @@ general.raster.preprocessing &lt;- function(
   cat("Finished general pre-processing.\n")
 }
 </code></pre>
-<h3 id=digital-elevation-model-dem-pre-processing>Digital Elevation Model (DEM) Pre-Processing</h3>
-<p>The following steps are taken when merging and Pre-processing the DEM
-data downloaded from its
-<a href=https://www.sciencebase.gov/catalog/item/5540e111e4b0a658d79395d9>source</a>:</p>
-<ol>
- <li>Merge multiple DEM parts (the raw data download is divided into
-Great Plains, Northeast, Northwest, Southeast, Southwest, and Upper
-Midwest regions).</li>
- <li>Apply general pre-processing of DEM raster (see section on general
-pre-processing).</li>
-</ol>
-<pre><code class=language-r># Combine DEM rasters (Source data has the US split into parts)
+          <h3 id=digital-elevation-model-dem-pre-processing>Digital Elevation Model (DEM) Pre-Processing</h3>
+          <p>The following steps are taken when merging and Pre-processing the DEM
+            data downloaded from its
+            <a href=https://www.sciencebase.gov/catalog/item/5540e111e4b0a658d79395d9>source</a>:
+          </p>
+          <ol>
+            <li>Merge multiple DEM parts (the raw data download is divided into
+              Great Plains, Northeast, Northwest, Southeast, Southwest, and Upper
+              Midwest regions).</li>
+            <li>Apply general pre-processing of DEM raster (see section on general
+              pre-processing).</li>
+          </ol>
+          <pre><code class=language-r># Combine DEM rasters (Source data has the US split into parts)
 
 # By default, `terra` does most of its work on the disk (as 
 # opposed to RAM). However, the temp data for this particular
@@ -872,16 +1441,16 @@ if (!all(file.exists(paste0("data/dem/dem_", states, ".tif")))) {
   )
 }
 </code></pre>
-<h3 id=weather-rasters>Weather Rasters</h3>
-<h4 id=download-weather-raster-data>Download Weather Raster Data</h4>
-<p>In this section, the weather raster data is fetched from its source
-programmatically. The weather data variables considered are
-precipitation (ppt), maximum temperature (tmax), and minimum temperature
-(tmin). The annual weather data at a 4km resolution for the years 2017,
-2018, and 2019. Additionally, monthly 30-year normal data is retrieved
-at an 800m resolution. After downloading, the data is stored in zipped
-format and then extracted.</p>
-<pre><code class=language-r># Downloads and processes weather raster data for specified variables and 
+          <h3 id=weather-rasters>Weather Rasters</h3>
+          <h4 id=download-weather-raster-data>Download Weather Raster Data</h4>
+          <p>In this section, the weather raster data is fetched from its source
+            programmatically. The weather data variables considered are
+            precipitation (ppt), maximum temperature (tmax), and minimum temperature
+            (tmin). The annual weather data at a 4km resolution for the years 2017,
+            2018, and 2019. Additionally, monthly 30-year normal data is retrieved
+            at an 800m resolution. After downloading, the data is stored in zipped
+            format and then extracted.</p>
+          <pre><code class=language-r># Downloads and processes weather raster data for specified variables and 
 # years at a 4km resolution and 30-year monthly normals at an 800m resolution.
 get.weather.data &lt;- function(data.path,
                              out.dir="weather") {
@@ -950,12 +1519,12 @@ get.weather.data &lt;- function(data.path,
 
 get.weather.data(ext.data.path)
 </code></pre>
-<h4 id=aggregate-weather-raster-data>Aggregate Weather Raster Data</h4>
-<p>The downloaded weather rasters are aggregated, considering both the
-yearly data and monthly 30-year normals. The aggregation involves
-determining weights for the different resolutions (4km and 800m) and
-then combining them accordingly.</p>
-<pre><code class=language-r>aggregate.weather &lt;- function(data.path,
+          <h4 id=aggregate-weather-raster-data>Aggregate Weather Raster Data</h4>
+          <p>The downloaded weather rasters are aggregated, considering both the
+            yearly data and monthly 30-year normals. The aggregation involves
+            determining weights for the different resolutions (4km and 800m) and
+            then combining them accordingly.</p>
+          <pre><code class=language-r>aggregate.weather &lt;- function(data.path,
                               raster.dir="weather",
                               out.dir="weather/aggregated",
                               states=c("CO", "NC", "OR", "VT"),
@@ -1026,8 +1595,9 @@ then combining them accordingly.</p>
 
 aggregate.weather(ext.data.path)
 </code></pre>
-<h4 id=average-precipitation-minmax-temperature-pre-processing>Average Precipitation, Min/Max Temperature Pre-Processing</h4>
-<pre><code class=language-r># Average Precipitation
+          <h4 id=average-precipitation-minmax-temperature-pre-processing>Average Precipitation, Min/Max Temperature
+            Pre-Processing</h4>
+          <pre><code class=language-r># Average Precipitation
 
 # Apply General Raster Pre-Processing to precipitation
 if (!all(file.exists(paste0("data/prcp/avg_prcp_", states, ".tif")))) {
@@ -1072,12 +1642,12 @@ if (!all(file.exists(paste0("data/tmax/tmax_", states, ".tif")))) {
   )
 }
 </code></pre>
-<h3 id=hydrography-raster-data-conversion>Hydrography Raster Data Conversion</h3>
-<h4 id=extract-from-esri-geodatabase>Extract from ESRI Geodatabase</h4>
-<p>This section handles the extraction of hydrographic data from an ESRI
-Geodatabase. Two of the data sets, Coastline and Waterbody, within the
-geodatabase are converted into individual shapefile formats.</p>
-<pre><code class=language-r>convert.hydro.gdb &lt;- function(data.path = "data/hydrography/",
+          <h3 id=hydrography-raster-data-conversion>Hydrography Raster Data Conversion</h3>
+          <h4 id=extract-from-esri-geodatabase>Extract from ESRI Geodatabase</h4>
+          <p>This section handles the extraction of hydrographic data from an ESRI
+            Geodatabase. Two of the data sets, Coastline and Waterbody, within the
+            geodatabase are converted into individual shapefile formats.</p>
+          <pre><code class=language-r>convert.hydro.gdb &lt;- function(data.path = "data/hydrography/",
                               gdb.name = "hydrusm010g.gdb_nt00897/hydrusm010g.gdb",
                               data.sets = c("Coastline", "Waterbody"),
                               output.path = "data/hydrography/") {
@@ -1100,21 +1670,22 @@ convert.hydro.gdb(data.path=file.path(ext.data.path, "hydrography"),
                   output.path=file.path(ext.data.path, "hydrography")) %&gt;%
   suppressWarnings()
 </code></pre>
-<h4 id=convert-waterbody-shapefile-to-raster--pre-process>Convert Waterbody Shapefile to Raster &amp; Pre-Process</h4>
-<p>The waterbody data previously extracted as a shapefile is then
-transformed into raster format. The steps entail:</p>
-<ol>
- <li>Cleaning the data by filtering out specific undesirable features.</li>
- <li>Reprojecting the data into a standard coordinate reference system
-(CRS).</li>
- <li>Rasterizing the shapefile data with a default resolution.</li>
- <li>Using dilation to expand the waterbody boundaries in the raster.
-Dilation is a process to enlarge or expand a feature. In this
-context, the waterbody raster is dilated in multiple stages to
-represent different proximities to the water.</li>
- <li>Applying the general raster pre-processing steps.</li>
-</ol>
-<pre><code class=language-r>update.wb.array &lt;- function(r) {
+          <h4 id=convert-waterbody-shapefile-to-raster--pre-process>Convert Waterbody Shapefile to Raster &amp;
+            Pre-Process</h4>
+          <p>The waterbody data previously extracted as a shapefile is then
+            transformed into raster format. The steps entail:</p>
+          <ol>
+            <li>Cleaning the data by filtering out specific undesirable features.</li>
+            <li>Reprojecting the data into a standard coordinate reference system
+              (CRS).</li>
+            <li>Rasterizing the shapefile data with a default resolution.</li>
+            <li>Using dilation to expand the waterbody boundaries in the raster.
+              Dilation is a process to enlarge or expand a feature. In this
+              context, the waterbody raster is dilated in multiple stages to
+              represent different proximities to the water.</li>
+            <li>Applying the general raster pre-processing steps.</li>
+          </ol>
+          <pre><code class=language-r>update.wb.array &lt;- function(r) {
   r.updated &lt;- copy(r)
   
   w &lt;- matrix(1,3,3)
@@ -1186,19 +1757,20 @@ if (!all(file.exists(paste0("data/waterbody/waterbody_", states, ".tif")))) {
   )
 }
 </code></pre>
-<h4 id=convert-coastline-shapefile-to-raster--pre-process>Convert Coastline Shapefile to Raster &amp; Pre-Process</h4>
-<p>The coastline data, like the waterbody data, undergoes a conversion from
-shapefile to raster format. The steps are:</p>
-<ol>
- <li>Basic data cleaning and reprojection to a standard CRS.</li>
- <li>A buffer is applied to the coastline vectors. This adds a specified
-distance around the coastline, effectively creating a zone around
-the coast.</li>
- <li>Rasterization of the buffered coastline data.</li>
- <li>Dilation of the coastline raster to indicate proximity zones.</li>
- <li>General raster pre-processing.</li>
-</ol>
-<pre><code class=language-r># Convert coastline shapefile to raster
+          <h4 id=convert-coastline-shapefile-to-raster--pre-process>Convert Coastline Shapefile to Raster &amp;
+            Pre-Process</h4>
+          <p>The coastline data, like the waterbody data, undergoes a conversion from
+            shapefile to raster format. The steps are:</p>
+          <ol>
+            <li>Basic data cleaning and reprojection to a standard CRS.</li>
+            <li>A buffer is applied to the coastline vectors. This adds a specified
+              distance around the coastline, effectively creating a zone around
+              the coast.</li>
+            <li>Rasterization of the buffered coastline data.</li>
+            <li>Dilation of the coastline raster to indicate proximity zones.</li>
+            <li>General raster pre-processing.</li>
+          </ol>
+          <pre><code class=language-r># Convert coastline shapefile to raster
 process.coastline.shp &lt;- function(out.path,
                                   data.path="data/hydrography",
                                   states=c("CO", "VT", "NC", "OR")) {
@@ -1256,75 +1828,77 @@ if (!all(file.exists(paste0("data/coastline/coastline_", states, ".tif")))) {
   )
 }
 </code></pre>
-<h3 id=general-pre-processing-of-remaining-rasters>General Pre-Processing of Remaining Rasters</h3>
-<p>The remaining rasters, upon downloading them from their respective
-sources, require no additional pre-processing other than the “general”
-pre-processing steps described previously:</p>
-<ul>
- <li>Urban Imperviousness</li>
- <li>Land Cover</li>
- <li>NDVI</li>
- <li>Tree Canopy</li>
-</ul>
-<p>For land cover, note the 20 different Land Cover hierarchical categories
-(i.e., each of them falls under a “parent” category, see <a href=https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description>National Land
-Cover Database Class Legend and
-Description</a>):</p>
-<ul>
- <li>Water:
- <ul>
- <li>11: Open Water</li>
- <li>12: Perennial Ice/Snow</li>
- </ul>
- </li>
- <li>Developed
- <ul>
- <li>21: Developed, Open Space</li>
- <li>22: Developed, Low Intensity</li>
- <li>23: Developed, Medium Intensity</li>
- <li>24: Developed, High Intensity</li>
- </ul>
- </li>
- <li>Barren
- <ul>
- <li>31: Barren Land (Rock/Sand/Clay)</li>
- </ul>
- </li>
- <li>Forest
- <ul>
- <li>41: Deciduous Forest</li>
- <li>42: Evergreen Forest</li>
- <li>43: Mixed Forest</li>
- </ul>
- </li>
- <li>Shrubland
- <ul>
- <li>51: Dwarf Shrub</li>
- <li>52: Shurb/Scrub</li>
- </ul>
- </li>
- <li>Herbaceous
- <ul>
- <li>71: Grassland/Herbaceous</li>
- <li>72: Sedge/Herbaceous</li>
- <li>73: Lichens</li>
- <li>74: Moss</li>
- </ul>
- </li>
- <li>Planted/Cultivated
- <ul>
- <li>81: Pasture/Hay</li>
- <li>82: Cultivated Crops</li>
- </ul>
- </li>
- <li>Wetlands
- <ul>
- <li>90: Woody Wetlands</li>
- <li>95: Emergent Herbaceous Wetlands</li>
- </ul>
- </li>
-</ul>
-<pre><code class=language-r># Urban Imperviousness Pre-Processing
+          <h3 id=general-pre-processing-of-remaining-rasters>General Pre-Processing of Remaining Rasters</h3>
+          <p>The remaining rasters, upon downloading them from their respective
+            sources, require no additional pre-processing other than the “general”
+            pre-processing steps described previously:</p>
+          <ul>
+            <li>Urban Imperviousness</li>
+            <li>Land Cover</li>
+            <li>NDVI</li>
+            <li>Tree Canopy</li>
+          </ul>
+          <p>For land cover, note the 20 different Land Cover hierarchical categories
+            (i.e., each of them falls under a “parent” category, see <a
+              href=https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description>National
+              Land
+              Cover Database Class Legend and
+              Description</a>):</p>
+          <ul>
+            <li>Water:
+              <ul>
+                <li>11: Open Water</li>
+                <li>12: Perennial Ice/Snow</li>
+              </ul>
+            </li>
+            <li>Developed
+              <ul>
+                <li>21: Developed, Open Space</li>
+                <li>22: Developed, Low Intensity</li>
+                <li>23: Developed, Medium Intensity</li>
+                <li>24: Developed, High Intensity</li>
+              </ul>
+            </li>
+            <li>Barren
+              <ul>
+                <li>31: Barren Land (Rock/Sand/Clay)</li>
+              </ul>
+            </li>
+            <li>Forest
+              <ul>
+                <li>41: Deciduous Forest</li>
+                <li>42: Evergreen Forest</li>
+                <li>43: Mixed Forest</li>
+              </ul>
+            </li>
+            <li>Shrubland
+              <ul>
+                <li>51: Dwarf Shrub</li>
+                <li>52: Shurb/Scrub</li>
+              </ul>
+            </li>
+            <li>Herbaceous
+              <ul>
+                <li>71: Grassland/Herbaceous</li>
+                <li>72: Sedge/Herbaceous</li>
+                <li>73: Lichens</li>
+                <li>74: Moss</li>
+              </ul>
+            </li>
+            <li>Planted/Cultivated
+              <ul>
+                <li>81: Pasture/Hay</li>
+                <li>82: Cultivated Crops</li>
+              </ul>
+            </li>
+            <li>Wetlands
+              <ul>
+                <li>90: Woody Wetlands</li>
+                <li>95: Emergent Herbaceous Wetlands</li>
+              </ul>
+            </li>
+          </ul>
+          <pre><code class=language-r># Urban Imperviousness Pre-Processing
 
 if (!all(file.exists(paste0("data/urban_imperviousness/urban_imperviousness_", 
                             states, ".tif")))) {
@@ -1399,17 +1973,17 @@ if (!all(file.exists(paste0("data/canopy/canopy_", states, ".tif")))) {
   )
 }
 </code></pre>
-<h2 id=final-raster-pre-processing-steps>Final Raster Pre-Processing Steps</h2>
-<h3 id=ensuring-shapesize-conformity>Ensuring Shape/Size Conformity</h3>
-<p>In order to use the rasters to be saved as layers in a single raster,
-they must exactly conform in resolution, CRS, and shape/extent. Due to
-slight variations in the datasets, the raster extents are not perfect
-(although they are nearly so). Now that all of the rasters are
-available, a common “intersect” region can be determined for each state,
-and all of the rasters for each state can be cropped to fit that region.</p>
-<p>Once this is completed, the rasters can be joined into combined,
-multi-layer rasters and saved.</p>
-<pre><code class=language-r># Function to intersect two extents
+          <h2 id=final-raster-pre-processing-steps>Final Raster Pre-Processing Steps</h2>
+          <h3 id=ensuring-shapesize-conformity>Ensuring Shape/Size Conformity</h3>
+          <p>In order to use the rasters to be saved as layers in a single raster,
+            they must exactly conform in resolution, CRS, and shape/extent. Due to
+            slight variations in the datasets, the raster extents are not perfect
+            (although they are nearly so). Now that all of the rasters are
+            available, a common “intersect” region can be determined for each state,
+            and all of the rasters for each state can be cropped to fit that region.</p>
+          <p>Once this is completed, the rasters can be joined into combined,
+            multi-layer rasters and saved.</p>
+          <pre><code class=language-r># Function to intersect two extents
 intersect.extents &lt;- function(ext1, ext2) {
   xmin &lt;- max(ext1[1], ext2[1])
   xmax &lt;- min(ext1[2], ext2[2])
@@ -1471,12 +2045,12 @@ if (!all(file.exists(paste0("data/final_rasters/", states, ".tif")))) {
                             overwrite=T))
 } 
 </code></pre>
-<h2 id=combine-raster-and-observation-data>Combine Raster and Observation Data</h2>
-<p>When both the observation data and raster data pre-processing has been
-completed, points can be extracted from each of the rasters
-corresponding to the observation points. These tabular datasets are what
-will be used to train/test presence-only models.</p>
-<pre><code class=language-r># Combine rasters and observations
+          <h2 id=combine-raster-and-observation-data>Combine Raster and Observation Data</h2>
+          <p>When both the observation data and raster data pre-processing has been
+            completed, points can be extracted from each of the rasters
+            corresponding to the observation points. These tabular datasets are what
+            will be used to train/test presence-only models.</p>
+          <pre><code class=language-r># Combine rasters and observations
 for (state in states) {
   
   input.file &lt;- file.path("data", "ebird", paste0(state, ".csv"))
@@ -1559,30 +2133,67 @@ for (state in states) {
   }
 } 
 </code></pre>
- <hr>
-<div class=post_navi><a class="post_navi-item nav_prev" href=https://benton-tripp.github.io/posts/tree-volume-using-random-forests.html title="Tree Volume using Random Forests">
- <div class=post_navi-arrow>&lt;</div><div class=post_navi-label>Previous Post</div><div><span>Tree Volume using Random Forests</span></div>
- </a><a class="post_navi-item nav_next" href=https://benton-tripp.github.io/archive.html title="Blog Archive">
- <div class=post_navi-arrow>&gt;</div><div class=post_navi-label>Blog Archive</div><div><span>Archive of all previous blog posts</span></div>
- </a></div>
- </div>
- <a class="u-url sf-hidden" href=https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html hidden></a>
-</article>
- </div>
- </main><footer class="site-footer h-card">
- <data class=u-url href=/></data>
- <div class=wrapper>
- <h2 class=footer-heading>Benton's Portfolio/Blog</h2>
- <div class=footer-col-wrapper>
- <div class="footer-col footer-col-1">
- <ul class=contact-list>
- <li class=p-name>Benton Tripp<li><a class=u-email href=mailto:btripp@ncsu.edu>btripp@ncsu.edu</a></ul>
- </div>
- <div class="footer-col footer-col-2"><ul class=social-media-list><li><a href=https://github.com/benton-tripp><svg class=svg-icon><symbol id=github fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414><path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8"></path></symbol><use xlink:href=#github></use></svg> <span class=username>benton-tripp</span></a><li><a href=https://www.linkedin.com/in/bentontripp><svg class=svg-icon><symbol id=linkedin fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414><path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule=nonzero></path></symbol><use xlink:href=#linkedin></use></svg> <span class=username>bentontripp</span></a><li><a href=https://benton-tripp.github.io/feed.xml><svg class=svg-icon><symbol id=rss fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414><path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194 11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0 13.806c0-1.21.983-2.195 2.194-2.195zM10.606 16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"></path></symbol><use xlink:href=#rss></use></svg> <span>rss</span></a></ul>
-</div>
- <div class="footer-col footer-col-3">
- <p>This blog is a place for me to document and present different projects I have been working on.</p>
- </div>
- </div>
- </div>
-</footer>
+          <hr>
+          <div class=post_navi><a class="post_navi-item nav_prev"
+              href=https://benton-tripp.github.io/posts/tree-volume-using-random-forests.html
+              title="Tree Volume using Random Forests">
+              <div class=post_navi-arrow>&lt;</div>
+              <div class=post_navi-label>Previous Post</div>
+              <div><span>Tree Volume using Random Forests</span></div>
+            </a><a class="post_navi-item nav_next" href=https://benton-tripp.github.io/posts/2023-09-17-sdm-benchmark-study-part-2-exploratory-analysis.html
+              title="SDM Benchmark Study Part 2: Exploratory Analysis">
+              <div class=post_navi-arrow>&gt;</div>
+              <div class=post_navi-label>Next Post</div>
+              <div><span>SDM Benchmark Study Part 2: Exploratory Analysis</span></div>
+            </a></div>
+        </div>
+        <a class="u-url sf-hidden"
+          href=https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html hidden></a>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer h-card">
+    <data class=u-url href= /></data>
+    <div class=wrapper>
+      <h2 class=footer-heading>Benton's Portfolio/Blog</h2>
+      <div class=footer-col-wrapper>
+        <div class="footer-col footer-col-1">
+          <ul class=contact-list>
+            <li class=p-name>Benton Tripp
+            <li><a class=u-email href=mailto:btripp@ncsu.edu>btripp@ncsu.edu</a>
+          </ul>
+        </div>
+        <div class="footer-col footer-col-2">
+          <ul class=social-media-list>
+            <li><a href=https://github.com/benton-tripp><svg class=svg-icon>
+                  <symbol id=github fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
+                    <path
+                      d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8">
+                    </path>
+                  </symbol>
+                  <use xlink:href=#github></use>
+                </svg> <span class=username>benton-tripp</span></a>
+            <li><a href=https://www.linkedin.com/in/bentontripp><svg class=svg-icon>
+                  <symbol id=linkedin fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
+                    <path
+                      d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z"
+                      fill-rule=nonzero></path>
+                  </symbol>
+                  <use xlink:href=#linkedin></use>
+                </svg> <span class=username>bentontripp</span></a>
+            <li><a href=https://benton-tripp.github.io/feed.xml><svg class=svg-icon>
+                  <symbol id=rss fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
+                    <path
+                      d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194 11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0 13.806c0-1.21.983-2.195 2.194-2.195zM10.606 16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z">
+                    </path>
+                  </symbol>
+                  <use xlink:href=#rss></use>
+                </svg> <span>rss</span></a>
+          </ul>
+        </div>
+        <div class="footer-col footer-col-3">
+          <p>This blog is a place for me to document and present different projects I have been working on.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
