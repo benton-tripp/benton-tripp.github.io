@@ -1,0 +1,1056 @@
+---
+title: "SDM Benchmark Study Part 3: More Pre-Processing and EDA"
+author: "Benton Tripp"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+    theme: flatly
+    df_print: paged
+  
+---
+
+```{r setup, include=F, warning=F, message=F}
+knitr::opts_chunk$set(echo = T, message=F, warning=F, cache=F, root.dir="..")
+```
+
+```{r render-github-doc, eval=F, echo=F}
+
+rmarkdown::render(
+  input = paste0("C:/Users/bento/gis630/benton-tripp.github.io/",
+                 "_Rmd/2023-09-27-sdm-benchmark-study-part-3-more-preprocessing-and-eda.Rmd"), 
+  output_file = "2023-09-27-sdm-benchmark-study-part-3-more-preprocessing-and-eda.html",
+  output_dir = "benton-tripp.github.io/_posts", 
+  knit_root_dir = "C:/users/bento/gis630"
+)
+
+```
+
+## Overview
+
+The Species Distribution Model (SDM) Benchmark Study Part 3 continues an exploration of the data from from eight bird species across Colorado, Oregon, North Carolina, and Vermont, as well as the corresponding environmental rasters. Along with in-depth testing of the data ensuring that it meets model assumptions, this part of the study further refines the feature selection process and completes the pre-processes of the raster datasets.
+
+## Setup
+
+The data is already available from Parts 1 and 2 of the study. To begin, it will need to be loaded into the session, along with the required libraries. A helper function will also be declared, which will be used to help simplify the caching process of the analysis outputs.
+
+```{r setup-stuff, results='hide'}
+
+# Source jquery
+htmltools::tags$head(
+  htmltools::tags$script(
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+  )
+)
+
+# Load libraries
+library(sf)
+library(terra)
+library(ggplot2)
+library(ggpubr)
+library(dplyr)
+library(readr)
+library(data.table)
+library(knitr)
+library(purrr)
+library(caret)
+library(spatstat)
+library(plotly)
+
+# Get model or other object from cache if it has been saved before
+get.object <- function(obj, file.name, obj.path, read.func=readRDS, save.func=saveRDS, ...) {
+  f.path <- file.path(obj.path, file.name)
+  if (!dir.exists(obj.path)) {
+    dir.create(obj.path)
+  }
+  # Object cache check
+  if (file.exists(f.path)) {
+    obj <- read.func(f.path)
+  } else {
+    save.func(obj, f.path, ...)
+  }
+  obj
+}
+
+```
+
+## Loading the Data
+
+### Load the Tabular Data
+
+```{r load-all-features}
+
+# Load the dataset saved in part 2 of the study 
+df <- readRDS("artifacts/final_data/final_data.rds") %>% setDT()
+
+# Define some global variables that will be referenced throughout the modeling 
+states <- sort(unique(df$state))
+species <- sort(unique(df$common.name))
+spec.state <- expand.grid(species=species, 
+                          state=states, 
+                          stringsAsFactors=F)
+
+# Get a binary target for presence/absence instead of obs. counts for MaxEnt
+set(df, j="presence", value=factor(ifelse(df$observations == 0, 0, 1), levels=c(0,1)))
+
+# Save geometry for reference, and remove from dataset
+geometry <- df$geometry
+
+df[, `:=` (geometry=NULL)]
+
+# View output
+df %>% as_tibble()
+
+```
+
+### Split into Training/Test Sets
+
+As was done in Part 2 of the study, the data is split into a training set and a test set. The data is stratified based on latitude, longitude, species, state, and absence to ensure that the distribution of these variables is consistent between the train and test sets. This stratification helps maintain representative samples and mitigates potential biases.
+
+```{r train-test-split}
+
+# Set seed for splitting and modeling
+set.seed(19)
+
+stratified.split.idx <- function(df, p=0.7, lat.lon.bins=25) {
+  # Cut along lat/lon values to create grids (lat.bin & lon.bin)
+  # lat.lon.bins is the number of divisions you want
+  df$lat.bin <- cut(df$lat, breaks=lat.lon.bins, labels = F)
+  df$lon.bin <- cut(df$lon, breaks=lat.lon.bins, labels = F)
+  
+  # Create a new variable combining the stratification variables
+  df %>%
+    # stratify on lat/lon bins, species, state, and presence/absence
+    mutate(strata = paste(lat.bin, lon.bin, common.name, state, presence)) %>%
+    pull(strata) %>%
+    # Create the data partitions
+    createDataPartition(., p = p, list = F) %>%
+    suppressWarnings()
+}
+
+prepare.data <- function(df, p=.7, lat.lon.bins=25) {
+  train.index <- stratified.split.idx(df, p=p, lat.lon.bins = lat.lon.bins)
+  df.train <- df[train.index, ]
+  df.test <- df[-train.index, ]
+  
+  list(train = df.train, 
+       test = df.test,
+       index = train.index)
+}
+
+# Get train/test indices
+train.test <- prepare.data(df, .7)
+
+# Split datatset
+df.train <- df[train.test$index,] 
+df.test <- df[-train.test$index,]
+
+```
+
+### Load Rasters
+
+All of the rasters saved in parts 1 and 2 of the study are loaded into 4 multi-layer rasters (one for each state).
+
+```{r load-rasters}
+
+# Load "Feature Engineered" rasters and original rasters into a 
+# single multi-layer raster by state
+r.list <- set_names(states) %>%
+  purrr::map(~rast(c(paste0("data/final_rasters/", .x, ".tif"),
+                     file.path("artifacts/feature_engineered_final", 
+                               paste0(.x, ".tif")))))
+
+```
+
+### Visualize the Rasters
+
+In the prior sections, not all of the raster visualizations were output to the rendered results. To gain a better understanding of each of the raster layers, an interactive plot can be generated to simplify parsing through all of the layers at each state.
+
+```{r load-rasters-plot-stuff, results='hide'}
+
+plt.ncol <- list(
+  NC=4,
+  CO=5,
+  VT=6,
+  OR=5
+)
+# Get plots as encoded html objects
+r.plots <- get.object(
+  states %>%
+    set_names() %>%
+    purrr::map(function(st) {
+      cat("Getting raster plots for", st, "\n")
+      ncol <- plt.ncol[[st]]
+      nrow <- ceiling(length(names(r.list[[st]])) / ncol)
+      p <- get.object(
+        # Create plots of all rasters, by state; Save plot
+        purrr::map(names(r.list[[st]]), function(r.name) {
+          r.df <- terra::as.data.frame(r.list[[st]][[r.name]], xy=T)
+          p <- ggplot(r.df, aes(x=x, y=y, fill=!!sym(r.name))) +
+            geom_raster() +
+            coord_cartesian() 
+          if (r.name != "NLCD_Land") p <- p + scale_fill_viridis_c()
+          p + labs(title=r.name) + theme(legend.position="none")
+        }) %>%
+          ggarrange(plotlist=., ncol=ncol, nrow=nrow) +
+          ggtitle(paste0("All Raster Layers for ", st)),
+        paste0(st, "_rasters.rds"),
+        "artifacts/plots"
+      )
+      
+      # Create a temporary file
+      tmpfile <- tempfile(fileext = ".svg")
+      # Save the ggplot to this file
+      ggsave(filename = tmpfile, p, width = 24, height = 24)
+      # Use img() function from htmltools to display it within a div
+      img.src <- paste0("data:image/svg+xml;base64,", base64enc::base64encode(tmpfile))
+      file.remove(tmpfile)
+      out <- htmltools::div(id=paste0(st, "_raster_plts"), 
+                            style=ifelse(st == states[[1]], "", "display:none;"), 
+                            htmltools::tags$img(src=img.src))
+      gc()
+      out
+    }),
+  "all_rasters_html.rds",
+  "artifacts/plots"
+)
+
+```
+
+```{r view-rast-plts}
+
+htmltools::div(
+  htmltools::tags$script(
+    '$(document).ready(function(){
+        $("#state_selector").change(function(){
+          var selectedState = $(this).val();
+          // Hide all raster plots
+          $("[id$=_raster_plts]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_raster_plts").show();
+        });
+      });'
+  ),
+  htmltools::tags$select(id='state_selector',
+                                       lapply(states, function(st) {
+                                         htmltools::tags$option(value=st, st)
+                                       })),
+  r.plots
+)
+
+
+```
+
+## Feature Selection
+
+Feature selection was addressed in Part 2 of this study. However, this took place using ALL of the covariates of the dataset. However, many of the resulting "important" features or feature interactions were redundant (i.e., colinear). To ensure that the models produced are unbiased and meet the assumptions required by the different model types, these results will be re-produced using a subset of the original variables.
+
+### Update Categorical Rasters to Binary Layers
+
+Prior to refining the feature-selection process, some pre-processing needs to be done. The categorical rasters need to be converted to individual binary layers.
+
+```{r convert-land-cover}
+
+if (!dir.exists("artifacts/land_cover_binary")) dir.create("artifacts/land_cover_binary")
+purrr::walk(states, function(state) {
+  r <- r.list[[state]]$NLCD_Land
+  lc.types <- levels(r)[[1]] %>% 
+    as.data.frame() %>%
+    mutate(name = gsub("\\/| |,", "_", NLCD_Land)) %>% 
+    mutate(name=tolower(gsub("__", "_", name))) %>%
+    # Remove duplicates/irrelevant
+    filter(!(name %in% c("unclassified", "perennial_snow_ice", "barren_land",
+              "shrub_scrub", "herbaceous")))
+    out.file <- file.path("artifacts/land_cover_binary", paste0(state, ".tif"))
+    if (!file.exists(out.file)) {
+      out.raster <- purrr::map(1:nrow(lc.types), function(i) {
+        lc <- lc.types[i, ]
+        # Create a binary raster for the current category
+        out <- terra::lapp(r, 
+                           fun = function(x) {
+                             case_when(
+                               is.na(x) ~ NA,
+                               x == lc$NLCD_Land ~ 1.,
+                               T ~ 0)
+                           })
+        names(out) <- lc$name
+        out
+      }) %>% 
+        rast()
+      
+      # Save the output raster to the specified output path
+      writeRaster(out.raster, out.file, overwrite=T)
+    }
+})
+
+# Reload rasters, this time excluding the Land Cover categorical layer and including the binary equivalents
+# single multi-layer raster by state
+out.dir <- "artifacts/final_rasters"
+if (!dir.exists(out.dir)) dir.create(out.dir)
+r.list <- set_names(states) %>%
+  purrr::map(~{
+    fname <- file.path(out.dir, paste0(.x, ".tif"))
+    if (file.exists(fname)) return(rast(fname))
+    r.files <- c(paste0("data/final_rasters/", .x, ".tif"),
+                 file.path("artifacts/feature_engineered_final", 
+                           paste0(.x, ".tif")),
+                 file.path("artifacts/land_cover_binary", 
+                           paste0(.x, ".tif")))
+    r <- rast(r.files)
+    r <- r[[which(names(r) != "NLCD_Land")]]
+    # Filter out rasters with only one non-na value
+    r.filt <- map_lgl(names(r), ~{
+      vals<- unique(values(r[[.x]]))[,1]
+      length(vals[!is.na(vals)]) > 1
+    })
+    r <- r[[r.filt]]
+    # Clean up names
+    names(r) <- gsub(paste0("_", .x), "", names(r))
+    # Update each layer based to have NA if any layer is NA
+    r <- names(r) %>%
+      set_names() %>%
+      purrr::map(function(n) {
+        layer <- r[[n]]
+        layer[is.na(sum(r))] <- NA
+        return(layer)
+      }) %>%
+      rast()
+    terra::writeRaster(r, fname, overwrite=T)
+    r
+  })
+
+```
+
+### Identify "Redundant" Rasters
+
+As previously stated, many of the features are redundant. In particular, the "engineered" features were meant to improve upon the original features, and reduce multi-collinearity. Based on the original results of the feature selection process, it was shown that the new variables weren't always necessarily "better". Below is the list of raster layers that were determined should be removed from each of the rasters in order to minimize multi-collinearity and maximize model performance. 
+
+```{r remove-redundant-features}
+
+# Define "redundant" rasters/features
+redund.feat <- c("open_water", "developed_open_space", "developed_low_intensity",
+                 "developed_medium_intensity", "developed_high_intensity", "hay_pasture",
+                 "cultivated_crops", "wetlands", "forest", "lon.lat.interaction", 
+                 "waterbody", "urban_imperviousness", "tmax", "tmin", "dem", "Fall_NDVI",
+                 "Spring_NDVI", "Summer_NDVI", "Winter_NDVI", "lat.sqrd", "lon.sqr")
+
+```
+
+### Re-Fit LASSO Models with All Features
+
+As was done in part 2, a GLM model is fit for each of the species/state subsets using the training data, but this time with the refined raster subset.
+
+```{r glm-feature-selection}
+
+# Load variable importance from fitted LASSO models
+lasso.model.path="artifacts/models/lasso_2_fs"
+
+var.imp <- species %>% purrr::map_df(function(spec) {
+    spec.state.fit <- states %>% purrr::map_df(function(st) {
+      fname <- paste0(tolower(gsub(" ", "_", spec)), "_", st, "_regr_l1.rds")
+      if (!file.exists(file.path(lasso.model.path, fname))) {
+        
+        # Define the control for the train function
+        ctrl <- trainControl(method = "cv", number = 5)
+        
+        cat("Fitting LASSO model for", spec, "in", st, "\n")
+        spec.df <- df.train[common.name == spec & state == st][
+          , `:=` (state=NULL, common.name = NULL)]
+        
+        # Remove any columns where all values are the same
+        .remove <- c(names(which(sapply(spec.df, function(x) length(unique(x)) <= 1))),
+                     redund.feat, "lat", "lon", "observations") %>% unique()
+        .remove <- .remove[.remove %in% names(spec.df)]
+        .remove <- .remove[.remove != "presence"]
+        if (!is_empty(.remove)) {
+          spec.df <- spec.df %>% dplyr::select(-.remove)
+        }
+        
+        # Scale data
+        # Identify fields to center/scale
+        to.scale <- sapply(spec.df, function(x) is.numeric(x) && 
+                             length(unique(x)) > 2)
+        to.scale$presence <- F
+        to.scale <- names(spec.df) %in% names(which(unlist(to.scale)))
+        
+        # Define the pre-processing steps (use the training data to avoid data leakage)
+        # Apply centering and scaling to the non-binary fields and non-target
+        preproc <- preProcess(spec.df[, ..to.scale], 
+                              method = c("center", "scale"))
+        
+        # Center/Scale the training data
+        df.train.scaled <- bind_cols(spec.df[, !(..to.scale)],
+                                     predict(preproc, spec.df[, ..to.scale]))
+        
+        # LASSO (L1); Elastic Net, where alpha = 1
+        fit <- get.object(
+          train(presence ~ (.)^2, 
+                data = df.train.scaled, 
+                method = "glmnet",
+                family = "binomial",
+                trControl = ctrl,
+                tuneGrid = expand.grid(alpha = 1, 
+                                       lambda = seq(0, 1, by = 0.1)),
+                metric = "Accuracy"),
+          file.name=fname,
+          obj.path=lasso.model.path)
+        gc()
+      } else {
+        fit <- readRDS(file.path(lasso.model.path, fname))
+      }
+      coef.df <- coef(fit$finalModel, s = fit$bestTune$lambda) %>%
+        as.matrix() %>%
+        as.data.frame()
+      # Remove the intercept
+      coef.df <- coef.df[-1, , drop = F]
+      if (sum(coef.df$s1, na.rm=T) == 0) {
+        # Remove file
+        file.remove(file.path(lasso.model.path, fname))
+        # Re-train model, this time with variable alpha in the train grid
+        # fit <- get.object(
+        fit <- get.object(
+          train(presence ~ (.)^2, 
+                data = df.train.scaled, 
+                method = "glmnet",
+                family = "binomial",
+                trControl = ctrl,
+                tuneGrid = expand.grid(alpha = seq(0, 1, by = 0.1), 
+                                       lambda = seq(0, 1, by = 0.1)),
+                metric = "Accuracy"),
+          file.name=fname,
+          obj.path=lasso.model.path)
+        coef.df <- coef(fit$finalModel, s = fit$bestTune$lambda) %>%
+          as.matrix() %>%
+          as.data.frame()
+        # Remove the intercept
+        coef.df <- coef.df[-1, , drop = F]
+        if (sum(coef.df$s1, na.rm=T) == 0) {
+          file.remove(file.path(lasso.model.path, fname))
+          cat("\tERROR: Try another method for obtaining coefs for", spec, 
+              "in", st, "\n")
+          return(
+            tibble(
+              common.name=character(0),
+              state=character(0),
+              variable=character(0),
+              importance=numeric(0)
+            )
+          )
+        }
+      }
+      # Create a data frame of variable importance
+      var.importance <- tibble(
+        common.name = spec,
+        state = st,
+        variable = rownames(coef.df),
+        importance = abs(coef.df[,1])
+      ) %>%
+        # Rank variables by importance
+        arrange(state, common.name, -importance, variable) %>%
+        # Only look at variables where imp. > 0
+        filter(importance > 0)
+    })
+  })
+
+```
+
+## EDA and Pre-Processing for Inhomogeneous Poisson Process Models
+
+There will be two model types that serve as "baseline" models during this study: Inhomogeneous Poisson Process models, and 
+Maximum Entropy models. The details of these models will be described in greater detail in future phases of the study. That being said, it is still important during the preparation phase to ensure that the data is ready for modeling, and that all model assumptions are met. In particular, the `spatstat` package, which will be used to fit the Inhomogeneous Poisson Process models, requires that the model inputs are structured in a less general format (i.e., a tabular dataset). As a result, the next sections are focused on (a) pre-processing the data and save the outputs to `spatstat.geom::ppp` (Poisson Point Process) and `spatstat.geom::quadscheme` (Quadrature Scheme) objects; and (b) using several available `spatstat.explore` methods to help ensure that the data is well suited for modeling using an IPP model.
+
+### Define Pre-Processing Functions
+
+```{r ipp-data-prep}
+
+# Ensure counter-clockwise direction
+is.ccw <- function(p) {
+  tryCatch({owin(poly=p); T}, error=function(e) F)
+}
+
+# Check that all polygons were traversed in the right direction
+ensure.ccw <- function(polygon.list) {
+  lapply(polygon.list, function(p) {
+    # Check the first polygon (outer boundary)
+    if (!is.ccw(p)) {
+      p$x <- rev(p$x)
+      p$y <- rev(p$y)
+    }
+    p
+  })
+}
+
+# Function to convert polygon to required list format
+convert.to.list.format <- function(sf.object) {
+  polygons.list <- lapply(1:nrow(sf.object), function(i) {
+    sfc <- st_geometry(sf.object[i,])
+    if (class(sfc)[[1]] == "sfc_MULTIPOLYGON") {
+      sfc <- st_cast(sfc, "POLYGON")
+    }
+    lapply(sfc, function(poly) {
+      list(x = st_coordinates(poly)[,1], 
+           y = st_coordinates(poly)[,2])
+    })
+  })
+  
+  # If the object has only one row, we unlist one level to adhere 
+  # to the described format for `ppp` objects
+  if (length(polygons.list) == 1) {
+    polygons.list <- polygons.list[[1]]
+  }
+  
+  # Ensure counter-clockwise
+  polygons.list <- ensure.ccw(polygons.list)
+
+  return(polygons.list)
+}
+
+```
+
+### Pre-Process Data for IPP Models
+
+```{r pre-process-ipp}
+
+prep.ipp.data <- function(data, st, spec, 
+                          r.list, just.presence=F,
+                          covariates=NULL) {
+  # Filter Raster List
+  r <- r.list[[st]]
+  
+  # filter by state & species
+  ipp.df <- data %>% 
+    filter(state == st & common.name == spec) %>%
+    # select location point
+    select(c("lon", "lat", "presence", covariates)) %>% 
+    # Get the unique points, since we are not accounting 
+    # for the temporal nature of the data
+    unique() 
+    
+  # Get the first layer, set it to either NA or TRUE
+  r.poly <- terra::project(x=r[[1]], 
+                           y=st_crs(4326, parameters=T)$Wkt) %>% 
+    lapp(function(z) ifelse(is.na(z), NA, T)) %>%
+    terra::as.polygons() %>%
+    # Convert to polygon
+    st_as_sf()
+  
+  # Convert polygon to list
+  r.poly.list <- convert.to.list.format(r.poly)
+  
+  # Convert your point dataframe to an sf object
+  ipp.sf <- st_as_sf(ipp.df, coords = c("lon", "lat"), crs = 4326)
+  
+  # Get indices of points that are within the polygon
+  valid.pts <- sapply(st_intersects(ipp.sf, r.poly), function(x) length(x) > 0)
+  
+  # Filter out invalid points
+  ipp.df <- filter(ipp.df, valid.pts)
+  
+  # Subset df by presence
+  ipp.presence <- filter(ipp.df, presence == 1)
+  ipp.dummies <- filter(ipp.df, presence == 0)
+  
+  # Convert the data to a ppp objects
+  locations <- ppp(ipp.presence$lon, 
+                   ipp.presence$lat, 
+                   poly=r.poly.list) 
+  
+  if (just.presence) return(locations)
+  
+  dummy.locs <- ppp(ipp.dummies$lon, 
+                    ipp.dummies$lat, 
+                    poly=r.poly.list) 
+  
+  # Create Quadscheme
+  Q <- quadscheme(locations, dummy.locs)
+  if (is.null(covariates)) return(Q)
+  
+  # Make sure rejections are excluded
+  reject.x <- c(attr(locations, "rejects")$x,
+                attr(dummy.locs, "rejects")$x)
+  reject.y <- c(attr(locations, "rejects")$y,
+                attr(dummy.locs, "rejects")$y)
+
+  pairs <- tibble(
+    x=reject.x,
+    y=reject.y
+  ) 
+  if (nrow(pairs) > 0) {
+    rejects <- mutate(pairs, coords=paste(x, y, sep=", "))$coords
+  } else {
+    rejects <- NULL
+  }
+  
+  # Get subset of ipp.df for scaling
+  ipp.df.scaled <- ipp.df %>% 
+    mutate(lon.lat = paste(lon, lat, sep=", "))
+  if (!is.null(rejects)) ipp.df.scaled <- filter(ipp.df.scaled , 
+                                                 !(lon.lat %in% rejects)) 
+  ipp.df.scaled  <- select(ipp.df.scaled , -c("lon", "lat")) 
+  ipp.df.scaled %>% setDT()
+  
+  # Select variables to scale
+  to.scale <- sapply(ipp.df.scaled, function(x) is.numeric(x) && 
+                     length(unique(x)) > 2)
+  to.scale$presence <- F
+  to.scale <- names(ipp.df.scaled) %in% names(which(unlist(to.scale)))
+  
+  # Scale data, saving the pre-processing function
+  preproc <- preProcess(ipp.df.scaled[, ..to.scale], 
+                        method = c("center", "scale"))
+  
+  # Center/Scale the training data
+  ipp.df.scaled <- bind_cols(ipp.df.scaled[, !(..to.scale)],
+                             predict(preproc, ipp.df.scaled[, ..to.scale]))
+  
+  # Subset df by presence using scaled data
+  ipp.presence <-ipp.df.scaled[presence == 1][, presence := NULL]
+  ipp.dummies <- ipp.df.scaled[presence == 0][, presence := NULL]
+  
+  list(
+    Q=Q,
+    covariates.presence=ipp.presence,
+    covariates.dummies=ipp.dummies,
+    covariates=covariates,
+    preprocess=preproc,
+    scaled.covariates=to.scale
+  )
+}
+
+```
+
+### Bootstrap Confidence Bands for Pair Correlation Function
+
+The Pair Correlation Function (PCF) is a tool in spatial statistics used to describe how the spatial distribution of points deviates from complete spatial randomness (CSR). In the context of point pattern analysis, the PCF provides insights into the interaction between points as a function of distance.
+
+Here's a breakdown of the result of bootstrapping the points using the PCF:
+
+1. `r`: This represents different distance values (lag distances) at which the PCF is evaluated. I.e., it represents the distance between a point and its neighbors.
+2. `theo`: This is the theoretical value of the PCF under the assumption of complete spatial randomness (CSR). For a Poisson point process (which implies CSR), this value is always 1. This means that at any given distance `r`, the expected number of points around another point is the same as would be expected by random chance.
+3. `border`: This is the border-corrected estimate of $g(r)$. It is the PCF estimate, but it accounts for edge effects. In point pattern analysis, edge effects occur because points near the border of the study area may have neighbors outside the study area that are not included in the analysis. 
+4. `lo` & `hi`: These columns represent the lower and upper 95% confidence intervals for $g(r)$, respectively. They were derived from the bootstrap resamples of the data. This analysis uses 200 resamples of the data (with replacement).
+
+Interpreting the results:
+
+- If the border-corrected $g(r)$ is close to the theoretical line (i.e., 1 for a Poisson process), it suggests that the points do not interact, i.e., they are randomly distributed at that distance.
+- If $g(r)$ is greater than 1, it indicates clustering at distance $r$. There are more points within the distance $r$ than would be expected under CSR. This can be a result of similar environmental factors or mutual attraction.
+- If $g(r)$ is less than 1, it indicates regularity or inhibition. There are fewer points within the distance $r$ than would be expected under CSR. This might be due to repulsion or competition for resources.
+
+Using the confidence intervals:
+
+- If the theoretical line (value of 1 for a Poisson point process) lies between the `lo` and `hi` values, it suggests that the observed pattern might be due to random chance (given the variation captured by bootstrapping).
+- If the theoretical value is outside the confidence interval, it suggests that the observed pattern is significantly different from CSR.
+
+Other considerations:
+
+- While bootstrapping provides a measure of variability, it assumes our sample data is a good representation of the overall population.
+
+```{r ppp-pcf-boot, results='hide'}
+
+cb.pcf <- purrr::map(1:nrow(spec.state), function(i) {
+  spec <- spec.state[i,]$species
+  st <- spec.state[i,]$state
+  fname <- paste0(spec, "_", st, ".rds")
+  fpath <- file.path("artifacts", "cb_pcf")
+  if (!file.exists(file.path(fpath, fname))) {
+    cat("Bootstrapping PCF for", spec, " observations in", st, "\n")
+    locations <- prep.ipp.data(df.train, st, spec, r.list, just.presence=T)
+    loc.boot <- get.object(
+      # 200 resamples by default
+      spatstat.explore::lohboot(locations, fun="pcf"),
+      fname, fpath
+    )
+  } else {
+   loc.boot <- readRDS(file.path(fpath, fname)) 
+  }
+  loc.boot
+}) 
+names(cb.pcf) <- map_chr(1:nrow(spec.state), ~paste(spec.state[.x, ]$species,
+                                                    spec.state[.x, ]$state, sep="."))
+
+pcf.df <- names(cb.pcf) %>%
+  map_df(~{
+    spec <- stringr::str_split(.x, "\\.")[[1]][[1]]
+    st <- stringr::str_split(.x, "\\.")[[1]][[2]]
+    cb.pcf[[.x]] %>%
+      as_tibble() %>%
+      mutate(
+        spatial.structure=case_when(lo > theo ~ "Possible Clustering",
+                                    hi < theo ~ "Possible Regularity",
+                                    T ~ "No Significant Pattern"),
+        common.name = spec, 
+        state = st)
+  })
+
+```
+
+#### Plot Bootstrapped PCF Results 
+
+```{r pcf-plts, fig.width=9, fig.height=8}
+
+# Add all plots to the same plot_ly object using a loop
+p <- plot_ly()
+
+fill.first.na <- function(data, filler, x) {
+  dt <- data %>% as.data.table()
+  # Get groups of data, grouped by consecutive NA status
+  dt[, grp := rleid(is.na(.SD)), .SD=x]
+  # Get the first row of each NA group
+  first.rows <- dt[is.na(get(x)), .I[1], by = grp]$V1
+  # Fill the first NA of each group with the filler column value
+  dt[first.rows, (x) := get(filler)]
+  dt %>% pull(!!x)
+}
+
+for (i in 1:nrow(spec.state)) {
+  vis <- ifelse(i==1, T, F)
+  spec <- spec.state[i,]$species
+  st <- spec.state[i,]$state
+  data <- pcf.df %>% 
+    filter(!is.na(border) & !is.na(lo) & !is.na(hi)) %>%
+    filter(common.name == spec & state == st) %>%
+    mutate(border.sig = ifelse(spatial.structure != "No Significant Pattern",
+                               border, NA),
+           border.insig = ifelse(spatial.structure == "No Significant Pattern",
+                                 border, NA)) %>%
+    mutate(border.sig = fill.first.na(., filler="border", x="border.sig"),
+           border.insig = fill.first.na(., filler="border", x="border.insig"))
+  
+  # Separate traces for each spatial structure
+  p <- p %>%
+    # Intervals
+    add_ribbons(data=data, x = ~r, ymin = ~lo, ymax= ~hi, visible = vis, 
+                line=list(color='transparent'),
+                fillcolor="lightgray", name="95% CI") %>%
+    add_lines(data=data, x = ~r, y = ~lo, name = "Low CI", visible = vis,
+              line = list(dash = "solid", color = "black", width = .7),
+              showlegend=T) %>%
+    add_lines(data=data, x = ~r, y = ~hi, name = "High CI", visible = vis,
+              line = list(dash = "solid", color = "black", width = .7), 
+              showlegend=T) %>%
+   # Theoretical PCF assuming CSR (~1 for Poisson Process)
+    add_lines(data=data, x = ~r, y = ~theo, 
+              name = "Theoretical PCF Assuming CSR", 
+              visible = vis, showlegend=T,
+              line = list(dash = "dash", color = "darkorange", width = 1)) %>%
+    # Possible Spatial Structure
+    add_lines(data=data, x = ~r, y = ~border.sig, 
+              line = list(dash = "solid", color = "darkred", width = 1.5),
+              name=paste0("Possible Spatial Structure<br>for ", 
+                          spec, " in ", st), visible = vis) %>%
+    # No Spatial Structure Found
+    add_lines(data=data, x = ~r, y = ~border.insig, 
+              line = list(dash = "solid", color = "blue", width = 1.5),
+              name=paste0("No Significant Pattern<br>for ", 
+                          spec, " in ", st), visible = vis) 
+}
+
+ # Add title
+p <- p %>% layout(
+  title = paste0("Spatial Randomness Measure Using <br>",
+                 "Bootstrap Confidence Bands for Pair Correlation Function"),
+  yaxis = list(title = "Lag Distance (border)"))
+
+
+# Adjusting visibility logic for the dropdown
+dropdown <- list(
+    active = 0,
+    buttons = purrr::map(1:nrow(spec.state), function(i) {
+        # Create a visibility array for the current dropdown option
+        visibility.array <- purrr::map_lgl(1:(6*nrow(spec.state)), 
+                                           ~.x %in% c(
+                                             6*i-5,
+                                             6*i-4, 
+                                             6*i-3, 
+                                             6*i-2, 
+                                             6*i-1, 
+                                             6*i))
+        
+        list(
+            args = list("visible", visibility.array),
+            label = names(cb.pcf)[i],  
+            method = "restyle"
+        )
+    })
+)
+
+# Add the dropdown to the layout
+p <- layout(p, updatemenus = list(list(x = 0.3, y = 1.42,  
+                                       yanchor = "top", 
+                                       buttons = dropdown$buttons)))
+
+p
+
+```
+
+#### Results
+
+The results from the Pair Correlation Function (PCF) analysis provide insights into the underlying spatial distribution of the bird species in their different sample areas. If a significant spatial structure is identified at certain distances (either clustering or regularity), it suggests that the spatial distribution of the species in that region deviates from complete spatial randomness. In such cases, it's important to account for this non-random distribution when building a predictive Poisson Point Process model. Specifically, including spatially-aware covariates or interaction terms might improve the accuracy and robustness of the predictions.
+
+Conversely, if no significant spatial structure is identified, it might indicate that the species' distribution is mostly driven by the environmental covariates. However, it's still essential to remain cautious, as the absence of a detected pattern doesn't necessarily mean no interaction exists. It could be subtle or occur at scales not captured by the current analysis. An additional test will be used in the following section to further explore these patterns for spatial structure.
+
+### Ripley's K-Function Simulation Envelopes
+
+When evaluating the K-function, the idea is to examine how the distribution of points in a given dataset changes or behaves as we consider larger and larger distances from each point.
+
+For a given point in a spatial dataset, consider all possible distances to every other point in the dataset. The K-function evaluates, on average, how many points one would expect to find within a circle of radius $r$ (distance) centered on a typical point, relative to what would be expected under a completely random process.
+
+The values in the $r$ field of the envelope function output represent a sequence of increasing distances. For each of these distances, the K-function is calculated, telling about the spatial structure of the data at that particular scale.
+
+If, at a specific distance $r$, the observed K-function value is higher than what's expected under a random process, it suggests that the points are clustering at that distance. Conversely, if the K-function value is lower than expected, it indicates repulsion or regular spacing between points at that distance.
+
+Different structures or patterns in data might become apparent at different scales. By evaluating the K-function over a range of distances, insights can be gained about the spatial characteristics of the data at multiple scales. For example, there might be clustering at short distances but dispersal or regularity at larger distances.
+
+Assessing spatial randomness of the data based on the K-function.
+
+- `r`: The sequence of distance values. It's the set of distances at which the K-function has been evaluated for both the observed data and the simulations.
+- `obs`: The observed value of the summary statistic (K-function in this case) for the dataset.
+- `theo`: The theoretical value of the summary statistic under complete spatial randomness (CSR).
+- `lo`: The lower simulation envelope. This is essentially the smallest value of the summary statistic observed in the simulations at each distance.
+- `hi`: The upper simulation envelope. This is the largest value of the summary statistic observed in the simulations at each distance.
+
+Interpreting the Results:
+
+The idea is to check if the observed K-function for the data (`obs`) lies within the simulation envelope (`lo` and `hi`). If it does, this suggests that the observed spatial pattern could be the result of random chance (according to the model of randomness assumed in the simulations). If the observed K-function lies outside of the envelope, this indicates a statistically significant departure from randomness.
+
+  *If `obs` is above `hi`, it suggests clustering at that scale.*
+  
+  *If `obs` is below `lo`, it suggests regularity or inhibition at that scale.*
+
+Interpreting the Visualizations
+
+- The x-axis represents distance (or scale).
+- The y-axis represents the value of the K-function (or envelope value at each distance).
+- The observed K-function (`obs`) is a line on this plot.
+- The simulation envelope is represented by two other lines: `lo` and `hi`.
+
+Envelopes provide a way to judge whether an observed spatial structure could be due to random chance, given the assumptions behind the simulations. If the assumptions don't hold for the data, the interpretation might not be valid.
+
+
+```{r r-k}
+
+# Check for a spatial trend in residuals (Ripley's K-Function)
+ripleys.k <- function(l, nsim=50) {
+  k <- Kest(l)
+  e <- spatstat.explore::envelope(l, Kest, nsim=nsim)
+  list(
+    k=k,
+    envelope=e
+  )
+}
+
+nsim <- 50
+rk <- purrr::map(1:nrow(spec.state), function(i) {
+  spec <- spec.state[i,]$species
+  st <- spec.state[i,]$state
+  fname <- paste0(spec, "_", st, ".rds")
+  fpath <- file.path("artifacts", "ripleys_k")
+  if (file.exists(file.path(fpath, fname))) {
+    return(readRDS(file.path(fpath, fname)))
+  }
+  cat("Estimating Ripley's K for", spec, " observations in", 
+      paste0(st, ", and computing ", nsim, " simulations.\n"))
+  locations <- prep.ipp.data(df.train, st, spec, r.list, just.presence=T)
+  rip.k <- get.object(
+    ripleys.k(locations, nsim),
+    fname, fpath
+  )
+}) 
+names(rk) <- map_chr(1:nrow(spec.state), 
+                     ~paste(spec.state[.x, ]$species,
+                            spec.state[.x, ]$state, sep="."))
+
+rk.env.df <- names(rk) %>%
+  map_df(~{
+    spec <- stringr::str_split(.x, "\\.")[[1]][[1]]
+    st <- stringr::str_split(.x, "\\.")[[1]][[2]]
+    rk[[.x]]$envelope %>%
+      as_tibble() %>%
+      mutate(flag=case_when(obs>hi~"Possible Clustering",
+                            obs<lo~"Possible Regularity",
+                            T~NA),
+             common.name = spec, 
+             state = st)
+  })
+
+```
+
+#### Plot K-Function Simulation Results
+
+```{r kest-plts, fig.width=9, fig.height=8}
+
+
+# Add all plots to the same plot_ly object using a loop
+p <- plot_ly()
+
+color.mapping <- c("None Found" = "blue", 
+                   "Possible Clustering" = "red", 
+                   "Possible Regularity" = "red")
+
+for (i in 1:nrow(spec.state)) {
+  vis <- ifelse(i==1, T, F)
+  spec <- spec.state[i,]$species
+  st <- spec.state[i,]$state
+  data <- rk.env.df %>% 
+    filter(common.name == spec & state == st) %>%
+    mutate(spatial.structure = ifelse(is.na(flag), "None Found", flag),
+           custom.color = color.mapping[spatial.structure])
+  
+  # Separate traces for each spatial structure
+  # No Spatial Structure Found
+  data.none <- data %>% filter(spatial.structure == "None Found")
+  p <- p %>%
+    add_trace(data=data.none, x = ~r, y = ~obs, 
+              type = 'scatter', mode = 'markers', 
+              marker = list(size = 5, opacity = 1, color="transparent",
+                            line = list(color = "blue", width = .7)),
+              name=paste0("No Spatial Structure Found<br>for ", 
+                          spec, " in ", st), visible = vis)
+  
+  # Possible Spatial Structure
+  data.spatial <- data %>% filter(spatial.structure != "None Found")
+  p <- p %>%
+    add_trace(data=data.spatial, x = ~r, y = ~obs, 
+              type = 'scatter', mode = 'markers', 
+              marker = list(size = 5, opacity = 1, color="transparent",
+                            line = list(color = "red", width = .7)),
+              name=paste0("Possible Spatial Structure<br>for ", 
+                          spec, " in ", st), visible = vis)
+  # Intervals
+  p <- p %>%
+    add_ribbons(data=data, x=~r, ymin=~lo, ymax=~hi, visible = vis, 
+                line=list(color='transparent'),
+                fillcolor="lightgray", name="Simulation Envelope") %>%
+    add_lines(data=data, x=~r, y = ~lo, name = "Low", visible = vis,
+              line = list(dash = "solid", color = "black", width = .7),
+              showlegend=T) %>%
+    add_lines(data=data, x=~r, y = ~hi, name = "High", visible = vis,
+              line = list(dash = "solid", color = "black", width = .7), 
+              showlegend=T)
+}
+
+p <- p %>% layout(title = "Spatial Randomness Measure Using K-Estimate",
+                  yaxis = list(type = "log", 
+                               title = "K-Estimate (log10 scale)"))
+
+
+# Adjusting visibility logic for the dropdown
+dropdown <- list(
+    active = 0,
+    buttons = purrr::map(1:nrow(spec.state), function(i) {
+        # Create a visibility array for the current dropdown option
+        visibility.array <- purrr::map_lgl(1:(5*nrow(spec.state)), 
+                                           ~.x %in% c(5*i-3,
+                                                      5*i-4,
+                                                      5*i-2, 
+                                                      5*i-1, 
+                                                      5*i))
+        
+        list(
+            args = list("visible", visibility.array),
+            label = names(rk)[i],  
+            method = "restyle"
+        )
+    })
+)
+
+# Add the dropdown to the layout
+p <- layout(p, updatemenus = list(list(x = 0.3, y = 1.4,  
+                                       yanchor = "top", 
+                                       buttons = dropdown$buttons)))
+
+
+p
+
+```
+
+#### Results
+
+To reiterate the implications of the plots above, the Ripley's K-Function Simulation Envelopes analysis evaluates the spatial distribution of bird species across different distances. If the observed K-function surpasses the upper simulation envelope, it indicates clustering at that scale, possibly due to shared resources or social behaviors. Values below the lower envelope suggest regular spacing or inhibition, potentially arising from territorial behaviors or competition. When the observed K-function remains within the simulation envelope, the distribution might be random, emphasizing that environmental factors predominantly influence the species' distribution. However, even in such cases, it's essential to consider potential spatial patterns not captured in this analysis when building predictive models.
+
+### Pre-Processing IPP Model Covariates
+
+```{r ipp-model, results='hide'}
+
+# Define min/max scaling function for rasters
+min.max.scale <- function(r, x=NULL, na.rm=T) {
+  # If training data is provided
+  if (!is.null(x)) {
+    min.x <- min(x, na.rm=na.rm)
+    max.x <- max(x, na.rm=na.rm)
+  # Or just scale based on full raster values
+  } else {
+    min.x <- min(values(r), na.rm=na.rm)
+    max.x <- max(values(r), na.rm=na.rm)
+  }
+  (r - min.x) / (max.x - min.x)
+}
+
+# Get training/testing spatstat data, and 
+# pre-process (scale) rasters using training data
+final.ipp.data <- purrr::map(1:nrow(spec.state), function(i) {
+  spec <- spec.state[i,]$species
+  st <- spec.state[i,]$state
+  cat("Prepping final data for", spec, "in", st, "\n")
+  # Get raster
+  r <- r.list[[st]]
+  cat("\tGetting `spatstat.geom::ppp` object with training points...\n")
+  Q <- get.object(
+    prep.ipp.data(df.train, st, spec, r.list),
+    paste(st, "_", spec, "_Q.rds"),
+    file.path("artifacts", "train_spatstat_Q")
+  )
+  cat("\tGetting `spatstat.geom::ppp` object with testing points...\n")
+  Q.test <- get.object(
+    prep.ipp.data(df.test, st, spec, r.list),
+    paste(st, "_", spec, "_Q.rds"),
+    file.path("artifacts", "test_spatstat_Q")
+  )
+  
+  cat("\tPre-Processing covariates...\n")
+  # Use pre-processing scaler on rasters
+  covariates <- names(r)
+  filt.df <- df.train[state == st & common.name == spec, ..covariates]
+  to.scale <- sapply(filt.df, function(x) is.numeric(x) && 
+                       length(unique(x)) > 2)
+  to.scale <- covariates[covariates %in% names(which(unlist(to.scale)))]
+  
+  # Load/compute filtered & pre-processed rasters
+  covariates <- covariates %>%
+    set_names() %>%
+    purrr::map(function(.x) {
+      if (.x %in% to.scale) {
+        # Scale the data
+        out <- min.max.scale(r[[.x]], pull(filt.df, !!.x))
+      } else {
+        out <- r[[.x]]
+      }
+      out <- get.object(
+        out %>%
+          # Re-project to same CRS as point data
+          terra::project(x=., 
+                         y=st_crs(4326, parameters=T)$Wkt) %>%
+          as.data.frame(xy=T) %>%
+          filter(!is.na(!!.x)) %>%
+          as.im(),
+        paste0(st, "_", .x, ".rds"),
+        "artifacts/spatstat_imgs"
+      )
+    })
+  list(
+    train.Q=Q,
+    test.Q=Q.test,
+    covariates=covariates
+  )
+})
+
+
+```
+
+## Conclusion
+
+The second phase of the exploratory analysis adds depth to the initial findings, establishing another layer of groundwork for the study. Just as in the initial phase, this stage does not yield conclusive results. In subsequent phases, various models will be applied to the data, and their outcomes compared, facilitating a detailed examination of the data's specifications and emergent patterns.
+
+
