@@ -1,122 +1,338 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.35">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-<meta name="author" content="Benton Tripp" />
-<meta name="date" content="2022-05-30" />
-<title>Forecast Reconciliation in Python | Benton’s Portfolio/Blog</title>
-<meta property=og:title content="Forecast Reconciliation in Python">
-<meta property=og:locale content=en_US>
-<meta name=description content=Overview>
-<meta property=og:description content=Overview>
-<link rel=canonical href=https://benton-tripp.github.io/posts/hyperarch_overview.html>
-<meta property=og:url content=https://benton-tripp.github.io/posts/hyperarch_overview.html>
-<meta property=og:site_name content="Benton’s Portfolio/Blog">
-<meta property=og:type content=article>
-<meta property=article:published_time content=2022-05-30T00:00:00+00:00>
-<meta name=twitter:card content=summary>
-<meta property=twitter:title content="Forecast Reconciliation in Python">
-<link type=application/atom+xml rel=alternate href=https://benton-tripp.github.io/feed.xml title="Benton's Portfolio/Blog">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Benton Tripp"},"dateModified":"2022-05-30T00:00:00+00:00","datePublished":"2022-05-30T00:00:00+00:00","description":"Introduction","headline":"Forecast Reconciliation in Python","mainEntityOfPage":{"@type":"WebPage","@id":"https://benton-tripp.github.io/posts/hyperarch_overview.html"},"url":"https://benton-tripp.github.io/posts/hyperarch_overview.html"}</script>
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.35">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+  <meta name="author" content="Benton Tripp" />
+  <meta name="date" content="2022-05-30" />
+  <title>Forecast Reconciliation in Python | Benton’s Portfolio/Blog</title>
+  <meta property=og:title content="Forecast Reconciliation in Python">
+  <meta property=og:locale content=en_US>
+  <meta name=description content=Overview>
+  <meta property=og:description content=Overview>
+  <link rel=canonical href=https://benton-tripp.github.io/posts/hyperarch_overview.html>
+  <meta property=og:url content=https://benton-tripp.github.io/posts/hyperarch_overview.html>
+  <meta property=og:site_name content="Benton’s Portfolio/Blog">
+  <meta property=og:type content=article>
+  <meta property=article:published_time content=2022-05-30T00:00:00+00:00>
+  <meta name=twitter:card content=summary>
+  <meta property=twitter:title content="Forecast Reconciliation in Python">
+  <link type=application/atom+xml rel=alternate href=https://benton-tripp.github.io/feed.xml
+    title="Benton's Portfolio/Blog">
+  <script
+    type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Benton Tripp"},"dateModified":"2022-05-30T00:00:00+00:00","datePublished":"2022-05-30T00:00:00+00:00","description":"Introduction","headline":"Forecast Reconciliation in Python","mainEntityOfPage":{"@type":"WebPage","@id":"https://benton-tripp.github.io/posts/hyperarch_overview.html"},"url":"https://benton-tripp.github.io/posts/hyperarch_overview.html"}</script>
 
-a.main-link {
-    color: black !important;
-    text-decoration: none !important;
-}
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
 
-a.main-link:hover {
-    text-decoration: underline !important;
-}
-</style>
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+
+    div.hanging-indent {
+      margin-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    ul.task-list {
+      list-style: none;
+    }
+
+    pre>code.sourceCode {
+      white-space: pre;
+      position: relative;
+    }
+
+    pre>code.sourceCode>span {
+      display: inline-block;
+      line-height: 1.25;
+    }
+
+    pre>code.sourceCode>span:empty {
+      height: 1.2em;
+    }
+
+    .sourceCode {
+      overflow: visible;
+    }
+
+    code.sourceCode>span {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    div.sourceCode {
+      margin: 1em 0;
+    }
+
+    pre.sourceCode {
+      margin: 0;
+    }
+
+    @media screen {
+      div.sourceCode {
+        overflow: auto;
+      }
+    }
+
+    @media print {
+      pre>code.sourceCode {
+        white-space: pre-wrap;
+      }
+
+      pre>code.sourceCode>span {
+        text-indent: -5em;
+        padding-left: 5em;
+      }
+    }
+
+    pre.numberSource code {
+      counter-reset: source-line 0;
+    }
+
+    pre.numberSource code>span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
+
+    pre.numberSource code>span>a:first-child::before {
+      content: counter(source-line);
+      position: relative;
+      left: -1em;
+      text-align: right;
+      vertical-align: baseline;
+      border: none;
+      display: inline-block;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0 4px;
+      width: 4em;
+      color: #aaaaaa;
+    }
+
+    pre.numberSource {
+      margin-left: 3em;
+      border-left: 1px solid #aaaaaa;
+      padding-left: 4px;
+    }
+
+    div.sourceCode {}
+
+    @media screen {
+      pre>code.sourceCode>span>a:first-child::before {
+        text-decoration: underline;
+      }
+    }
+
+    code span.al {
+      color: #ff0000;
+      font-weight: bold;
+    }
+
+    /* Alert */
+    code span.an {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Annotation */
+    code span.at {
+      color: #7d9029;
+    }
+
+    /* Attribute */
+    code span.bn {
+      color: #40a070;
+    }
+
+    /* BaseN */
+    code span.bu {}
+
+    /* BuiltIn */
+    code span.cf {
+      color: #007020;
+      font-weight: bold;
+    }
+
+    /* ControlFlow */
+    code span.ch {
+      color: #4070a0;
+    }
+
+    /* Char */
+    code span.cn {
+      color: #880000;
+    }
+
+    /* Constant */
+    code span.co {
+      color: #60a0b0;
+      font-style: italic;
+    }
+
+    /* Comment */
+    code span.cv {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* CommentVar */
+    code span.do {
+      color: #ba2121;
+      font-style: italic;
+    }
+
+    /* Documentation */
+    code span.dt {
+      color: #902000;
+    }
+
+    /* DataType */
+    code span.dv {
+      color: #40a070;
+    }
+
+    /* DecVal */
+    code span.er {
+      color: #ff0000;
+      font-weight: bold;
+    }
+
+    /* Error */
+    code span.ex {}
+
+    /* Extension */
+    code span.fl {
+      color: #40a070;
+    }
+
+    /* Float */
+    code span.fu {
+      color: #06287e;
+    }
+
+    /* Function */
+    code span.im {}
+
+    /* Import */
+    code span.in {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Information */
+    code span.kw {
+      color: #007020;
+      font-weight: bold;
+    }
+
+    /* Keyword */
+    code span.op {
+      color: #666666;
+    }
+
+    /* Operator */
+    code span.ot {
+      color: #007020;
+    }
+
+    /* Other */
+    code span.pp {
+      color: #bc7a00;
+    }
+
+    /* Preprocessor */
+    code span.sc {
+      color: #4070a0;
+    }
+
+    /* SpecialChar */
+    code span.ss {
+      color: #bb6688;
+    }
+
+    /* SpecialString */
+    code span.st {
+      color: #4070a0;
+    }
+
+    /* String */
+    code span.va {
+      color: #19177c;
+    }
+
+    /* Variable */
+    code span.vs {
+      color: #4070a0;
+    }
+
+    /* VerbatimString */
+    code span.wa {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Warning */
+
+    a.main-link {
+      color: black !important;
+      text-decoration: none !important;
+    }
+
+    a.main-link:hover {
+      text-decoration: underline !important;
+    }
+  </style>
 
 
-<script src="hyperarch_overview_files/libs/clipboard/clipboard.min.js"></script>
-<script src="hyperarch_overview_files/libs/quarto-html/quarto.js"></script>
-<script src="hyperarch_overview_files/libs/quarto-html/popper.min.js"></script>
-<script src="hyperarch_overview_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="hyperarch_overview_files/libs/quarto-html/anchor.min.js"></script>
-<link href="hyperarch_overview_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="hyperarch_overview_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="hyperarch_overview_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="hyperarch_overview_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="hyperarch_overview_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script src="hyperarch_overview_files/libs/clipboard/clipboard.min.js"></script>
+  <script src="hyperarch_overview_files/libs/quarto-html/quarto.js"></script>
+  <script src="hyperarch_overview_files/libs/quarto-html/popper.min.js"></script>
+  <script src="hyperarch_overview_files/libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="hyperarch_overview_files/libs/quarto-html/anchor.min.js"></script>
+  <link href="hyperarch_overview_files/libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="hyperarch_overview_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet"
+    id="quarto-text-highlighting-styles">
+  <script src="hyperarch_overview_files/libs/bootstrap/bootstrap.min.js"></script>
+  <link href="hyperarch_overview_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="hyperarch_overview_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap"
+    data-mode="light">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+    integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [], function () { return window.jQuery; })</script>
 </head>
 
 <header class="site-header" role="banner" style="border-top: 5px solid #424242; border-bottom: 1px solid #e8e8e8; 
@@ -127,47 +343,77 @@ a.main-link:hover {
   padding-right: 30px;
   padding-left: 30px;">
     <style>
-      #siteTitle, #siteTitle:visited {
-          color: #424242;
-        }
-        #siteTitle {
-          font-size: 26px;
-          font-weight: 300;
-          line-height: 54px;
-          letter-spacing: -1px;
-          margin-bottom: 0;
-          float: left;
-          text-decoration: none;
-        }
+      #siteTitle,
+      #siteTitle:visited {
+        color: #424242;
+      }
+
+      #siteTitle {
+        font-size: 26px;
+        font-weight: 300;
+        line-height: 54px;
+        letter-spacing: -1px;
+        margin-bottom: 0;
+        float: left;
+        text-decoration: none;
+      }
     </style>
     <a id="siteTitle" rel="author" href="https://benton-tripp.github.io/">Benton's Portfolio/Blog</a>
     <nav class="site-nav" style="float: right; line-height: 54px;">
-  </span>
-  </label>
-  <div style="margin-top:5px;"><a class="main-link" href="../archive" style="color: #111; line-height: 1.5;">Blog Archive</a></div>
-  </nav></div>
- </header>
+      </span>
+      </label>
+      <div style="margin-top:5px;"><a class="main-link" href="../archive" style="color: #111; line-height: 1.5;">Blog
+          Archive</a></div>
+    </nav>
+  </div>
+</header>
 
 <body class="fullcontent">
-  
 
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<main class="content" id="quarto-document-content">
 
-<section id="forecast-reconciliation-in-python" class="level1">
-<h1>Forecast Reconciliation in Python</h1>
-<p>Reconcile hierarchical forecasts into coherent forecasts using Python.</p>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In my experience, it is somewhat unusual to work with real time-series data that does not have underlying “levels”. For example, consider the data that might be produced via transactions at a grocery store. Transactions can be described at an individual product level, a shopper level, or at a store level. The products purchased might also be categorized into a specific type of product, and those categories might in turn fall into broader categories. For a business owner, this complex hierarchical structure can complicate making accurate and unbiased forecasts for their business. A data-driven person will most likely produce forecasts for each of the different levels, but they don’t always add up. This is where reconciliation becomes necessary.</p>
-<p>The majority of my explanations throughout this post are based on the book <a href="https://otexts.com/fpp3/"><em>Forecasting: Principles and Practice</em></a> by Rob J. Hyndman and George Athanasopoulos - an excellent resource for forecasting in general and completely free online. I highly recommend that you spend some time reading Hyndman’s <a href="https://otexts.com/fpp3/hierarchical.html">more detailed explanation</a> of reconciling hierarchical and grouped forecasts at some point. It is not my intention here to replace this book, although I still intend to give a comprehensive explanation of forecasting reconciliation. My intention in writing this blog-post is to provide whomever is reading this with the background needed to develop their own forecast reconciliation code. I have found that the existing tools I have used in the past are either not consistently maintained, or they are not (in my opinion) at a stage in their development where they can be considered reliable in a production environment. But even if you do use one of the existing reconciliation packages available, I have found that staring at a mathematical formula in a book or applying some pre-defined function that somebody else created are not the best ways to gain a firm understanding of what is actually happening. Hopefully by sharing some short explanations of how one might go about writing their own Python code to reconcile hierarchical forecasts, I can also provide some additional insight that might not be attained otherwise.</p>
-</section>
-<section id="hierarchical-time-series" class="level2">
-<h2 class="anchored" data-anchor-id="hierarchical-time-series">Hierarchical Time Series</h2>
-<p>To begin, I will give a brief introduction to the differences between hierarchical and grouped time series (no, they are not quite the same thing). A time series is considered <em>hierarchical</em> when lower levels within the hierarchy only fall under one domain. For example consider the following hierarchy tree:</p>
-<div class="cell" data-execution_count="251">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> treelib <span class="im">import</span> Tree</span>
+  <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+    <main class="content" id="quarto-document-content">
+
+      <section id="forecast-reconciliation-in-python" class="level1">
+        <h1>Forecast Reconciliation in Python</h1>
+        <p>Reconcile hierarchical forecasts into coherent forecasts using Python.</p>
+        <section id="introduction" class="level2">
+          <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+          <p>In my experience, it is somewhat unusual to work with real time-series data that does not have underlying
+            “levels”. For example, consider the data that might be produced via transactions at a grocery store.
+            Transactions can be described at an individual product level, a shopper level, or at a store level. The
+            products purchased might also be categorized into a specific type of product, and those categories might in
+            turn fall into broader categories. For a business owner, this complex hierarchical structure can complicate
+            making accurate and unbiased forecasts for their business. A data-driven person will most likely produce
+            forecasts for each of the different levels, but they don’t always add up. This is where reconciliation
+            becomes necessary.</p>
+          <p>The majority of my explanations throughout this post are based on the book <a
+              href="https://otexts.com/fpp3/"><em>Forecasting: Principles and Practice</em></a> by Rob J. Hyndman and
+            George Athanasopoulos - an excellent resource for forecasting in general and completely free online. I
+            highly recommend that you spend some time reading Hyndman’s <a
+              href="https://otexts.com/fpp3/hierarchical.html">more detailed explanation</a> of reconciling hierarchical
+            and grouped forecasts at some point. It is not my intention here to replace this book, although I still
+            intend to give a comprehensive explanation of forecasting reconciliation. My intention in writing this
+            blog-post is to provide whomever is reading this with the background needed to develop their own forecast
+            reconciliation code. I have found that the existing tools I have used in the past are either not
+            consistently maintained, or they are not (in my opinion) at a stage in their development where they can be
+            considered reliable in a production environment. But even if you do use one of the existing reconciliation
+            packages available, I have found that staring at a mathematical formula in a book or applying some
+            pre-defined function that somebody else created are not the best ways to gain a firm understanding of what
+            is actually happening. Hopefully by sharing some short explanations of how one might go about writing their
+            own Python code to reconcile hierarchical forecasts, I can also provide some additional insight that might
+            not be attained otherwise.</p>
+        </section>
+        <section id="hierarchical-time-series" class="level2">
+          <h2 class="anchored" data-anchor-id="hierarchical-time-series">Hierarchical Time Series</h2>
+          <p>To begin, I will give a brief introduction to the differences between hierarchical and grouped time series
+            (no, they are not quite the same thing). A time series is considered <em>hierarchical</em> when lower levels
+            within the hierarchy only fall under one domain. For example consider the following hierarchy tree:</p>
+          <div class="cell" data-execution_count="251">
+            <div class="sourceCode cell-code" id="cb1">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> treelib <span class="im">import</span> Tree</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> Tree()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Total"</span>, <span class="st">"total"</span>)  <span class="co"># root node</span></span>
@@ -178,9 +424,10 @@ a.main-link:hover {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 3"</span>, <span class="st">"sub3"</span>, parent<span class="op">=</span><span class="st">"cat1"</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 4"</span>, <span class="st">"sub4"</span>, parent<span class="op">=</span><span class="st">"cat2"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 5"</span>, <span class="st">"sub5"</span>, parent<span class="op">=</span><span class="st">"cat2"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>tree.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Total
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>tree.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>Total
 ├── Cat 1
 │   ├── SubCategory 1
 │   ├── SubCategory 2
@@ -189,13 +436,23 @@ a.main-link:hover {
     ├── SubCategory 4
     └── SubCategory 5
 </code></pre>
-</div>
-</div>
-<p><code>Sub-Category 1</code> falls exclusively under <code>Category 1</code>, <code>Sub-Category 4</code> falls exlusively under <code>Sub-Category 2</code>, etc. This <em>exclusivity</em> is what defines a hierarchical time series. It is also important to note that mathematically, each of the sub-categories should add up to the category above them, and <code>Total</code> is the total sum of each of the bottom-level categories. The mathematical expression looks like this:</p>
-<p><em>T</em> = <em>C1</em> + <em>C2</em> = <em>SC1</em> + <em>SC2</em> + <em>SC3</em> + <em>SC4</em> + <em>SC5</em> <br> <em>C1</em> = <em>SC1</em> + <em>SC2</em> + <em>SC3</em><br> <em>C2</em> = <em>SC4</em> + <em>SC5</em> <br></p>
-<p>On the other hand, a <em>grouped</em> time series is when that exclusivity between sub-domains does not exist. For example, consider the same hierarchy tree but with only three sub-categories spread across each of the two primary categories:</p>
-<div class="cell" data-execution_count="252">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> Tree()</span>
+            </div>
+          </div>
+          <p><code>Sub-Category 1</code> falls exclusively under <code>Category 1</code>, <code>Sub-Category 4</code>
+            falls exlusively under <code>Sub-Category 2</code>, etc. This <em>exclusivity</em> is what defines a
+            hierarchical time series. It is also important to note that mathematically, each of the sub-categories
+            should add up to the category above them, and <code>Total</code> is the total sum of each of the
+            bottom-level categories. The mathematical expression looks like this:</p>
+          <p><em>T</em> = <em>C1</em> + <em>C2</em> = <em>SC1</em> + <em>SC2</em> + <em>SC3</em> + <em>SC4</em> +
+            <em>SC5</em> <br> <em>C1</em> = <em>SC1</em> + <em>SC2</em> + <em>SC3</em><br> <em>C2</em> = <em>SC4</em> +
+            <em>SC5</em> <br></p>
+          <p>On the other hand, a <em>grouped</em> time series is when that exclusivity between sub-domains does not
+            exist. For example, consider the same hierarchy tree but with only three sub-categories spread across each
+            of the two primary categories:</p>
+          <div class="cell" data-execution_count="252">
+            <div class="sourceCode cell-code" id="cb3">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> Tree()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Total"</span>, <span class="st">"total"</span>)  <span class="co"># root node</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Category 1"</span>, <span class="st">"cat1"</span>, parent<span class="op">=</span><span class="st">"total"</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Category 2"</span>, <span class="st">"cat2"</span>, parent<span class="op">=</span><span class="st">"total"</span>)</span>
@@ -205,9 +462,10 @@ a.main-link:hover {
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 1"</span>, <span class="st">"sub4"</span>, parent<span class="op">=</span><span class="st">"cat2"</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 2"</span>, <span class="st">"sub5"</span>, parent<span class="op">=</span><span class="st">"cat2"</span>)</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 3"</span>, <span class="st">"sub6"</span>, parent<span class="op">=</span><span class="st">"cat2"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>tree.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Total
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>tree.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>Total
 ├── Category 1
 │   ├── SubCategory 1
 │   ├── SubCategory 2
@@ -217,11 +475,13 @@ a.main-link:hover {
     ├── SubCategory 2
     └── SubCategory 3
 </code></pre>
-</div>
-</div>
-<p>The same hierarchy could also be described by the following tree:</p>
-<div class="cell" data-execution_count="253">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> Tree()</span>
+            </div>
+          </div>
+          <p>The same hierarchy could also be described by the following tree:</p>
+          <div class="cell" data-execution_count="253">
+            <div class="sourceCode cell-code" id="cb5">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> Tree()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Total"</span>, <span class="st">"total"</span>)  <span class="co"># root node</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 1"</span>, <span class="st">"sub1"</span>, parent<span class="op">=</span><span class="st">"total"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"SubCategory 2"</span>, <span class="st">"sub2"</span>, parent<span class="op">=</span><span class="st">"total"</span>)</span>
@@ -232,9 +492,10 @@ a.main-link:hover {
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Category 2"</span>, <span class="st">"cat4"</span>, parent<span class="op">=</span><span class="st">"sub2"</span>)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Category 1"</span>, <span class="st">"cat5"</span>, parent<span class="op">=</span><span class="st">"sub3"</span>)</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>tree.create_node(<span class="st">"Category 2"</span>, <span class="st">"cat6"</span>, parent<span class="op">=</span><span class="st">"sub3"</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>tree.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Total
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>tree.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>Total
 ├── SubCategory 1
 │   ├── Category 1
 │   └── Category 2
@@ -245,18 +506,32 @@ a.main-link:hover {
     ├── Category 1
     └── Category 2
 </code></pre>
-</div>
-</div>
-<p>This complexity of multiple arrangements of the hierarchy groups means that the original formulas used are no longer valid. Hyndman <a href="https://otexts.com/fpp3/hts.html#grouped-time-series">describes</a> this structural concept as <em>“not naturally disaggregat[ing] in a unique hierarchical manner.”</em></p>
-<p>The difference between hierarchical and grouped time series is important to understand, because the summing matrix (explained briefly in the next section) is dependent on the structure of the time series.</p>
-</section>
-<section id="building-blocks-of-coherent-forecasts" class="level2">
-<h2 class="anchored" data-anchor-id="building-blocks-of-coherent-forecasts">Building-Blocks of Coherent Forecasts</h2>
-<p>Coherent - or <em>reconciled</em> - forecasts are constructed from a few key components:</p>
-<p><strong>Base Forecasts:</strong> <br> Forecasts at each hierarchical level represented as an <em>m</em> x <em>n</em> matrix (<em>m</em> rows and <em>n</em> columns), where the columns of the matrix represent the hierarchical levels of the data and the rows represent each time period of the forecast horizon.</p>
-<p><strong>Summing matrix:</strong> <br> The summing matrix describes the hierarchical/grouped structure of the data. For hierarchical summing matrices, the number of columns matches the number of unique categories on the bottom level. The number of rows is determined by the total number of unique categories across all levels. The values of the summing matrix are binary values that represent which bottom-level (column) categories map to each of the hierarchies across all levels. Consider the example shared previously of hierarchical data with two categories and five sub-categories. The summing matrix would look like the following:</p>
-<div class="cell" data-execution_count="254">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+            </div>
+          </div>
+          <p>This complexity of multiple arrangements of the hierarchy groups means that the original formulas used are
+            no longer valid. Hyndman <a href="https://otexts.com/fpp3/hts.html#grouped-time-series">describes</a> this
+            structural concept as <em>“not naturally disaggregat[ing] in a unique hierarchical manner.”</em></p>
+          <p>The difference between hierarchical and grouped time series is important to understand, because the summing
+            matrix (explained briefly in the next section) is dependent on the structure of the time series.</p>
+        </section>
+        <section id="building-blocks-of-coherent-forecasts" class="level2">
+          <h2 class="anchored" data-anchor-id="building-blocks-of-coherent-forecasts">Building-Blocks of Coherent
+            Forecasts</h2>
+          <p>Coherent - or <em>reconciled</em> - forecasts are constructed from a few key components:</p>
+          <p><strong>Base Forecasts:</strong> <br> Forecasts at each hierarchical level represented as an <em>m</em> x
+            <em>n</em> matrix (<em>m</em> rows and <em>n</em> columns), where the columns of the matrix represent the
+            hierarchical levels of the data and the rows represent each time period of the forecast horizon.</p>
+          <p><strong>Summing matrix:</strong> <br> The summing matrix describes the hierarchical/grouped structure of
+            the data. For hierarchical summing matrices, the number of columns matches the number of unique categories
+            on the bottom level. The number of rows is determined by the total number of unique categories across all
+            levels. The values of the summing matrix are binary values that represent which bottom-level (column)
+            categories map to each of the hierarchies across all levels. Consider the example shared previously of
+            hierarchical data with two categories and five sub-categories. The summing matrix would look like the
+            following:</p>
+          <div class="cell" data-execution_count="254">
+            <div class="sourceCode cell-code" id="cb7">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> {</span>
@@ -273,95 +548,100 @@ a.main-link:hover {
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 1 -&gt; Sub-Cat 3'</span>,</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 2 -&gt; Sub-Cat 4'</span>,</span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 2 -&gt; Sub-Cat 5'</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="254">
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-display" data-execution_count="254">
 
-<div>
+              <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Sub-Category 1</th>
-      <th>Sub-Category 2</th>
-      <th>Sub-Category 3</th>
-      <th>Sub-Category 4</th>
-      <th>Sub-Category 5</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Total</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Category 1</th>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Category 2</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Cat 1 -&gt; Sub-Cat 1</th>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 1 -&gt; Sub-Cat 2</th>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 1 -&gt; Sub-Cat 3</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 2 -&gt; Sub-Cat 4</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 2 -&gt; Sub-Cat 5</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Because grouped time series data does not disaggregate in a “unique manner,” there is not one unique bottom level. This means that the summing matrix needs additional columns as well as additional rows. The grouped data from earlier in the post would look like this:</p>
-<div class="cell" data-execution_count="255">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
+                <table class="dataframe table table-sm table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Sub-Category 1</th>
+                      <th>Sub-Category 2</th>
+                      <th>Sub-Category 3</th>
+                      <th>Sub-Category 4</th>
+                      <th>Sub-Category 5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Total</th>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th>Category 1</th>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Category 2</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 1 -&gt; Sub-Cat 1</th>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 1 -&gt; Sub-Cat 2</th>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 1 -&gt; Sub-Cat 3</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 2 -&gt; Sub-Cat 4</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 2 -&gt; Sub-Cat 5</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <p>Because grouped time series data does not disaggregate in a “unique manner,” there is not one unique bottom
+            level. This means that the summing matrix needs additional columns as well as additional rows. The grouped
+            data from earlier in the post would look like this:</p>
+          <div class="cell" data-execution_count="255">
+            <div class="sourceCode cell-code" id="cb8">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> {</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 1 / Sub-Cat 1'</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>], </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 1 / Sub-Cat 2'</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>],</span>
@@ -383,156 +663,181 @@ a.main-link:hover {
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 2 / Sub-Cat 1'</span>,</span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 2 / Sub-Cat 2'</span>,</span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cat 2 / Sub-Cat 3'</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="255">
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-display" data-execution_count="255">
 
-<div>
+              <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Cat 1 / Sub-Cat 1</th>
-      <th>Cat 1 / Sub-Cat 2</th>
-      <th>Cat 1 / Sub-Cat 3</th>
-      <th>Cat 2 / Sub-Cat 1</th>
-      <th>Cat 2 / Sub-Cat 2</th>
-      <th>Cat 2 / Sub-Cat 3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Total</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Category 1</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Category 2</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Sub-Category 1</th>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Sub-Category 2</th>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Sub-Category 3</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Cat 1 / Sub-Cat 1</th>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 1 / Sub-Cat 2</th>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 1 / Sub-Cat 3</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 2 / Sub-Cat 1</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 2 / Sub-Cat 2</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>Cat 2 / Sub-Cat 3</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<p><strong>Mapping Matrix:</strong> <br> The key component of forecast reconciliation is the mapping matrix. This matrix varies depending on the reconciliation method used, but the principle remains the same. When you multiply the mapping matrix with the summing and base forecast matrices (for either hierarchical or grouped time series), the result is a set of coherent forecasts. The challenge then is finding an “optimal” mapping matrix that can be used to reconcile the forecasts with the least amount of variance.</p>
-</section>
-<section id="reconciliation-methods" class="level2">
-<h2 class="anchored" data-anchor-id="reconciliation-methods">Reconciliation Methods</h2>
-<p>Many different reconciliation methods exist, and some are better than others. I will not go into detail on the majority of them, but I will still list a few. Reconciliation methods fall under two categories: <a href="https://otexts.com/fpp3/single-level.html">single-level</a> and <a href="https://otexts.com/fpp3/reconciliation.html#the-mint-optimal-reconciliation-approach">minimum trace</a> methods.</p>
-<p>Some single-level methods include: - Bottom-Up - Top-Down - Proportions of historical averages (method exists for proportions of historical actuals as well as historical forecasts) - Middle-Out</p>
-<p>Some minimum trace methods include: - Ordinary least squares (OLS) - Weighted least squares (WLS) with variance scaling - WLS with structural scaling</p>
-<p>For a more rigorous explanation of the different minimum trace methods - along with a few additional approaches - feel free to check out <a href="https://robjhyndman.com/papers/mint.pdf">this</a> paper.</p>
-</section>
-<section id="available-reconciliation-tools" class="level2">
-<h2 class="anchored" data-anchor-id="available-reconciliation-tools">Available Reconciliation Tools</h2>
-<p>As mentioned previously, there are a couple of existing tools/libraries that can apply the majority of reconciliation methods. The aforementioned Rob Hyndman helped to develop an R package called <a href="https://fabletools.tidyverts.org/reference/reconcile.html"><code>fabletools</code></a> that in my opinion is one of the best forecasting packages, and the best tool out there for forecast reconciliation. An effort is also underway to develop a Python package called <a href="https://scikit-hts.readthedocs.io/en/latest/readme.html"><code>scikit-hts</code></a>. However, it is still pretty buggy and doesn’t have all of the capabilities that exist in <code>fabletools</code>.</p>
-</section>
-<section id="forecast-reconciliation-in-python-1" class="level2">
-<h2 class="anchored" data-anchor-id="forecast-reconciliation-in-python-1">Forecast Reconciliation in Python</h2>
-<p>I will not be sharing an explanation for coding all of the different methods available, nor will I be strictly showing all of the typical parts of machine learning (i.e.&nbsp;I won’t be splitting data into training/test sets, generating forecasts, looking at accuracy metrics, etc.). My intention is to demonstrate how one might go about programming their own reconciliation algorithm, so I am going to be working with a sample dataset with pre-existing forecasts. <br></p>
-<p>Below are plots of each of the hierarchical levels in the sample dataset:</p>
-<div class="cell" data-execution_count="246">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+                <table class="dataframe table table-sm table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Cat 1 / Sub-Cat 1</th>
+                      <th>Cat 1 / Sub-Cat 2</th>
+                      <th>Cat 1 / Sub-Cat 3</th>
+                      <th>Cat 2 / Sub-Cat 1</th>
+                      <th>Cat 2 / Sub-Cat 2</th>
+                      <th>Cat 2 / Sub-Cat 3</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Total</th>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th>Category 1</th>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Category 2</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th>Sub-Category 1</th>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Sub-Category 2</th>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Sub-Category 3</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 1 / Sub-Cat 1</th>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 1 / Sub-Cat 2</th>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 1 / Sub-Cat 3</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 2 / Sub-Cat 1</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 2 / Sub-Cat 2</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Cat 2 / Sub-Cat 3</th>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <p><strong>Mapping Matrix:</strong> <br> The key component of forecast reconciliation is the mapping matrix.
+            This matrix varies depending on the reconciliation method used, but the principle remains the same. When you
+            multiply the mapping matrix with the summing and base forecast matrices (for either hierarchical or grouped
+            time series), the result is a set of coherent forecasts. The challenge then is finding an “optimal” mapping
+            matrix that can be used to reconcile the forecasts with the least amount of variance.</p>
+        </section>
+        <section id="reconciliation-methods" class="level2">
+          <h2 class="anchored" data-anchor-id="reconciliation-methods">Reconciliation Methods</h2>
+          <p>Many different reconciliation methods exist, and some are better than others. I will not go into detail on
+            the majority of them, but I will still list a few. Reconciliation methods fall under two categories: <a
+              href="https://otexts.com/fpp3/single-level.html">single-level</a> and <a
+              href="https://otexts.com/fpp3/reconciliation.html#the-mint-optimal-reconciliation-approach">minimum
+              trace</a> methods.</p>
+          <p>Some single-level methods include: - Bottom-Up - Top-Down - Proportions of historical averages (method
+            exists for proportions of historical actuals as well as historical forecasts) - Middle-Out</p>
+          <p>Some minimum trace methods include: - Ordinary least squares (OLS) - Weighted least squares (WLS) with
+            variance scaling - WLS with structural scaling</p>
+          <p>For a more rigorous explanation of the different minimum trace methods - along with a few additional
+            approaches - feel free to check out <a href="https://robjhyndman.com/papers/mint.pdf">this</a> paper.</p>
+        </section>
+        <section id="available-reconciliation-tools" class="level2">
+          <h2 class="anchored" data-anchor-id="available-reconciliation-tools">Available Reconciliation Tools</h2>
+          <p>As mentioned previously, there are a couple of existing tools/libraries that can apply the majority of
+            reconciliation methods. The aforementioned Rob Hyndman helped to develop an R package called <a
+              href="https://fabletools.tidyverts.org/reference/reconcile.html"><code>fabletools</code></a> that in my
+            opinion is one of the best forecasting packages, and the best tool out there for forecast reconciliation. An
+            effort is also underway to develop a Python package called <a
+              href="https://scikit-hts.readthedocs.io/en/latest/readme.html"><code>scikit-hts</code></a>. However, it is
+            still pretty buggy and doesn’t have all of the capabilities that exist in <code>fabletools</code>.</p>
+        </section>
+        <section id="forecast-reconciliation-in-python-1" class="level2">
+          <h2 class="anchored" data-anchor-id="forecast-reconciliation-in-python-1">Forecast Reconciliation in Python
+          </h2>
+          <p>I will not be sharing an explanation for coding all of the different methods available, nor will I be
+            strictly showing all of the typical parts of machine learning (i.e.&nbsp;I won’t be splitting data into
+            training/test sets, generating forecasts, looking at accuracy metrics, etc.). My intention is to demonstrate
+            how one might go about programming their own reconciliation algorithm, so I am going to be working with a
+            sample dataset with pre-existing forecasts. <br></p>
+          <p>Below are plots of each of the hierarchical levels in the sample dataset:</p>
+          <div class="cell" data-execution_count="246">
+            <div class="sourceCode cell-code" id="cb9">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylab <span class="im">as</span> plt</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'bmh'</span>)</span>
@@ -590,388 +895,400 @@ a.main-link:hover {
 <span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>plot_hier(df, level<span class="op">=</span><span class="st">'top'</span>)</span>
 <span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>plot_hier(df, level<span class="op">=</span><span class="st">'middle'</span>)</span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>plot_hier(df, level<span class="op">=</span><span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="hyperarch_overview_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="hyperarch_overview_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="hyperarch_overview_files/figure-html/cell-7-output-3.png" class="img-fluid"></p>
-</div>
-</div>
-<p>The first steps in reconciling these forecasts are to define the Base Forecast and Summing Matrices. In order to do this, we need to define the bottom/middle/top levels of the hierarchical structure. I have found that having the data in the following format makes this process pretty simple to do:</p>
-<div class="cell" data-execution_count="247">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>plot_hier(df, level<span class="op">=</span><span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-display">
+              <p><img src="hyperarch_overview_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+            </div>
+            <div class="cell-output cell-output-display">
+              <p><img src="hyperarch_overview_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
+            </div>
+            <div class="cell-output cell-output-display">
+              <p><img src="hyperarch_overview_files/figure-html/cell-7-output-3.png" class="img-fluid"></p>
+            </div>
+          </div>
+          <p>The first steps in reconciling these forecasts are to define the Base Forecast and Summing Matrices. In
+            order to do this, we need to define the bottom/middle/top levels of the hierarchical structure. I have found
+            that having the data in the following format makes this process pretty simple to do:</p>
+          <div class="cell" data-execution_count="247">
+            <div class="sourceCode cell-code" id="cb10">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read data</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/hierarchical_data.csv'</span>)</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Original dataset:'</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Original dataset:</code></pre>
-</div>
-<div class="cell-output cell-output-display">
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>Original dataset:</code></pre>
+            </div>
+            <div class="cell-output cell-output-display">
 
-<div>
+              <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>date</th>
-      <th>parent</th>
-      <th>child</th>
-      <th>forecast</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_1</td>
-      <td>54.309109</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_1</td>
-      <td>57.023606</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_1</td>
-      <td>57.296805</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_1</td>
-      <td>59.326200</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_1</td>
-      <td>61.666806</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>6/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_1</td>
-      <td>63.596201</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>1/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_2</td>
-      <td>51.471773</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_2</td>
-      <td>52.272320</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>3/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_2</td>
-      <td>53.810966</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>4/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_2</td>
-      <td>55.726676</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>5/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_2</td>
-      <td>58.749791</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>6/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_2</td>
-      <td>61.995237</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>1/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_3</td>
-      <td>49.628702</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>2/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_3</td>
-      <td>49.317622</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>3/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_3</td>
-      <td>50.058703</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>4/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_3</td>
-      <td>51.134935</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>5/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_3</td>
-      <td>55.290929</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>6/1/2017</td>
-      <td>category_1</td>
-      <td>subcategory_3</td>
-      <td>62.709843</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>1/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_4</td>
-      <td>55.511010</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>2/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_4</td>
-      <td>56.083683</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>3/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_4</td>
-      <td>56.218949</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>4/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_4</td>
-      <td>56.143276</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>5/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_4</td>
-      <td>56.608268</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>6/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_4</td>
-      <td>57.260983</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>1/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_5</td>
-      <td>53.306174</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>2/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_5</td>
-      <td>53.071540</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>3/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_5</td>
-      <td>55.659420</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>4/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_5</td>
-      <td>56.842727</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>5/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_5</td>
-      <td>56.126760</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>6/1/2017</td>
-      <td>category_2</td>
-      <td>subcategory_5</td>
-      <td>53.772583</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>1/1/2017</td>
-      <td>total</td>
-      <td>category_1</td>
-      <td>171.273741</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>2/1/2017</td>
-      <td>total</td>
-      <td>category_1</td>
-      <td>172.425305</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>3/1/2017</td>
-      <td>total</td>
-      <td>category_1</td>
-      <td>175.925120</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>4/1/2017</td>
-      <td>total</td>
-      <td>category_1</td>
-      <td>184.916548</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>5/1/2017</td>
-      <td>total</td>
-      <td>category_1</td>
-      <td>206.228804</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>6/1/2017</td>
-      <td>total</td>
-      <td>category_1</td>
-      <td>234.987138</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>1/1/2017</td>
-      <td>total</td>
-      <td>category_2</td>
-      <td>114.194868</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>2/1/2017</td>
-      <td>total</td>
-      <td>category_2</td>
-      <td>114.802626</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>3/1/2017</td>
-      <td>total</td>
-      <td>category_2</td>
-      <td>120.535837</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>4/1/2017</td>
-      <td>total</td>
-      <td>category_2</td>
-      <td>122.949692</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>5/1/2017</td>
-      <td>total</td>
-      <td>category_2</td>
-      <td>122.393983</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>6/1/2017</td>
-      <td>total</td>
-      <td>category_2</td>
-      <td>118.695822</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>1/1/2017</td>
-      <td>NaN</td>
-      <td>total</td>
-      <td>275.827205</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>2/1/2017</td>
-      <td>NaN</td>
-      <td>total</td>
-      <td>278.333631</td>
-    </tr>
-    <tr>
-      <th>44</th>
-      <td>3/1/2017</td>
-      <td>NaN</td>
-      <td>total</td>
-      <td>286.530407</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>4/1/2017</td>
-      <td>NaN</td>
-      <td>total</td>
-      <td>294.169931</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>5/1/2017</td>
-      <td>NaN</td>
-      <td>total</td>
-      <td>304.508837</td>
-    </tr>
-    <tr>
-      <th>47</th>
-      <td>6/1/2017</td>
-      <td>NaN</td>
-      <td>total</td>
-      <td>315.620680</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Notice I have included <code>date</code>, <code>parent</code>, <code>child</code>, and <code>forecast</code> as columns in the dataset. Of course, however you choose to structure your data is completely up to you. But the methods I use to gather all of the information needed to reconcile the forecasts require that the data is formatted this way. <br></p>
-<p>Next, we can go ahead and define the different hierarchies within this dataset, and restructure the data into the correct base forecast matrix structure:</p>
-<div class="cell" data-execution_count="248">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">###-----------------------------------------------------------------------------</span></span>
+                <table class="dataframe table table-sm table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>date</th>
+                      <th>parent</th>
+                      <th>child</th>
+                      <th>forecast</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>0</th>
+                      <td>1/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_1</td>
+                      <td>54.309109</td>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <td>2/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_1</td>
+                      <td>57.023606</td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>3/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_1</td>
+                      <td>57.296805</td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>4/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_1</td>
+                      <td>59.326200</td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <td>5/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_1</td>
+                      <td>61.666806</td>
+                    </tr>
+                    <tr>
+                      <th>5</th>
+                      <td>6/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_1</td>
+                      <td>63.596201</td>
+                    </tr>
+                    <tr>
+                      <th>6</th>
+                      <td>1/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_2</td>
+                      <td>51.471773</td>
+                    </tr>
+                    <tr>
+                      <th>7</th>
+                      <td>2/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_2</td>
+                      <td>52.272320</td>
+                    </tr>
+                    <tr>
+                      <th>8</th>
+                      <td>3/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_2</td>
+                      <td>53.810966</td>
+                    </tr>
+                    <tr>
+                      <th>9</th>
+                      <td>4/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_2</td>
+                      <td>55.726676</td>
+                    </tr>
+                    <tr>
+                      <th>10</th>
+                      <td>5/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_2</td>
+                      <td>58.749791</td>
+                    </tr>
+                    <tr>
+                      <th>11</th>
+                      <td>6/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_2</td>
+                      <td>61.995237</td>
+                    </tr>
+                    <tr>
+                      <th>12</th>
+                      <td>1/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_3</td>
+                      <td>49.628702</td>
+                    </tr>
+                    <tr>
+                      <th>13</th>
+                      <td>2/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_3</td>
+                      <td>49.317622</td>
+                    </tr>
+                    <tr>
+                      <th>14</th>
+                      <td>3/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_3</td>
+                      <td>50.058703</td>
+                    </tr>
+                    <tr>
+                      <th>15</th>
+                      <td>4/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_3</td>
+                      <td>51.134935</td>
+                    </tr>
+                    <tr>
+                      <th>16</th>
+                      <td>5/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_3</td>
+                      <td>55.290929</td>
+                    </tr>
+                    <tr>
+                      <th>17</th>
+                      <td>6/1/2017</td>
+                      <td>category_1</td>
+                      <td>subcategory_3</td>
+                      <td>62.709843</td>
+                    </tr>
+                    <tr>
+                      <th>18</th>
+                      <td>1/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_4</td>
+                      <td>55.511010</td>
+                    </tr>
+                    <tr>
+                      <th>19</th>
+                      <td>2/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_4</td>
+                      <td>56.083683</td>
+                    </tr>
+                    <tr>
+                      <th>20</th>
+                      <td>3/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_4</td>
+                      <td>56.218949</td>
+                    </tr>
+                    <tr>
+                      <th>21</th>
+                      <td>4/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_4</td>
+                      <td>56.143276</td>
+                    </tr>
+                    <tr>
+                      <th>22</th>
+                      <td>5/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_4</td>
+                      <td>56.608268</td>
+                    </tr>
+                    <tr>
+                      <th>23</th>
+                      <td>6/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_4</td>
+                      <td>57.260983</td>
+                    </tr>
+                    <tr>
+                      <th>24</th>
+                      <td>1/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_5</td>
+                      <td>53.306174</td>
+                    </tr>
+                    <tr>
+                      <th>25</th>
+                      <td>2/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_5</td>
+                      <td>53.071540</td>
+                    </tr>
+                    <tr>
+                      <th>26</th>
+                      <td>3/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_5</td>
+                      <td>55.659420</td>
+                    </tr>
+                    <tr>
+                      <th>27</th>
+                      <td>4/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_5</td>
+                      <td>56.842727</td>
+                    </tr>
+                    <tr>
+                      <th>28</th>
+                      <td>5/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_5</td>
+                      <td>56.126760</td>
+                    </tr>
+                    <tr>
+                      <th>29</th>
+                      <td>6/1/2017</td>
+                      <td>category_2</td>
+                      <td>subcategory_5</td>
+                      <td>53.772583</td>
+                    </tr>
+                    <tr>
+                      <th>30</th>
+                      <td>1/1/2017</td>
+                      <td>total</td>
+                      <td>category_1</td>
+                      <td>171.273741</td>
+                    </tr>
+                    <tr>
+                      <th>31</th>
+                      <td>2/1/2017</td>
+                      <td>total</td>
+                      <td>category_1</td>
+                      <td>172.425305</td>
+                    </tr>
+                    <tr>
+                      <th>32</th>
+                      <td>3/1/2017</td>
+                      <td>total</td>
+                      <td>category_1</td>
+                      <td>175.925120</td>
+                    </tr>
+                    <tr>
+                      <th>33</th>
+                      <td>4/1/2017</td>
+                      <td>total</td>
+                      <td>category_1</td>
+                      <td>184.916548</td>
+                    </tr>
+                    <tr>
+                      <th>34</th>
+                      <td>5/1/2017</td>
+                      <td>total</td>
+                      <td>category_1</td>
+                      <td>206.228804</td>
+                    </tr>
+                    <tr>
+                      <th>35</th>
+                      <td>6/1/2017</td>
+                      <td>total</td>
+                      <td>category_1</td>
+                      <td>234.987138</td>
+                    </tr>
+                    <tr>
+                      <th>36</th>
+                      <td>1/1/2017</td>
+                      <td>total</td>
+                      <td>category_2</td>
+                      <td>114.194868</td>
+                    </tr>
+                    <tr>
+                      <th>37</th>
+                      <td>2/1/2017</td>
+                      <td>total</td>
+                      <td>category_2</td>
+                      <td>114.802626</td>
+                    </tr>
+                    <tr>
+                      <th>38</th>
+                      <td>3/1/2017</td>
+                      <td>total</td>
+                      <td>category_2</td>
+                      <td>120.535837</td>
+                    </tr>
+                    <tr>
+                      <th>39</th>
+                      <td>4/1/2017</td>
+                      <td>total</td>
+                      <td>category_2</td>
+                      <td>122.949692</td>
+                    </tr>
+                    <tr>
+                      <th>40</th>
+                      <td>5/1/2017</td>
+                      <td>total</td>
+                      <td>category_2</td>
+                      <td>122.393983</td>
+                    </tr>
+                    <tr>
+                      <th>41</th>
+                      <td>6/1/2017</td>
+                      <td>total</td>
+                      <td>category_2</td>
+                      <td>118.695822</td>
+                    </tr>
+                    <tr>
+                      <th>42</th>
+                      <td>1/1/2017</td>
+                      <td>NaN</td>
+                      <td>total</td>
+                      <td>275.827205</td>
+                    </tr>
+                    <tr>
+                      <th>43</th>
+                      <td>2/1/2017</td>
+                      <td>NaN</td>
+                      <td>total</td>
+                      <td>278.333631</td>
+                    </tr>
+                    <tr>
+                      <th>44</th>
+                      <td>3/1/2017</td>
+                      <td>NaN</td>
+                      <td>total</td>
+                      <td>286.530407</td>
+                    </tr>
+                    <tr>
+                      <th>45</th>
+                      <td>4/1/2017</td>
+                      <td>NaN</td>
+                      <td>total</td>
+                      <td>294.169931</td>
+                    </tr>
+                    <tr>
+                      <th>46</th>
+                      <td>5/1/2017</td>
+                      <td>NaN</td>
+                      <td>total</td>
+                      <td>304.508837</td>
+                    </tr>
+                    <tr>
+                      <th>47</th>
+                      <td>6/1/2017</td>
+                      <td>NaN</td>
+                      <td>total</td>
+                      <td>315.620680</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <p>Notice I have included <code>date</code>, <code>parent</code>, <code>child</code>, and
+            <code>forecast</code> as columns in the dataset. Of course, however you choose to structure your data is
+            completely up to you. But the methods I use to gather all of the information needed to reconcile the
+            forecasts require that the data is formatted this way. <br></p>
+          <p>Next, we can go ahead and define the different hierarchies within this dataset, and restructure the data
+            into the correct base forecast matrix structure:</p>
+          <div class="cell" data-execution_count="248">
+            <div class="sourceCode cell-code" id="cb12">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">###-----------------------------------------------------------------------------</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">### pre-process so that it is formatted correctly for the base forecast matrix</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">### define hierarchy structure</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">###-----------------------------------------------------------------------------</span></span>
@@ -1000,112 +1317,113 @@ a.main-link:hover {
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>display(df)</span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Bottom level: </span><span class="sc">{</span>btm<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
 <span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Labels: </span><span class="sc">{</span>hier<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Base forecast matrix: </span><span class="ch">\n</span><span class="sc">{</span>bf<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Restructured data:</code></pre>
-</div>
-<div class="cell-output cell-output-display">
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Base forecast matrix: </span><span class="ch">\n</span><span class="sc">{</span>bf<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>Restructured data:</code></pre>
+            </div>
+            <div class="cell-output cell-output-display">
 
-<div>
+              <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>category_1 -&gt; subcategory_1</th>
-      <th>category_1 -&gt; subcategory_2</th>
-      <th>category_1 -&gt; subcategory_3</th>
-      <th>category_2 -&gt; subcategory_4</th>
-      <th>category_2 -&gt; subcategory_5</th>
-      <th>total -&gt; category_1</th>
-      <th>total -&gt; category_2</th>
-      <th>total</th>
-    </tr>
-    <tr>
-      <th>date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1/1/2017</th>
-      <td>54.309109</td>
-      <td>51.471773</td>
-      <td>49.628702</td>
-      <td>55.511010</td>
-      <td>53.306174</td>
-      <td>171.273741</td>
-      <td>114.194868</td>
-      <td>275.827205</td>
-    </tr>
-    <tr>
-      <th>2/1/2017</th>
-      <td>57.023606</td>
-      <td>52.272320</td>
-      <td>49.317622</td>
-      <td>56.083683</td>
-      <td>53.071540</td>
-      <td>172.425305</td>
-      <td>114.802626</td>
-      <td>278.333631</td>
-    </tr>
-    <tr>
-      <th>3/1/2017</th>
-      <td>57.296805</td>
-      <td>53.810966</td>
-      <td>50.058703</td>
-      <td>56.218949</td>
-      <td>55.659420</td>
-      <td>175.925120</td>
-      <td>120.535837</td>
-      <td>286.530407</td>
-    </tr>
-    <tr>
-      <th>4/1/2017</th>
-      <td>59.326200</td>
-      <td>55.726676</td>
-      <td>51.134935</td>
-      <td>56.143276</td>
-      <td>56.842727</td>
-      <td>184.916548</td>
-      <td>122.949692</td>
-      <td>294.169931</td>
-    </tr>
-    <tr>
-      <th>5/1/2017</th>
-      <td>61.666806</td>
-      <td>58.749791</td>
-      <td>55.290929</td>
-      <td>56.608268</td>
-      <td>56.126760</td>
-      <td>206.228804</td>
-      <td>122.393983</td>
-      <td>304.508837</td>
-    </tr>
-    <tr>
-      <th>6/1/2017</th>
-      <td>63.596201</td>
-      <td>61.995237</td>
-      <td>62.709843</td>
-      <td>57.260983</td>
-      <td>53.772583</td>
-      <td>234.987138</td>
-      <td>118.695822</td>
-      <td>315.620680</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Bottom level: ['category_1 -&gt; subcategory_1', 'category_1 -&gt; subcategory_2', 'category_1 -&gt; subcategory_3', 'category_2 -&gt; subcategory_4', 'category_2 -&gt; subcategory_5']
+                <table class="dataframe table table-sm table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>category_1 -&gt; subcategory_1</th>
+                      <th>category_1 -&gt; subcategory_2</th>
+                      <th>category_1 -&gt; subcategory_3</th>
+                      <th>category_2 -&gt; subcategory_4</th>
+                      <th>category_2 -&gt; subcategory_5</th>
+                      <th>total -&gt; category_1</th>
+                      <th>total -&gt; category_2</th>
+                      <th>total</th>
+                    </tr>
+                    <tr>
+                      <th>date</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1/1/2017</th>
+                      <td>54.309109</td>
+                      <td>51.471773</td>
+                      <td>49.628702</td>
+                      <td>55.511010</td>
+                      <td>53.306174</td>
+                      <td>171.273741</td>
+                      <td>114.194868</td>
+                      <td>275.827205</td>
+                    </tr>
+                    <tr>
+                      <th>2/1/2017</th>
+                      <td>57.023606</td>
+                      <td>52.272320</td>
+                      <td>49.317622</td>
+                      <td>56.083683</td>
+                      <td>53.071540</td>
+                      <td>172.425305</td>
+                      <td>114.802626</td>
+                      <td>278.333631</td>
+                    </tr>
+                    <tr>
+                      <th>3/1/2017</th>
+                      <td>57.296805</td>
+                      <td>53.810966</td>
+                      <td>50.058703</td>
+                      <td>56.218949</td>
+                      <td>55.659420</td>
+                      <td>175.925120</td>
+                      <td>120.535837</td>
+                      <td>286.530407</td>
+                    </tr>
+                    <tr>
+                      <th>4/1/2017</th>
+                      <td>59.326200</td>
+                      <td>55.726676</td>
+                      <td>51.134935</td>
+                      <td>56.143276</td>
+                      <td>56.842727</td>
+                      <td>184.916548</td>
+                      <td>122.949692</td>
+                      <td>294.169931</td>
+                    </tr>
+                    <tr>
+                      <th>5/1/2017</th>
+                      <td>61.666806</td>
+                      <td>58.749791</td>
+                      <td>55.290929</td>
+                      <td>56.608268</td>
+                      <td>56.126760</td>
+                      <td>206.228804</td>
+                      <td>122.393983</td>
+                      <td>304.508837</td>
+                    </tr>
+                    <tr>
+                      <th>6/1/2017</th>
+                      <td>63.596201</td>
+                      <td>61.995237</td>
+                      <td>62.709843</td>
+                      <td>57.260983</td>
+                      <td>53.772583</td>
+                      <td>234.987138</td>
+                      <td>118.695822</td>
+                      <td>315.620680</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>Bottom level: ['category_1 -&gt; subcategory_1', 'category_1 -&gt; subcategory_2', 'category_1 -&gt; subcategory_3', 'category_2 -&gt; subcategory_4', 'category_2 -&gt; subcategory_5']
 
 Labels: ['category_1 -&gt; subcategory_1', 'category_1 -&gt; subcategory_2', 'category_1 -&gt; subcategory_3', 'category_2 -&gt; subcategory_4', 'category_2 -&gt; subcategory_5', 'total -&gt; category_1', 'total -&gt; category_2', 'total']
 
@@ -1122,11 +1440,14 @@ Base forecast matrix:
   206.2288039  122.3939829  304.508837  ]
  [ 63.59620071  61.99523706  62.70984315  57.26098344  53.7725831
   234.9871381  118.695822   315.6206805 ]]</code></pre>
-</div>
-</div>
-<p>From the restructured dataset, defining the summing matrix can easily be accomplished using the following code:</p>
-<div class="cell" data-execution_count="249">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+            </div>
+          </div>
+          <p>From the restructured dataset, defining the summing matrix can easily be accomplished using the following
+            code:</p>
+          <div class="cell" data-execution_count="249">
+            <div class="sourceCode cell-code" id="cb15">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#define Summing Matrix</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1150,9 +1471,10 @@ Base forecast matrix:
 <span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># top level all 1's</span></span>
 <span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>            np.ones(<span class="bu">len</span>(btm))))</span>
 <span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1. 0. 0. 0. 0.]
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-stdout">
+              <pre><code>[[1. 0. 0. 0. 0.]
  [0. 1. 0. 0. 0.]
  [0. 0. 1. 0. 0.]
  [0. 0. 0. 1. 0.]
@@ -1160,15 +1482,23 @@ Base forecast matrix:
  [1. 1. 1. 0. 0.]
  [0. 0. 0. 1. 1.]
  [1. 1. 1. 1. 1.]]</code></pre>
-</div>
-</div>
-<p>Finally, we can define our mapping matrix. For this post, I will be demonstrating how to reconcile the forecasts using the Ordinary Least Squares method. The other methods can easily be implemented without too many major adjustments to the code now that you have the base forecast and summing matrices defined. If you would like to use any of the other methods, you can refer to <a href="https://otexts.com/fpp3/reconciliation.html#the-mint-optimal-reconciliation-approach">this</a> section of Hyndman’s book for the different optimal reconciliation approaches.</p>
-<p>Using the OLS reconciliation method, we will use the following formula:</p>
-<p>Let the summing matrix <code>sm</code> = <em>S</em>, the base forecast matrix <code>bf</code> = <em>F</em>, the forecast horizon = <em>h</em>, and the reconciled forecast output = <em>R</em>.</p>
-<p>The mapping matrix <em>M</em> = (<em>S<sup>T</sup>S</em>)<em><sup>-1</sup>S<sup>T</sup></em></p>
-<p>Thus, <em>R</em> = <em>SMF<sub>h</sub></em></p>
-<div class="cell" data-execution_count="250">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define M, multiply, multiply by S</span></span>
+            </div>
+          </div>
+          <p>Finally, we can define our mapping matrix. For this post, I will be demonstrating how to reconcile the
+            forecasts using the Ordinary Least Squares method. The other methods can easily be implemented without too
+            many major adjustments to the code now that you have the base forecast and summing matrices defined. If you
+            would like to use any of the other methods, you can refer to <a
+              href="https://otexts.com/fpp3/reconciliation.html#the-mint-optimal-reconciliation-approach">this</a>
+            section of Hyndman’s book for the different optimal reconciliation approaches.</p>
+          <p>Using the OLS reconciliation method, we will use the following formula:</p>
+          <p>Let the summing matrix <code>sm</code> = <em>S</em>, the base forecast matrix <code>bf</code> = <em>F</em>,
+            the forecast horizon = <em>h</em>, and the reconciled forecast output = <em>R</em>.</p>
+          <p>The mapping matrix <em>M</em> = (<em>S<sup>T</sup>S</em>)<em><sup>-1</sup>S<sup>T</sup></em></p>
+          <p>Thus, <em>R</em> = <em>SMF<sub>h</sub></em></p>
+          <div class="cell" data-execution_count="250">
+            <div class="sourceCode cell-code" id="cb17">
+              <pre
+                class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define M, multiply, multiply by S</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.dot(np.dot(sm, np.linalg.inv(np.dot(np.transpose(sm), sm))), np.transpose(sm))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># reconcile by taking inner product between M and F for every h</span></span>
@@ -1177,437 +1507,448 @@ Base forecast matrix:
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># output to dataframe</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df_rec <span class="op">=</span> pd.DataFrame(rec, index<span class="op">=</span>df.index, columns<span class="op">=</span>df.columns)</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>display(df_rec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>display(df_rec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+            </div>
+            <div class="cell-output cell-output-display">
 
-<div>
+              <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>category_1 -&gt; subcategory_1</th>
-      <th>category_1 -&gt; subcategory_2</th>
-      <th>category_1 -&gt; subcategory_3</th>
-      <th>category_2 -&gt; subcategory_4</th>
-      <th>category_2 -&gt; subcategory_5</th>
-      <th>total -&gt; category_1</th>
-      <th>total -&gt; category_2</th>
-      <th>total</th>
-    </tr>
-    <tr>
-      <th>date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1/1/2017</th>
-      <td>57.873479</td>
-      <td>55.036143</td>
-      <td>53.193072</td>
-      <td>56.768012</td>
-      <td>54.563177</td>
-      <td>166.102694</td>
-      <td>111.331189</td>
-      <td>277.433882</td>
-    </tr>
-    <tr>
-      <th>2/1/2017</th>
-      <td>60.108384</td>
-      <td>55.357098</td>
-      <td>52.402400</td>
-      <td>57.475269</td>
-      <td>54.463126</td>
-      <td>167.867882</td>
-      <td>111.938395</td>
-      <td>279.806277</td>
-    </tr>
-    <tr>
-      <th>3/1/2017</th>
-      <td>60.639390</td>
-      <td>57.153552</td>
-      <td>53.401289</td>
-      <td>58.642004</td>
-      <td>58.082475</td>
-      <td>171.194231</td>
-      <td>116.724479</td>
-      <td>287.918710</td>
-    </tr>
-    <tr>
-      <th>4/1/2017</th>
-      <td>63.419464</td>
-      <td>59.819940</td>
-      <td>55.228199</td>
-      <td>58.679279</td>
-      <td>59.378730</td>
-      <td>178.467603</td>
-      <td>118.058009</td>
-      <td>296.525612</td>
-    </tr>
-    <tr>
-      <th>5/1/2017</th>
-      <td>67.924990</td>
-      <td>65.007974</td>
-      <td>61.549113</td>
-      <td>57.998405</td>
-      <td>57.516897</td>
-      <td>194.482077</td>
-      <td>115.515303</td>
-      <td>309.997380</td>
-    </tr>
-    <tr>
-      <th>6/1/2017</th>
-      <td>72.801796</td>
-      <td>71.200833</td>
-      <td>71.915439</td>
-      <td>56.527244</td>
-      <td>53.038843</td>
-      <td>215.918068</td>
-      <td>109.566087</td>
-      <td>325.484155</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<p>To double check, you can double check that everything adds up coherently:</p>
-<p><em>T</em> = <em>C1</em> + <em>C2</em> = <em>SC1</em> + <em>SC2</em> + <em>SC3</em> + <em>SC4</em> + <em>SC5</em> <br> <em>C1</em> = <em>SC1</em> + <em>SC2</em> <br> <em>C2</em> = <em>SC3</em> + <em>SC4</em> + <em>SC5</em> <br></p>
-<p>And that’s it! You have successfully reconciled the forecasts.</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p>[1] Rob J. Hyndman and George Athanasopoulos, <em>Forecasting: Principles and Practice 3rd ed.</em> (2022), https://otexts.com/fpp3/ <br> [2] Shanika L. Wickramasuriya, George Athanasopoulos, and Rob Hyndman; <em>Optimal Forecast Reconciliation for Hierarchical and Grouped Time Series Through Trace Minimization</em> (2019); https://doi.org/10.1080/01621459.2018.1448825<br> [3] Mitchell O’Hara-Wild, Rob Hyndman, Earo Wang; <em>fabletools</em> (2022); https://fabletools.tidyverts.org/reference/reconcile.html <br> [4] Carlo Mazzaferro, <em>scikit-hts</em> (2019), https://scikit-hts.readthedocs.io/en/latest/readme.html</p>
-</section>
-</section>
+                <table class="dataframe table table-sm table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>category_1 -&gt; subcategory_1</th>
+                      <th>category_1 -&gt; subcategory_2</th>
+                      <th>category_1 -&gt; subcategory_3</th>
+                      <th>category_2 -&gt; subcategory_4</th>
+                      <th>category_2 -&gt; subcategory_5</th>
+                      <th>total -&gt; category_1</th>
+                      <th>total -&gt; category_2</th>
+                      <th>total</th>
+                    </tr>
+                    <tr>
+                      <th>date</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1/1/2017</th>
+                      <td>57.873479</td>
+                      <td>55.036143</td>
+                      <td>53.193072</td>
+                      <td>56.768012</td>
+                      <td>54.563177</td>
+                      <td>166.102694</td>
+                      <td>111.331189</td>
+                      <td>277.433882</td>
+                    </tr>
+                    <tr>
+                      <th>2/1/2017</th>
+                      <td>60.108384</td>
+                      <td>55.357098</td>
+                      <td>52.402400</td>
+                      <td>57.475269</td>
+                      <td>54.463126</td>
+                      <td>167.867882</td>
+                      <td>111.938395</td>
+                      <td>279.806277</td>
+                    </tr>
+                    <tr>
+                      <th>3/1/2017</th>
+                      <td>60.639390</td>
+                      <td>57.153552</td>
+                      <td>53.401289</td>
+                      <td>58.642004</td>
+                      <td>58.082475</td>
+                      <td>171.194231</td>
+                      <td>116.724479</td>
+                      <td>287.918710</td>
+                    </tr>
+                    <tr>
+                      <th>4/1/2017</th>
+                      <td>63.419464</td>
+                      <td>59.819940</td>
+                      <td>55.228199</td>
+                      <td>58.679279</td>
+                      <td>59.378730</td>
+                      <td>178.467603</td>
+                      <td>118.058009</td>
+                      <td>296.525612</td>
+                    </tr>
+                    <tr>
+                      <th>5/1/2017</th>
+                      <td>67.924990</td>
+                      <td>65.007974</td>
+                      <td>61.549113</td>
+                      <td>57.998405</td>
+                      <td>57.516897</td>
+                      <td>194.482077</td>
+                      <td>115.515303</td>
+                      <td>309.997380</td>
+                    </tr>
+                    <tr>
+                      <th>6/1/2017</th>
+                      <td>72.801796</td>
+                      <td>71.200833</td>
+                      <td>71.915439</td>
+                      <td>56.527244</td>
+                      <td>53.038843</td>
+                      <td>215.918068</td>
+                      <td>109.566087</td>
+                      <td>325.484155</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <p>To double check, you can double check that everything adds up coherently:</p>
+          <p><em>T</em> = <em>C1</em> + <em>C2</em> = <em>SC1</em> + <em>SC2</em> + <em>SC3</em> + <em>SC4</em> +
+            <em>SC5</em> <br> <em>C1</em> = <em>SC1</em> + <em>SC2</em> <br> <em>C2</em> = <em>SC3</em> + <em>SC4</em> +
+            <em>SC5</em> <br></p>
+          <p>And that’s it! You have successfully reconciled the forecasts.</p>
+        </section>
+        <section id="references" class="level2">
+          <h2 class="anchored" data-anchor-id="references">References</h2>
+          <p>[1] Rob J. Hyndman and George Athanasopoulos, <em>Forecasting: Principles and Practice 3rd ed.</em> (2022),
+            https://otexts.com/fpp3/ <br> [2] Shanika L. Wickramasuriya, George Athanasopoulos, and Rob Hyndman;
+            <em>Optimal Forecast Reconciliation for Hierarchical and Grouped Time Series Through Trace Minimization</em>
+            (2019); https://doi.org/10.1080/01621459.2018.1448825<br> [3] Mitchell O’Hara-Wild, Rob Hyndman, Earo Wang;
+            <em>fabletools</em> (2022); https://fabletools.tidyverts.org/reference/reconcile.html <br> [4] Carlo
+            Mazzaferro, <em>scikit-hts</em> (2019), https://scikit-hts.readthedocs.io/en/latest/readme.html</p>
+        </section>
+      </section>
 
-</main>
+    </main>
 
-<hr>
-<div>
-  <style>
-    hr {
-      margin-top: 30px;
-      margin-bottom: 20px
-    }
-
-    .post_navi {
-      display: flex
-    }
-
-    .post_navi-label {
-      font-size: 0.8em;
-      opacity: 0.5
-    }
-
-    .post_navi .post_navi-item {
-      padding: 0 2.2em;
-      width: 50%;
-      position: relative;
-      color: inherit !important
-    }
-
-    .post_navi .nav_prev {
-      text-align: left
-    }
-
-    .post_navi .nav_next {
-      text-align: right
-    }
-
-    .post_navi .nav_prev .post_navi-arrow {
-      left: 0
-    }
-
-    .post_navi .nav_next .post_navi-arrow {
-      right: 0
-    }
-
-    .post_navi .post_navi-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2.5em;
-      opacity: 0.3
-    }
-  </style>
-  <div class=post_navi>
-    <a class="post_navi-item nav_prev main-link"
-       href=https://benton-tripp.github.io/posts/perceptron.html
-       title="The Perceptron Algorithm (in R and Python)">
-      <div class=post_navi-arrow>&lt;</div>
-      <div class=post_navi-label>Previous Post</div>
-      <div><span>The Perceptron Algorithm (in R and Python)</span></div>
-    </a>
-    <a class="post_navi-item nav_next main-link" 
-      href=https://benton-tripp.github.io/posts/tree-volume-using-random-forests.html
-      title="Tree Volume using Random Forests">
-      <div class=post_navi-arrow>&gt;</div>
-      <div class=post_navi-label>Next Post</div>
-      <div><span>Tree Volume using Random Forests</span></div>
-    </a>
-  </div>
-  <a class="u-url sf-hidden" href=https://benton-tripp.github.io/posts/hyperarch_overview.html hidden></a>
-</div>
-<div style="margin-top:10px;">
-  <style>
-  .wrapper {
-    max-width: -webkit-calc(800px - (30px*2));
-    max-width: calc(800px - (30px*2));
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 30px;
-    padding-left: 30px
-  }
-
-  @media screen and (max-width:800px) {
-    .wrapper {
-      max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
-      padding-right: 15px;
-      padding-left: 15px
-    }
-  }
-
-  .wrapper:after,
-  .footer-col-wrapper:after {
-    content: "";
-    display: table;
-    clear: both
-  }
-
-  .svg-icon {
-    width: 26px;
-    height: 16px;
-    display: inline-block;
-    fill: #828282;
-    padding-right: 5px;
-    vertical-align: text-top
-  }
-
-  .social-media-list li+li {
-    padding-top: 5px
-  }
-
-  .site-footer {
-    border-top: 1px solid #e8e8e8;
-    padding: 30px 0
-  }
-
-  .footer-heading {
-    font-size: 18px;
-    margin-bottom: 15px
-  }
-
-  .contact-list,
-  .social-media-list {
-    list-style: none;
-    margin-left: 0;
-    width: 155px;
-  }
-
-  .footer-col-wrapper {
-    font-size: 15px;
-    color: #828282;
-    margin-left: -15px
-  }
-
-  .footer-col {
-    float: left;
-    margin-bottom: 15px;
-    padding-left: 15px
-  }
-
-  .footer-col-1 {
-    width: 30%;
-  }
-
-  .footer-col-2 {
-    width: 25%;
-  }
-
-  .footer-col-3 {
-    width: 45%;
-  }
-
-  @media screen and (max-width:800px) {
-
-    .footer-col-1,
-    .footer-col-2 {
-      width: -webkit-calc(50% - (30px/2));
-      width: calc(50% - (30px/2))
-    }
-
-    .footer-col-3 {
-      width: -webkit-calc(100% - (30px/2));
-      width: calc(100% - (30px/2))
-    }
-  }
-
-  @media screen and (max-width:600px) {
-    .footer-col {
-      float: none;
-      width: -webkit-calc(100% - (30px/2));
-      width: calc(100% - (30px/2))
-    }
-  }
-  </style>
-<footer class="site-footer h-card">
-    <data class=u-url href= /></data>
-    <div class=wrapper>
-      <h2 class=footer-heading>Benton's Portfolio/Blog</h2>
-      <div class=footer-col-wrapper>
-        <div class="footer-col footer-col-1">
-          <ul class=contact-list>
-            <li class=p-name>Benton Tripp
-            <li><a class=u-email href=mailto:btripp@ncsu.edu>btripp@ncsu.edu</a>
-          </ul>
-        </div>
-        <div class="footer-col footer-col-2">
-          <ul class=social-media-list>
-            <li><a href=https://github.com/benton-tripp><svg class=svg-icon>
-                  <symbol id=github fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
-                    <path
-                      d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8">
-                    </path>
-                  </symbol>
-                  <use xlink:href=#github></use>
-                </svg> <span class=username>benton-tripp</span></a>
-            <li><a href=https://www.linkedin.com/in/bentontripp><svg class=svg-icon>
-                  <symbol id=linkedin fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
-                    <path
-                      d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z"
-                      fill-rule=nonzero></path>
-                  </symbol>
-                  <use xlink:href=#linkedin></use>
-                </svg> <span class=username>bentontripp</span></a>
-            <li><a href=https://benton-tripp.github.io/feed.xml><svg class=svg-icon>
-                  <symbol id=rss fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
-                    <path
-                      d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194 11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0 13.806c0-1.21.983-2.195 2.194-2.195zM10.606 16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z">
-                    </path>
-                  </symbol>
-                  <use xlink:href=#rss></use>
-                </svg> <span>rss</span></a>
-          </ul>
-        </div>
-        <div class="footer-col footer-col-3">
-          <p>This blog is a place for me to document and present different projects I have been working on.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-  </div>
-
-
-<!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    setTimeout(function() {
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
+    <hr>
+    <div>
+      <style>
+        hr {
+          margin-top: 30px;
+          margin-bottom: 20px
         }
-        popup.appendChild(citeDiv);
+
+        .post_navi {
+          display: flex
+        }
+
+        .post_navi-label {
+          font-size: 0.8em;
+          opacity: 0.5
+        }
+
+        .post_navi .post_navi-item {
+          padding: 0 2.2em;
+          width: 50%;
+          position: relative;
+          color: inherit !important
+        }
+
+        .post_navi .nav_prev {
+          text-align: left
+        }
+
+        .post_navi .nav_next {
+          text-align: right
+        }
+
+        .post_navi .nav_prev .post_navi-arrow {
+          left: 0
+        }
+
+        .post_navi .nav_next .post_navi-arrow {
+          right: 0
+        }
+
+        .post_navi .post_navi-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 2.5em;
+          opacity: 0.3
+        }
+      </style>
+      <div class=post_navi>
+        <a class="post_navi-item nav_prev main-link" href=https://benton-tripp.github.io/posts/perceptron.html
+          title="The Perceptron Algorithm (in R and Python)">
+          <div class=post_navi-arrow>&lt;</div>
+          <div class=post_navi-label>Previous Post</div>
+          <div><span>The Perceptron Algorithm (in R and Python)</span></div>
+        </a>
+        <a class="post_navi-item nav_next main-link"
+          href=https://benton-tripp.github.io/posts/tree-volume-using-random-forests.html
+          title="Tree Volume using Random Forests">
+          <div class=post_navi-arrow>&gt;</div>
+          <div class=post_navi-label>Next Post</div>
+          <div><span>Tree Volume using Random Forests</span></div>
+        </a>
+      </div>
+      <a class="u-url sf-hidden" href=https://benton-tripp.github.io/posts/hyperarch_overview.html hidden></a>
+    </div>
+    <div style="margin-top:10px;">
+      <style>
+        .wrapper {
+          max-width: -webkit-calc(800px - (30px*2));
+          max-width: calc(800px - (30px*2));
+          margin-right: auto;
+          margin-left: auto;
+          padding-right: 30px;
+          padding-left: 30px
+        }
+
+        @media screen and (max-width:800px) {
+          .wrapper {
+            max-width: -webkit-calc(800px - (30px));
+            max-width: calc(800px - (30px));
+            padding-right: 15px;
+            padding-left: 15px
+          }
+        }
+
+        .wrapper:after,
+        .footer-col-wrapper:after {
+          content: "";
+          display: table;
+          clear: both
+        }
+
+        .svg-icon {
+          width: 26px;
+          height: 16px;
+          display: inline-block;
+          fill: #828282;
+          padding-right: 5px;
+          vertical-align: text-top
+        }
+
+        .social-media-list li+li {
+          padding-top: 5px
+        }
+
+        .site-footer {
+          border-top: 1px solid #e8e8e8;
+          padding: 30px 0
+        }
+
+        .footer-heading {
+          font-size: 18px;
+          margin-bottom: 15px
+        }
+
+        .contact-list,
+        .social-media-list {
+          list-style: none;
+          margin-left: 0;
+          width: 155px;
+        }
+
+        .footer-col-wrapper {
+          font-size: 15px;
+          color: #828282;
+          margin-left: -15px
+        }
+
+        .footer-col {
+          float: left;
+          margin-bottom: 15px;
+          padding-left: 15px
+        }
+
+        .footer-col-1 {
+          width: 30%;
+        }
+
+        .footer-col-2 {
+          width: 25%;
+        }
+
+        .footer-col-3 {
+          width: 45%;
+        }
+
+        @media screen and (max-width:800px) {
+
+          .footer-col-1,
+          .footer-col-2 {
+            width: -webkit-calc(50% - (30px/2));
+            width: calc(50% - (30px/2))
+          }
+
+          .footer-col-3 {
+            width: -webkit-calc(100% - (30px/2));
+            width: calc(100% - (30px/2))
+          }
+        }
+
+        @media screen and (max-width:600px) {
+          .footer-col {
+            float: none;
+            width: -webkit-calc(100% - (30px/2));
+            width: calc(100% - (30px/2))
+          }
+        }
+      </style>
+      <footer class="site-footer h-card">
+        <data class=u-url href= /></data>
+        <div class=wrapper>
+          <h2 class=footer-heading>Benton's Portfolio/Blog</h2>
+          <div class=footer-col-wrapper>
+            <div class="footer-col footer-col-1">
+              <ul class=contact-list>
+                <li class=p-name>Benton Tripp
+                <li><a class=u-email href=mailto:btripp@ncsu.edu>btripp@ncsu.edu</a>
+              </ul>
+            </div>
+            <div class="footer-col footer-col-2">
+              <ul class=social-media-list>
+                <li><a href=https://github.com/benton-tripp><svg class=svg-icon>
+                      <symbol id=github fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round
+                        stroke-miterlimit=1.414>
+                        <path
+                          d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8">
+                        </path>
+                      </symbol>
+                      <use xlink:href=#github></use>
+                    </svg> <span class=username>benton-tripp</span></a>
+                <li><a href=https://www.linkedin.com/in/bentontripp><svg class=svg-icon>
+                      <symbol id=linkedin fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round
+                        stroke-miterlimit=1.414>
+                        <path
+                          d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z"
+                          fill-rule=nonzero></path>
+                      </symbol>
+                      <use xlink:href=#linkedin></use>
+                    </svg> <span class=username>bentontripp</span></a>
+                <li><a href=https://benton-tripp.github.io/feed.xml><svg class=svg-icon>
+                      <symbol id=rss fill-rule=evenodd clip-rule=evenodd stroke-linejoin=round stroke-miterlimit=1.414>
+                        <path
+                          d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194 11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0 13.806c0-1.21.983-2.195 2.194-2.195zM10.606 16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z">
+                        </path>
+                      </symbol>
+                      <use xlink:href=#rss></use>
+                    </svg> <span>rss</span></a>
+              </ul>
+            </div>
+            <div class="footer-col footer-col-3">
+              <p>This blog is a place for me to document and present different projects I have been working on.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- /main column -->
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const toggleBodyColorMode = (bsSheetEl) => {
+          const mode = bsSheetEl.getAttribute("data-mode");
+          const bodyEl = window.document.querySelector("body");
+          if (mode === "dark") {
+            bodyEl.classList.add("quarto-dark");
+            bodyEl.classList.remove("quarto-light");
+          } else {
+            bodyEl.classList.add("quarto-light");
+            bodyEl.classList.remove("quarto-dark");
+          }
+        }
+        const toggleBodyColorPrimary = () => {
+          const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+          if (bsSheetEl) {
+            toggleBodyColorMode(bsSheetEl);
+          }
+        }
+        toggleBodyColorPrimary();
+        const icon = "";
+        const anchorJS = new window.AnchorJS();
+        anchorJS.options = {
+          placement: 'right',
+          icon: icon
+        };
+        anchorJS.add('.anchored');
+        const clipboard = new window.ClipboardJS('.code-copy-button', {
+          target: function (trigger) {
+            return trigger.previousElementSibling;
+          }
+        });
+        clipboard.on('success', function (e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          setTimeout(function () {
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        });
+        function tippyHover(el, contentFn) {
+          const config = {
+            allowHTML: true,
+            content: contentFn,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function (el) {
+              return el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'quarto',
+            placement: 'bottom-start'
+          };
+          window.tippy(el, config);
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i = 0; i < noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function () {
+            let href = ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch { }
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            return note.innerHTML;
+          });
+        }
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i = 0; i < bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+          tippyHover(ref, function () {
+            var popup = window.document.createElement('div');
+            cites.forEach(function (cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
       });
-      return popup.innerHTML;
-    });
-  }
-});
-</script>
-</div> <!-- /content -->
+    </script>
+  </div> <!-- /content -->
 
 
 
-</body></html>
+</body>
+
+</html>
