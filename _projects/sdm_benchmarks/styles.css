@@ -1,0 +1,57 @@
+.main-area-container {
+  margin:20px; 
+  margin-top:60px;
+}
+
+#mainPage {
+  margin-right: 5px;
+}
+
+#mainPage span, #mainPage i, #mainPage b {
+  font-size: 18px;
+  color: #222222;
+}
+
+#homePageMain {
+  display:flex;
+  flex-direction: row;
+}
+
+#homePageContainer {
+  margin-top:30px; 
+  background-color: #eeeeee;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 600px;
+  height: auto;
+}
+
+#mainReportContainer {
+  margin-top:30px;
+  padding:10px;
+}
+
+#mainReportContainer li {
+  font-size: 18px;
+}
+
+.link-header-parent {
+  display:flex; 
+  flex-direction:row;
+  align-items:center;
+}
+
+.link-header, .link-header:visited, .link-header:active {
+  font-size: 24px;
+  color: #222222;
+  margin-right: 10px;
+  display:inline-block;
+  min-width:260px;
+  max-width:260px;
+}
+
+.link-header:hover {
+  color: #000000;
+}
+

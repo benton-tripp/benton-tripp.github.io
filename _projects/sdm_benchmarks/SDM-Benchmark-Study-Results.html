@@ -1,0 +1,1521 @@
+<html>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script type="application/shiny-singletons"></script>
+<script type="application/html-dependencies">jquery[3.6.0];shiny-css[1.7.4];font-awesome[6.4.0];bootstrap[3.4.1]</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" rel="stylesheet" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<link href="shiny.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0//css/v4-shims.min.css" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"/>
+<script rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous"></script>
+<title>SDM Benchmark Study Results</title>
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+<script src="scripts.js"></script></head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header active shared-menu-item">
+          <a href="#tab-5466-1" data-toggle="tab" data-bs-toggle="tab" data-value="Home">
+            <span class="navbar-brand">SDM Benchmark Study Results</span>
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right" id="mainPage" data-tabsetid="1639">
+          <li class="dropdown">
+            <a id="dropDownMenu" href="#" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-value="mainMenu" aria-haspopup="true" aria-expanded="false">
+              <i aria-label="bars icon" class="fas fa-bars fa-fw" role="presentation"></i>
+              <span>Menu</span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropDownMenu" data-tabsetid="5466">
+              <li class="active shared-menu-item">
+                <a class="dropdown-item" href="#tab-5466-1" data-toggle="tab" data-bs-toggle="tab" data-value="Home">
+                  <b>Home</b>
+                </a>
+              </li>
+              <li class="shared-menu-item">
+                <a class="dropdown-item" href="#tab-5466-2" data-toggle="tab" data-bs-toggle="tab" data-value="Species Observations">Species Observations</a>
+              </li>
+              <li class="shared-menu-item">
+                <a class="dropdown-item" href="#tab-5466-3" data-toggle="tab" data-bs-toggle="tab" data-value="Model Covariates">Model Covariates</a>
+              </li>
+              <li class="shared-menu-item">
+                <a class="dropdown-item" href="#tab-5466-4" data-toggle="tab" data-bs-toggle="tab" data-value="Pseudo-Absence Selection">Pseudo-Absence Selection</a>
+              </li>
+              <li class="shared-menu-item">
+                <a class="dropdown-item" href="#tab-5466-5" data-toggle="tab" data-bs-toggle="tab" data-value="Species Predictions">Species Predictions</a>
+              </li>
+              <hr/>
+              <li>
+                <a class="dropdown-item" href="https://benton-tripp.github.io/">
+                  <span style="margin-bottom:3px;">Benton's Portfolio/Blog</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row"></div>
+      <div class="tab-content" data-tabsetid="1639">
+        <div class="tab-pane active" data-value="Home" id="tab-5466-1">
+          <div class="main-area-container">
+            <h1>Species Distribution Benchmark Study Results</h1>
+            <h4 style="color:#555555;">Benton Tripp</h4>
+            <div id="homePageMain">
+              <div id="homePageContainer">
+                <ul class="nav nav-tabs" role="tablist" style="list-style-type:none; display:flex; flex-direction:column;">
+                  <li class="shared-menu-item" style="margin:5px;">
+                    <a class="link-header-parent" href="#tab-5466-2" data-toggle="tab">
+                      <span class="link-header">Species Observations</span>
+                      <img style="width:250px; height:auto;" src="plots/obs_sample.svg"/>
+                    </a>
+                  </li>
+                  <li class="shared-menu-item" style="margin:5px;">
+                    <a class="link-header-parent" href="#tab-5466-3" data-toggle="tab">
+                      <span class="link-header">Model Covariates</span>
+                      <img style="width:250px; height:auto;" src="plots/covariate_sample.svg"/>
+                    </a>
+                  </li>
+                  <li class="shared-menu-item" style="margin:5px;">
+                    <a class="link-header-parent" href="#tab-5466-4" data-toggle="tab">
+                      <span class="link-header">Pseudo-Absence Selection</span>
+                      <img style="width:250px; height:auto;" src="plots/pa_sample.svg"/>
+                    </a>
+                  </li>
+                  <li class="shared-menu-item" style="margin:5px;">
+                    <a class="link-header-parent" href="#tab-5466-5" data-toggle="tab" data-value="Species Predictions">
+                      <span class="link-header">Species Predictions</span>
+                      <img src="plots/prediction_sample.svg" style="width:250px; height:auto;"/>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div id="mainReportContainer">
+                <h3>Project Overview and Results</h3>
+                <ul style="list-style-type:none; display:flex; flex-direction:column;">
+                  <li>
+                    <a href="https://raw.githubusercontent.com/benton-tripp/benton-tripp.github.io/main/_docs/lit_review.pdf" target="_blank">
+                      <i class="fa-solid fa-book" style="margin-right:3px;"></i>
+                      <span>Literature Review</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://raw.githubusercontent.com/benton-tripp/benton-tripp.github.io/main/_docs/FinalSummary.pdf" target="_blank">
+                      <i class="fa-solid fa-file" style="margin-right:3px;"></i>
+                      <span>Final Results and Summary</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benton-tripp/presence-only-sdm" target="_blank">
+                      <i class="fa-brands fa-github" style="margin-right:3px;"></i>
+                      <span>Github Repository</span>
+                    </a>
+                  </li>
+                  <li>
+                    <p style="max-width: 600px; margin:8px;">The purpose of this project was to evaluate machine learning models in
+                  Species Distribution Modeling (SDM), comparing their performance to
+                  traditional models like Maximum Entropy and Inhomogeneous Poisson Process
+                  models. Testing was performed using the observation data of 8 distinct 
+                  bird species, across 4 different US states. Covariates used in model
+                  training were derived from bioclimatic variables for each of the sample
+                  regions.</p>
+                  </li>
+                </ul>
+                <h3>Project Walk-Through</h3>
+                <ol style="display:flex; flex-direction:column;">
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/sdm-benchmark-study-part-1-data-preparation.html" target="_blank">
+                      <span>Data Preparation</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-09-17-sdm-benchmark-study-part-2-exploratory-analysis.html" target="_blank">
+                      <span>Exploratory Analysis</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-09-27-sdm-benchmark-study-part-3-more-preprocessing-and-eda.html" target="_blank">
+                      <span>More Pre-Processing and EDA</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-10-05-sdm-benchmark-study-part-4-baseline-species-distribution-models.html" target="_blank">
+                      <span>Baseline Species Distribution Models</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-10-13-sdm-benchmark-study-part-5-fitting-and-testing-ipp-models.html" target="_blank">
+                      <span>Fitting and Testing Inhomogeneous Poisson Process Models </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-10-18-sdm-benchmark-study-part-6-resampling-pseudoabsence-points.html" target="_blank">
+                      <span>Re-Sampling Pseudo-Absence Points Using Iterative Sampling and BIOCLIM </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-10-26-sdm-benchmark-study-part-7-ipp-models-with-updated-data.html" target="_blank">
+                      <span>Fitting and Testing Inhomogeneous Poisson Process Models with Updated Data </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-11-03-sdm-benchmark-study-part-8-fitting-and-testing-maxent-models.html" target="_blank">
+                      <span>Fitting and Testing MaxEnt Models </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://benton-tripp.github.io/posts/2023-11-23-sdm-benchmark-study-part-9-fitting-and-testing-ml-models.html" target="_blank">
+                      <span>Fitting and Testing Common ML Models </span>
+                    </a>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" data-value="Species Observations" id="tab-5466-2">
+          <div class="main-area-container">
+            <h1>Species Observations</h1>
+            <div>
+              <script>$(document).ready(function(){
+        $("#obs_state_selector").change(function(){
+          var selectedState = $(this).val();
+          var selectedSpecies = $("#obs_species_selector").val();
+          // Hide all raster plots
+          $("[id$=_obs_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_obs_plots").show();
+        });
+        $("#obs_species_selector").change(function(){
+          var selectedState = $("#obs_state_selector").val();
+          var selectedSpecies = $(this).val();
+          // Hide all raster plots
+          $("[id$=_obs_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_obs_plots").show();
+        });
+      });</script>
+              <div style="display:flex; flex-direction:row;">
+                <div style="margin-right:5px;">
+                  <select id="obs_state_selector" style="font-size:17px;">
+                    <option value="co">CO</option>
+                    <option value="nc">NC</option>
+                    <option value="or">OR</option>
+                    <option value="vt">VT</option>
+                  </select>
+                </div>
+                <div>
+                  <select id="obs_species_selector" style="font-size:17px;">
+                    <option value="belted-kingfisher">Belted Kingfisher</option>
+                    <option value="cedar-waxwing">Cedar Waxwing</option>
+                    <option value="downy-woodpecker">Downy Woodpecker</option>
+                    <option value="ruddy-duck">Ruddy Duck</option>
+                    <option value="sanderling">Sanderling</option>
+                    <option value="sandhill-crane">Sandhill Crane</option>
+                    <option value="sharp-shinned-hawk">Sharp-shinned Hawk</option>
+                    <option value="wild-turkey">Wild Turkey</option>
+                  </select>
+                </div>
+              </div>
+              <div id="co_belted-kingfisher_obs_plots" style="">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_cedar-waxwing_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_downy-woodpecker_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_ruddy-duck_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_sanderling_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_sandhill-crane_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_sharp-shinned-hawk_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="co_wild-turkey_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_co_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_belted-kingfisher_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_cedar-waxwing_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_downy-woodpecker_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_ruddy-duck_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_sanderling_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_sandhill-crane_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_sharp-shinned-hawk_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="nc_wild-turkey_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_nc_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_belted-kingfisher_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_cedar-waxwing_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_downy-woodpecker_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_ruddy-duck_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_sanderling_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_sandhill-crane_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_sharp-shinned-hawk_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="or_wild-turkey_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_or_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_belted-kingfisher_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_cedar-waxwing_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_downy-woodpecker_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_ruddy-duck_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_sanderling_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_sandhill-crane_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_sharp-shinned-hawk_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_vt_obs.svg"/>
+                </div>
+              </div>
+              <div id="vt_wild-turkey_obs_plots" style="display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_vt_obs.svg"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" data-value="Model Covariates" id="tab-5466-3">
+          <div class="main-area-container">
+            <h1>Model Covariates</h1>
+            <i>*Prior to pre-processing and feature engineering</i>
+            <div>
+              <script>$(document).ready(function(){
+        $("#cov_state_selector").change(function(){
+          var selectedState = $(this).val();
+          var selectedCov = $("#cov_cov_selector").val();
+          // Hide all raster plots
+          $("[id$=_cov_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedCov + "_cov_plots").show();
+        });
+        $("#cov_cov_selector").change(function(){
+          var selectedState = $("#cov_state_selector").val();
+          var selectedCov = $(this).val();
+          // Hide all raster plots
+          $("[id$=_cov_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedCov + "_cov_plots").show();
+        });
+      });</script>
+              <div style="display:flex; flex-direction:row;">
+                <div style="margin-right:5px;">
+                  <select id="cov_state_selector" style="font-size:17px;">
+                    <option value="co">CO</option>
+                    <option value="nc">NC</option>
+                    <option value="or">OR</option>
+                    <option value="vt">VT</option>
+                  </select>
+                </div>
+                <div style="margin-right:5px;">
+                  <select id="cov_cov_selector" style="font-size:17px;">
+                    <option value="coastline">Coastline</option>
+                    <option value="dem">DEM</option>
+                    <option value="land-cover">Land Cover</option>
+                    <option value="fall-ndvi">Fall NDVI</option>
+                    <option value="spring-ndvi">Spring NDVI</option>
+                    <option value="summer-ndvi">Summer NDVI</option>
+                    <option value="winter-ndvi">Winter NDVI</option>
+                    <option value="average-prcp">Average Prcp</option>
+                    <option value="max-temp">Max Temp</option>
+                    <option value="min-temp">Min Temp</option>
+                    <option value="urban-imperviousness">Urban Imperviousness</option>
+                    <option value="waterbodies">Waterbodies</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div id="co_coastline_cov_plots" style="">
+                  <div style="margin:5px;">
+                    <img src="plots/coastline_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_dem_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/dem_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_land-cover_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/land-cover_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_fall-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/fall-ndvi_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_spring-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/spring-ndvi_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_summer-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/summer-ndvi_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_winter-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/winter-ndvi_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_average-prcp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/average-prcp_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_max-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/max-temp_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_min-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/min-temp_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_urban-imperviousness_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/urban-imperviousness_co_cov.svg"/>
+                  </div>
+                </div>
+                <div id="co_waterbodies_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/waterbodies_co_cov.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div id="nc_coastline_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/coastline_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_dem_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/dem_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_land-cover_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/land-cover_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_fall-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/fall-ndvi_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_spring-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/spring-ndvi_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_summer-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/summer-ndvi_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_winter-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/winter-ndvi_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_average-prcp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/average-prcp_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_max-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/max-temp_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_min-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/min-temp_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_urban-imperviousness_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/urban-imperviousness_nc_cov.svg"/>
+                  </div>
+                </div>
+                <div id="nc_waterbodies_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/waterbodies_nc_cov.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div id="or_coastline_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/coastline_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_dem_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/dem_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_land-cover_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/land-cover_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_fall-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/fall-ndvi_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_spring-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/spring-ndvi_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_summer-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/summer-ndvi_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_winter-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/winter-ndvi_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_average-prcp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/average-prcp_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_max-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/max-temp_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_min-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/min-temp_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_urban-imperviousness_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/urban-imperviousness_or_cov.svg"/>
+                  </div>
+                </div>
+                <div id="or_waterbodies_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/waterbodies_or_cov.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div id="vt_coastline_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/coastline_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_dem_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/dem_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_land-cover_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/land-cover_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_fall-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/fall-ndvi_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_spring-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/spring-ndvi_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_summer-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/summer-ndvi_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_winter-ndvi_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/winter-ndvi_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_average-prcp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/average-prcp_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_max-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/max-temp_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_min-temp_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/min-temp_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_urban-imperviousness_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/urban-imperviousness_vt_cov.svg"/>
+                  </div>
+                </div>
+                <div id="vt_waterbodies_cov_plots" style="display:none;">
+                  <div style="margin:5px;">
+                    <img src="plots/waterbodies_vt_cov.svg"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" data-value="Pseudo-Absence Selection" id="tab-5466-4">
+          <div class="main-area-container">
+            <h1 style='margin-bottom:10px;'>BIOCLIM Suitability, Pseudo-Absence Sample Regions,<br>and Pseudo-Absence Selections
+            <div>
+              <script>$(document).ready(function(){
+        $("#bioclim_state_selector").change(function(){
+          var selectedState = $(this).val();
+          var selectedSpecies = $("#bioclim_species_selector").val();
+          // Hide all raster plots
+          $("[id$=_bioclim_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_bioclim_plots").show();
+        });
+        $("#bioclim_species_selector").change(function(){
+          var selectedState = $("#bioclim_state_selector").val();
+          var selectedSpecies = $(this).val();
+          // Hide all raster plots
+          $("[id$=_bioclim_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_bioclim_plots").show();
+        });
+      });</script>
+              <div style="display:flex; flex-direction:row;">
+                <div style="margin-right:5px;">
+                  <select id="bioclim_state_selector" style="font-size:17px;">
+                    <option value="co">CO</option>
+                    <option value="nc">NC</option>
+                    <option value="or">OR</option>
+                    <option value="vt">VT</option>
+                  </select>
+                </div>
+                <div>
+                  <select id="bioclim_species_selector" style="font-size:17px;">
+                    <option value="belted-kingfisher">Belted Kingfisher</option>
+                    <option value="cedar-waxwing">Cedar Waxwing</option>
+                    <option value="downy-woodpecker">Downy Woodpecker</option>
+                    <option value="ruddy-duck">Ruddy Duck</option>
+                    <option value="sanderling">Sanderling</option>
+                    <option value="sandhill-crane">Sandhill Crane</option>
+                    <option value="sharp-shinned-hawk">Sharp-shinned Hawk</option>
+                    <option value="wild-turkey">Wild Turkey</option>
+                  </select>
+                </div>
+              </div>
+              <div id="co_belted-kingfisher_bioclim_plots" style="display:flexflex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_cedar-waxwing_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_downy-woodpecker_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_ruddy-duck_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_sanderling_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_sandhill-crane_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_sharp-shinned-hawk_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="co_wild-turkey_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_co_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_co_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_co_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_co_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_belted-kingfisher_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_cedar-waxwing_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_downy-woodpecker_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_ruddy-duck_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_sanderling_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_sandhill-crane_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_sharp-shinned-hawk_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="nc_wild-turkey_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_nc_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_nc_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_nc_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_nc_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_belted-kingfisher_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_cedar-waxwing_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_downy-woodpecker_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_ruddy-duck_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_sanderling_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_sandhill-crane_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_sharp-shinned-hawk_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="or_wild-turkey_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_or_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_or_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_or_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_or_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_belted-kingfisher_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/belted-kingfisher_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_cedar-waxwing_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/cedar-waxwing_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_downy-woodpecker_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/downy-woodpecker_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_ruddy-duck_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/ruddy-duck_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_sanderling_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sanderling_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_sandhill-crane_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sandhill-crane_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_sharp-shinned-hawk_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/sharp-shinned-hawk_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+              <div id="vt_wild-turkey_bioclim_plots" style="display:none;flex-direction:column;">
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_vt_bioclim.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_vt_pa1.svg"/>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row;">
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_vt_pa2.svg"/>
+                  </div>
+                  <div style="margin:5px;">
+                    <img src="plots/wild-turkey_vt_pa_points.svg"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" data-value="Species Predictions" id="tab-5466-5">
+          <div class="main-area-container">
+            <h1>Species Predictions</h1>
+            <div>
+              <script>$(document).ready(function(){
+        $("#pred_state_selector").change(function(){
+          var selectedState = $(this).val();
+          var selectedSpecies = $("#pred_species_selector").val();
+          // console.log(selectedState + " &amp; " + selectedSpecies);
+          // Hide all raster plots
+          $("[id$=_pred_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_pred_plots").show();
+        });
+        $("#pred_species_selector").change(function(){
+          var selectedState = $("#pred_state_selector").val();
+          var selectedSpecies = $(this).val();
+          // console.log(selectedState + " &amp; " + selectedSpecies);
+          // Hide all raster plots
+          $("[id$=_pred_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_pred_plots").show();
+        });
+      });</script>
+              <div style="display:flex; flex-direction:row;">
+                <div style="margin-right:5px;">
+                  <select id="pred_state_selector" style="font-size:17px;">
+                    <option value="CO">CO</option>
+                    <option value="NC">NC</option>
+                    <option value="OR">OR</option>
+                    <option value="VT">VT</option>
+                  </select>
+                </div>
+                <div style="margin-right:5px;">
+                  <select id="pred_species_selector" style="font-size:17px;">
+                    <option value="Belted-Kingfisher">Belted Kingfisher</option>
+                    <option value="Cedar-Waxwing">Cedar Waxwing</option>
+                    <option value="Downy-Woodpecker">Downy Woodpecker</option>
+                    <option value="Ruddy-Duck">Ruddy Duck</option>
+                    <option value="Sanderling">Sanderling</option>
+                    <option value="Sandhill-Crane">Sandhill Crane</option>
+                    <option value="Sharp-shinned-Hawk">Sharp-shinned Hawk</option>
+                    <option value="Wild-Turkey">Wild Turkey</option>
+                  </select>
+                </div>
+              </div>
+              <div id="CO_Belted-Kingfisher_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; ">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Cedar-Waxwing_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Downy-Woodpecker_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Ruddy-Duck_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Sandhill-Crane_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Sharp-shinned-Hawk_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Wild-Turkey_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Belted-Kingfisher_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Cedar-Waxwing_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Downy-Woodpecker_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Ruddy-Duck_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Sanderling_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Sandhill-Crane_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Sharp-shinned-Hawk_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="NC_Wild-Turkey_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_nc.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Belted-Kingfisher_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Cedar-Waxwing_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Downy-Woodpecker_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Ruddy-Duck_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Sanderling_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Sandhill-Crane_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Sharp-shinned-Hawk_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="OR_Wild-Turkey_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_or.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Belted-Kingfisher_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Cedar-Waxwing_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/cedar-waxwing_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Downy-Woodpecker_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/downy-woodpecker_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Ruddy-Duck_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/ruddy-duck_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Sanderling_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sanderling_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Sandhill-Crane_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sandhill-crane_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Sharp-shinned-Hawk_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/sharp-shinned-hawk_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="VT_Wild-Turkey_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/wild-turkey_vt.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+              <div id="CO_Belted-Kingfisher_pred_plots" style="padding:5px; overflow:auto; width:100%;min-height:1400px; display:none;">
+                <div style="margin:5px;">
+                  <img src="plots/belted-kingfisher_co.svg" style="max-height:700px; width=auto; height=auto;"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
