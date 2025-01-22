@@ -480,3 +480,39 @@ table td, table th {
 #appendix-section ul li {
     margin-left: 20px;
 }
+
+
+.blog-row-col {
+    display: flex;
+    flex-direction: row;
+}
+
+#headshot-img {
+    height: auto;  /* 429.033px */
+    width: 256px !important;
+    min-width: 256px !important;
+    margin-left:10px; 
+    margin-bottom:10px;
+    position: relative; /* For flexibility */
+    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 99%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: cover;
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 99%, rgba(0, 0, 0, 0) 100%);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
+}
+
+#headshot-img-section {
+    display: flex;
+}
+
+@media screen and (max-width:600px) {
+    .blog-row-col {
+        flex-direction: column;
+    }
+    #headshot-img-section {
+        justify-content: center;
+    }
+}
