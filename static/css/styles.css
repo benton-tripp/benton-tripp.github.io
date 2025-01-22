@@ -102,7 +102,7 @@ a:hover {
 }
 
 figure {
-    min-width: 350px;
+    min-width: 340px;
 }
 
 img {
@@ -439,6 +439,11 @@ table td, table th {
     table td, table th {
         padding: 1.5px;
     }
+}
+
+.overflow-x-table {  
+    min-width: 360px;
+    overflow-x: auto;
 }
 
 /* General table styling */
