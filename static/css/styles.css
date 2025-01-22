@@ -488,22 +488,25 @@ table td, table th {
 }
 
 #headshot-img {
-    height: auto;  /* 429.033px */
-    width: 256px !important;
-    min-width: 256px !important;
-    margin-left:10px; 
-    margin-bottom:10px;
+    height: 202px !important;  /* 429.033px */
+    min-height:202px !important;
+    max-height: 202px !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    margin: 10px;
 }
 
 #headshot-img-section {
     display: flex;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:500px) {
     .blog-row-col {
         flex-direction: column;
     }
     #headshot-img-section {
-        justify-content: center;
+        justify-content: left;
+        margin:0;
+        margin-left: 20px;
     }
 }
