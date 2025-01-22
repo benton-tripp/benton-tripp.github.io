@@ -494,14 +494,6 @@ table td, table th {
     margin-left:10px; 
     margin-bottom:10px;
     position: relative; /* For flexibility */
-    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 99%, rgba(0, 0, 0, 0) 100%);
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-size: cover;
-    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 99%, rgba(0, 0, 0, 0) 100%);
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: cover;
 }
 
 #headshot-img-section {
