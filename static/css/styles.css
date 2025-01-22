@@ -493,7 +493,6 @@ table td, table th {
     min-width: 256px !important;
     margin-left:10px; 
     margin-bottom:10px;
-    position: relative; /* For flexibility */
 }
 
 #headshot-img-section {
