@@ -301,8 +301,8 @@ The DNN is mathematically expressed as:
 </p>
 
 *Table 2: Summary of Neural Network Models.*
-<div style="min-width:320px; overflow-x:auto; border: 1px solid #fff; margin: 5px;">
-<table class="journal-table" style="white-space:nowrap;">
+<div style="min-width:320px; overflow-x:auto;">
+<table class="journal-table" style="white-space:nowrap; border: 1px solid #fff;  margin: 5px;">
     <thead>
         <tr>
             <th>Model</th>
@@ -334,7 +334,7 @@ The DNN is mathematically expressed as:
 </table>
 </div>
                     
-All models were trained using supervised learning techniques, optimizing the mean squared error (MSE) loss function to minimize the difference between the predicted ($ \hat{\mathbf{y}} \)) and actual (\( \mathbf{y} $) imperviousness values:
+All models were trained using supervised learning techniques, optimizing the mean squared error (MSE) loss function to minimize the difference between the predicted ($ \hat{\mathbf{y}} $) and actual ($ \mathbf{y} $) imperviousness values:
 
 $$ \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)^2, $$
 
@@ -422,8 +422,8 @@ Figure 11 illustrates the distribution of RMSE values across the top 125 models 
 
 *Table 3: Top 10 models ranked by RMSE, with hyperparameters and performance metrics.*
 
-<div style="min-width:320px; overflow-x:auto; border: 1px solid #fff; margin: 5px;">
-    <table class="journal-table">
+<div style="min-width:320px; overflow-x:auto; ">
+    <table class="journal-table" style="border: 1px solid #fff; margin: 5px;">
         <thead>
             <tr>
                 <th>Model Type</th>
@@ -565,8 +565,8 @@ Figure 11 illustrates the distribution of RMSE values across the top 125 models 
 
 *Table 4: Top 10 models ranked by MAE, with hyperparameters and performance metrics.*
 
-<div style="min-width:320px; overflow-x:auto; border: 1px solid #fff; margin: 5px;">
-    <table class="journal-table">
+<div style="min-width:320px; overflow-x:auto;">
+    <table class="journal-table" style="border: 1px solid #fff; margin: 5px;">
         <thead>
             <tr>
                 <th>Model Type</th>
