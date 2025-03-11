@@ -8,16 +8,19 @@ layout: home
 <div class="content-container">
   <div class="text-content">
     <p>
-        I am a data scientist with a background in geospatial analytics, advanced statistical modeling, and machine learning. My work spans both public and private sector projects where I have designed and implemented large-scale data pipelines, developed cloud-based analytics applications, and applied modern MLOps practices. I am currently pursuing a master’s degree in Geospatial Information Science and Technology, complementing my professional experience with deeper insights into spatial statistics, GIS, and advanced geospatial modeling.
+        I am a data scientist with a strong background in geospatial analytics, advanced statistical modeling, and machine learning. I have designed and implemented large-scale data pipelines, developed cloud-based analytics applications, and applied modern MLOps practices. I have a master’s degree in Geospatial Information Science and Technology, which complements my professional experience with deeper insights into spatial statistics, GIS, and advanced geospatial modeling.
     </p>
     <p>
-        Over the course of my career, I have worked extensively with Python and R to build efficient workflows for handling complex geospatial datasets, from satellite imagery and LiDAR to citizen science data. My proficiency in ArcGIS Pro and open-source libraries (such as GeoPandas and Rasterio) ensures robust and scalable solutions, supported by cloud services—especially AWS—for streamlined data ingestion and model deployment. By automating advanced analytics, I have delivered real-time insights that serve diverse stakeholders and project needs.
+        Beyond my geospatial focus, I have broad expertise in data science methods, ranging from natural language processing and deep learning (object detection, classification) to forecasting, time series analysis, and anomaly detection. I employ both supervised and unsupervised learning techniques, integrating modern approaches such as retrieval augmented generation when tackling complex projects. My workflows often involve Python and R, supported by best practices in software development (Git, Docker, Linux, bash scripting) and data management spanning SQL databases (MySQL, PostgreSQL, SQL Server), NoSQL systems (MongoDB), and cloud storage solutions (S3).
     </p>
     <p>
-        In addition to my professional and academic pursuits, I maintain a strong interest in environmental conservation and ecological research, frequently applying spatial data science to solve pressing environmental challenges. Whether tracking species distributions or developing strategies for urban growth monitoring, I strive to combine technical rigor with practical, impactful outcomes.
+        I also build and maintain web applications using Flask, HTML/CSS/JS, jQuery, Jekyll, and R Shiny, delivering user-friendly interfaces for a variety of analytical tasks. Whether working with satellite imagery, LiDAR, or citizen science data, I strive to produce robust, scalable solutions that provide real-time insights across diverse stakeholder needs.
     </p>
     <p>
-        Feel free to explore my portfolio for examples of my work, and please feel free to reach out using my contact details on this page.
+        In addition to my professional pursuits, I maintain a strong interest in environmental conservation and ecological research, applying spatial data science to address critical challenges. From species distribution modeling to urban growth monitoring, my work aims to balance technical rigor with impactful, real-world outcomes.
+    </p>
+    <p>
+        Feel free to explore my portfolio for examples of my work, and please reach out using my contact details on this page.
     </p>
   </div>
   <div class="image-content">
