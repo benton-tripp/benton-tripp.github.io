@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<article class="page h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="page-header">
+    <h1 class="page-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="page-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>

@@ -1,0 +1,584 @@
+/* ============================================================
+   :root Variables
+   ------------------------------------------------------------
+   Define common variables for dimensions and colors used 
+   throughout the stylesheet.
+============================================================ */
+:root {
+  --min-width: 340px;
+  --color-bg-body: #444;
+  --color-text-body: #e0e0e0;
+  --color-bg-wrapper: #323232;
+  --color-bg-navbar-start: #444;
+  --color-bg-navbar-end: #222;
+  --color-link: #fff;
+  --color-link-hover: #8989aa;
+  --color-footer-bg: #222;
+  --color-footer-text: #ccc;
+  --color-footer-link: #ccc;
+  --color-portfolio-bg: #555;
+  --color-portfolio-border: #222;
+  --color-portfolio-hover-bg: #666;
+}
+
+/* ============================================================
+   Global Resets & Typography
+   ------------------------------------------------------------
+   Reset margins/paddings and set base typography styles.
+============================================================ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  min-width: var(--min-width);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-body);
+  color: var(--color-text-body);
+}
+
+/* Main content area occupies remaining space */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: var(--min-width);
+}
+
+code {
+  font-family: 'Source Code Pro', Consolas, 'Courier New', monospace;
+}
+
+/* ============================================================
+   Wrapper Panel
+   ------------------------------------------------------------
+   Centered panel for page content with padding and max-width.
+============================================================ */
+.wrapper {
+  background-color: var(--color-bg-wrapper);
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px 40px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: 1px;
+  min-height: 100px;
+  min-width: var(--min-width);
+}
+
+/* Adjust font-size for nested elements within wrapper */
+.wrapper p, .wrapper b, .wrapper i {
+  font-size: 17px;
+}
+
+.wrapper a {
+  font-size: 18px;
+}
+
+/* ============================================================
+   Content Container: Text & Image Layout
+============================================================ */
+.content-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Text content styling */
+.content-container .text-content {
+  flex: 1 1 50%;
+  padding-right: 10px;
+}
+
+/* Image content styling with vertical stacking */
+.content-container .image-content {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+/* ============================================================
+   Image Navigation Menu
+============================================================ */
+#img-nav-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#img-nav-menu a {
+  display: flex;
+  align-items: center;
+  color: var(--color-link);
+  text-decoration: none;
+  margin: 5px 150px 5px 0;
+  transition: color 0.05s;
+  font-size: 22px;
+}
+
+#img-nav-menu a i {
+  width: 1.5em; /* Fixed width for consistent icon alignment */
+  text-align: left;
+  margin-right: 8px; /* Spacing between icon and text */
+}
+
+#img-nav-menu a:hover,
+#img-nav-menu a:active {
+  color: var(--color-link-hover);
+}
+
+/* ============================================================
+   Image Navigation Contact Section
+============================================================ */
+#img-nav-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 15px 45px 0 0;
+  color: var(--color-link);
+}
+
+#img-nav-contact h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+#img-nav-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+
+#img-nav-contact li,
+#resume-contact li {
+  margin: 2.5px 0;
+}
+
+#img-nav-contact a,
+.resume-link {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.05s;
+}
+
+#img-nav-contact a:hover,
+#img-nav-contact a:active,
+.resume-link:hover,
+.resume-link:active {
+  color: var(--color-link-hover);
+}
+
+/* ============================================================
+   Navbar Styles
+============================================================ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, var(--color-bg-navbar-start), var(--color-bg-navbar-end));
+  color: #fff;
+  padding: 10px 20px;
+  position: relative;
+  text-wrap: nowrap;
+  min-width: calc(var(--min-width) - 40px);
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+  margin-right: 15px;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 15px;
+  z-index: 2;
+}
+
+.navbar-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.navbar-item:hover {
+  color: var(--color-link-hover);
+}
+
+/* Hamburger menu button (visible on mobile) */
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Footer Styles
+============================================================ */
+.footer {
+  background-color: var(--color-footer-bg);
+  padding: 15px 20px;
+  text-align: center;
+  color: var(--color-footer-text);
+  font-size: 0.9em;
+  min-width: calc(var(--min-width) - 40px);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-nav {
+  margin-top: 10px;
+}
+
+.footer-nav a {
+  color: var(--color-footer-link);
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-nav a:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+
+/* ============================================================
+   Portfolio Grid & Item Card Styles
+============================================================ */
+.portfolio-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-item {
+  background: var(--color-portfolio-bg);
+  border: 1px solid var(--color-portfolio-border);
+  border-radius: 4px;
+  transition: 0.2s ease;
+  margin: 20px;
+  max-height: 180px;
+  min-height: 180px;
+}
+
+.portfolio-item a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 180px;
+}
+
+.portfolio-item a:focus,
+.portfolio-item a:hover {
+  background: var(--color-portfolio-hover-bg);
+}
+
+/* Thumbnail image styling */
+.portfolio-thumbnail {
+  max-width: 150px;
+  height: auto;
+  margin: 10px;
+}
+
+/* Portfolio title styling */
+.portfolio-title {
+  font-size: 22px;
+  text-align: left;
+  margin: 0;
+  margin-left: 10px;
+}
+
+/* ============================================================
+   Portfolio Page Styles
+============================================================ */
+
+.page-content .page a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.page-content .page a:hover,
+.page-content .page a:active,
+
+/* ============================================================
+   Blog Page Directory Styles
+============================================================ */
+
+/* Blog Page Directory Styles */
+#blog-page-dir {
+  margin: 2rem 0;
+  font-family: inherit;
+}
+
+/* Each month is treated as an article */
+.blog-month {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #555;
+}
+
+/* Month header styling */
+.blog-month header h2 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #93929d;
+}
+
+/* Remove default list styling and add spacing */
+.blog-month ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.blog-month ul li {
+  margin: 0.5rem 0;
+}
+
+/* Link styling with subtle hover effect */
+.blog-month ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: color 0.05s;
+}
+
+.blog-month ul li a:hover,
+.blog-month ul li a:active {
+  color: var(--color-link-hover);
+}
+
+/* ============================================================
+   Blog Posts
+============================================================ */
+
+.post-content figure {
+  margin: 15px auto;
+  padding: 0;
+}
+
+.post-content img {
+  display: block;
+  margin: 5 auto;
+}
+
+.post-content p {
+  font: 400 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.post-content pre {
+  background-color: #242424;
+  border-radius: 4px;
+  padding: 5px;
+  border: 1px solid #aaa;
+  overflow-x: auto;
+  font-size: 16px;
+}
+
+.post-content pre code {
+  color: #f8f8f2;
+}
+
+.post-content .code-print {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.post-content p .language-plaintext {
+  font-size: 17px;
+  color: #f0c2c2;
+}
+
+.post-content a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 17.5px;
+  transition: color 0.05s;
+}
+
+.post-content a:hover,
+.post-content a:active {
+  color: var(--color-link-hover);
+}
+
+.post-content .journal-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.post-content .hts-dataframe {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #fff;
+}
+
+.post-content .hts-dataframe tbody tr th:only-of-type,
+.post-content .journal-table tbody tr th:only-of-type {
+  vertical-align: middle;
+}
+
+.post-content .hts-dataframe tbody tr th,
+.post-content .journal-table tbody tr th {
+  vertical-align: top;
+}
+
+.post-content .hts-dataframe thead th,
+.post-content .journal-table thead th {
+  border-bottom: 1px solid #fff;
+}
+
+.post-content .hts-dataframe th,
+.post-content .journal-table th {
+  text-align: right;
+  padding: 0 5px;
+  white-space:nowrap;
+  border-right: 1px solid #fff;
+}
+
+.post-content .journal-table tr {
+  text-align: left;
+}
+
+.post-content .hts-dataframe tr{
+  text-align: right;
+}
+
+.post-content .hts-dataframe tr td,
+.post-content .journal-table tr td{
+  border-right: 1px solid #fff;
+  padding-right: 5px;
+}
+
+.post-content .hts-dataframe tbody tr:nth-child(odd),
+.post-content .journal-table tbody tr:nth-child(odd){
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+/* ============================================================
+   Responsive Styles
+============================================================ */
+
+/* Adjustments for screens 768px and below */
+@media screen and (max-width: 768px) {
+  /* Wrapper padding */
+  .wrapper {
+    padding: 10px 20px;
+  }
+
+  /* Stack content vertically */
+  .content-container {
+    flex-direction: column;
+  }
+
+  .content-container .text-content,
+  .content-container .image-content {
+    flex: 1 1 100%;
+    padding-right: 0;
+  }
+
+  /* Hide image navigation menu on smaller screens */
+  #img-nav-menu {
+    display: none;
+  }
+
+  /* Portfolio item adjustments */
+  .portfolio-item {
+    margin: 5px;
+    max-height: 220px;
+    min-height: 220px;
+    min-width: 320px;
+  }
+
+  .portfolio-item a {
+    height: 220px;
+    min-width: 320px;
+  }
+
+  .portfolio-title {
+    font-size: 19px;
+    margin-left: 5px;
+  }
+
+  .portfolio-thumbnail {
+    max-width: 120px;
+  }
+
+  /* Main blog directory page */
+  .blog-month ul li a {
+    font-size: 1em;
+  }
+
+  /* Navbar adjustments */
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 2.5px;
+    background-color: var(--color-bg-navbar-end);
+    width: 150px;
+    padding: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .navbar-menu.show {
+    display: flex;
+    border: 0.5px solid #888;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+}
+
+/* Adjustments for screens 480px and below */
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 1.1em;
+    margin-right: 5px;
+  }
+
+  .wrapper {
+    padding: 10px;
+  }
+
+  .wrapper p, .wrapper b, .wrapper i, 
+  .post-content p, .post-content b, .post-content i {
+    font-size: 15px;
+  }
+  
+  .wrapper a, .post-content a {
+    font-size: 16px;
+  }
+
+  #img-nav-menu a {
+    font-size: 20px;
+  }
+
+  .post-content p .language-plaintext {
+    font-size: 16px;
+  }
+  
+  .post-content a {
+    font-size: 16.5px;
+  }
+}
