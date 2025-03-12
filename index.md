@@ -44,7 +44,7 @@ layout: home
                 <span>bentontripp@gmail.com</span>
                 </a>
                 </li>
-            <li><a href="https://www.linkedin.com/in/bentontripp/">
+            <li><a href="https://www.linkedin.com/in/bentontripp/" target="_blank">
                 <i class="fa-brands fa-linkedin"></i>
                 <span>/bentontripp</span>
             </a>
