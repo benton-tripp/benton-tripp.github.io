@@ -1,26 +1,23 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 ---
 
 <div class="content-container">
-  <div class="text-content">
+   <div class="text-content">
     <p>
-        I am a data scientist with a strong background in geospatial analytics, advanced statistical modeling, and machine learning. I have designed and implemented large-scale data pipelines, developed cloud-based analytics applications, and applied modern MLOps practices. I have a master’s degree in Geospatial Information Science and Technology, which complements my professional experience with deeper insights into spatial statistics, GIS, and advanced geospatial modeling.
+      I am a data scientist with a background in geospatial analytics, advanced statistical modeling, and machine learning. I have developed large-scale data pipelines, cloud-based analytics solutions, and modern MLOps workflows, informed by over 5 years of professional experience, personal projects, and a master’s-level education in Geospatial Information Science and Technology.
     </p>
     <p>
-        Beyond my geospatial focus, I have broad expertise in data science methods, ranging from natural language processing and deep learning (object detection, classification) to forecasting, time series analysis, and anomaly detection. I employ both supervised and unsupervised learning techniques, integrating modern approaches such as retrieval augmented generation when tackling complex projects. My workflows often involve Python and R, supported by best practices in software development (Git, Docker, Linux, bash scripting) and data management spanning SQL databases (MySQL, PostgreSQL, SQL Server), NoSQL systems (MongoDB), and cloud storage solutions (S3).
+      My work spans deep learning for object detection, time series forecasting, and natural language processing, primarily in Python and R. I rely on standard practices in software development (Git, Docker, Linux) and data management (SQL and NoSQL databases, cloud storage) to handle complex projects—ranging from high-volume satellite imagery to more traditional tabular datasets.
     </p>
     <p>
-        I also build and maintain web applications using tools like Flask, HTML/CSS/JS, jQuery, Jekyll, and R Shiny, delivering user-friendly interfaces for a variety of analytical tasks. Whether working with satellite imagery, LiDAR, or citizen science data, I strive to produce robust, scalable solutions that provide real-time insights across diverse stakeholder needs.
+      I also build and maintain web applications using tools like Flask, Jekyll, and R Shiny, enabling user-friendly analytics. Whether working with satellite imagery, LiDAR, or citizen science data, my focus is on delivering solutions that address practical needs in clear and measurable ways.
     </p>
     <p>
-        In addition to my professional pursuits, I maintain a strong interest in environmental conservation and ecological research, applying spatial data science to address critical challenges. From species distribution modeling to urban growth monitoring, my work aims to balance technical rigor with impactful, real-world outcomes.
+      My interests include environmental conservation and ecological research, where I apply spatial data science to real-world challenges such as species distribution modeling and urban growth analysis. I bring a balance of rigorous analytical methods and accessible communication to each project.
     </p>
     <p>
-        Feel free to explore my portfolio for examples of my work, and please reach out using my contact details on this page.
+      Feel free to browse my portfolio for examples of my work, and get in touch if you have any questions or would like additional information.
     </p>
   </div>
   <div class="image-content">
