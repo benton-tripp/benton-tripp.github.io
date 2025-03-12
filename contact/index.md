@@ -4,6 +4,8 @@ title: Contact
 permalink: /contact/
 ---
 
+# Contact
+
 <div style="margin:10px;">
 <li><a href="mailto:bentontripp@gmail.com">
     <i class="fa-solid fa-envelope"></i>
