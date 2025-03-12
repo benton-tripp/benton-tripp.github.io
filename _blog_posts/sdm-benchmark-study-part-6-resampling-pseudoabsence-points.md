@@ -449,6 +449,440 @@ htmltools::div(
 )
 ```
 
+<div id="sdm-6-images">
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#state_selector").change(function(){
+          var selectedState = $(this).val();
+          var selectedSpecies = $("#species_selector").val();
+          // Hide all raster plots
+          $("[id$=_bioclim_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_bioclim_plots").show();
+        });
+        $("#species_selector").change(function(){
+          var selectedState = $("#state_selector").val();
+          var selectedSpecies = $(this).val();
+          // Hide all raster plots
+          $("[id$=_bioclim_plots]").hide();
+          // Show the selected raster plot
+          $("#" + selectedState + "_" + selectedSpecies + "_bioclim_plots").show();
+        });
+    });
+</script>
+<div style="display:flex; flex-direction:row;">
+<div style="margin-right:5px;">
+<select id="state_selector" style="font-size:17px;">
+<option value="CO">CO</option>
+<option value="NC">NC</option>
+<option value="OR">OR</option>
+<option value="VT">VT</option>
+</select>
+</div>
+<div>
+<select id="species_selector" style="font-size:17px;">
+<option value="Belted-Kingfisher">Belted Kingfisher</option>
+<option value="Cedar-Waxwing">Cedar Waxwing</option>
+<option value="Downy-Woodpecker">Downy Woodpecker</option>
+<option value="Ruddy-Duck">Ruddy Duck</option>
+<option value="Sanderling">Sanderling</option>
+<option value="Sandhill-Crane">Sandhill Crane</option>
+<option value="Sharp-shinned-Hawk">Sharp-shinned Hawk</option>
+<option value="Wild-Turkey">Wild Turkey</option>
+</select>
+</div>
+</div>
+
+<!-- CO plots -->
+<div id="CO_Belted-Kingfisher_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Belted-Kingfisher-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Belted-Kingfisher-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Belted-Kingfisher-3.svg">
+  </div>
+</div>
+
+<div id="CO_Cedar-Waxwing_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Cedar-Waxwing-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Cedar-Waxwing-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Cedar-Waxwing-3.svg">
+  </div>
+</div>
+
+<div id="CO_Downy-Woodpecker_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Downy-Woodpecker-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Downy-Woodpecker-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Downy-Woodpecker-3.svg">
+  </div>
+</div>
+
+<div id="CO_Ruddy-Duck_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Ruddy-Duck-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Ruddy-Duck-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Ruddy-Duck-3.svg">
+  </div>
+</div>
+
+<div id="CO_Sanderling_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sanderling-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sanderling-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sanderling-3.svg">
+  </div>
+</div>
+
+<div id="CO_Sandhill-Crane_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sandhill-Crane-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sandhill-Crane-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sandhill-Crane-3.svg">
+  </div>
+</div>
+
+<div id="CO_Sharp-shinned-Hawk_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sharp-shinned-Hawk-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sharp-shinned-Hawk-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Sharp-shinned-Hawk-3.svg">
+  </div>
+</div>
+
+<div id="CO_Wild-Turkey_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Wild-Turkey-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Wild-Turkey-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-CO-Wild-Turkey-3.svg">
+  </div>
+</div>
+
+<!-- NC plots -->
+<div id="NC_Belted-Kingfisher_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Belted-Kingfisher-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Belted-Kingfisher-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Belted-Kingfisher-3.svg">
+  </div>
+</div>
+
+<div id="NC_Cedar-Waxwing_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Cedar-Waxwing-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Cedar-Waxwing-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Cedar-Waxwing-3.svg">
+  </div>
+</div>
+
+<div id="NC_Downy-Woodpecker_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Downy-Woodpecker-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Downy-Woodpecker-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Downy-Woodpecker-3.svg">
+  </div>
+</div>
+
+<div id="NC_Ruddy-Duck_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Ruddy-Duck-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Ruddy-Duck-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Ruddy-Duck-3.svg">
+  </div>
+</div>
+
+<div id="NC_Sanderling_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sanderling-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sanderling-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sanderling-3.svg">
+  </div>
+</div>
+
+<div id="NC_Sandhill-Crane_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sandhill-Crane-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sandhill-Crane-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sandhill-Crane-3.svg">
+  </div>
+</div>
+
+<div id="NC_Sharp-shinned-Hawk_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sharp-shinned-Hawk-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sharp-shinned-Hawk-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Sharp-shinned-Hawk-3.svg">
+  </div>
+</div>
+
+<div id="NC_Wild-Turkey_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Wild-Turkey-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Wild-Turkey-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-NC-Wild-Turkey-3.svg">
+  </div>
+</div>
+
+<!-- OR plots -->
+<div id="OR_Belted-Kingfisher_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Belted-Kingfisher-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Belted-Kingfisher-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Belted-Kingfisher-3.svg">
+  </div>
+</div>
+
+<div id="OR_Cedar-Waxwing_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Cedar-Waxwing-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Cedar-Waxwing-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Cedar-Waxwing-3.svg">
+  </div>
+</div>
+
+<div id="OR_Downy-Woodpecker_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Downy-Woodpecker-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Downy-Woodpecker-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Downy-Woodpecker-3.svg">
+  </div>
+</div>
+
+<div id="OR_Ruddy-Duck_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Ruddy-Duck-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Ruddy-Duck-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Ruddy-Duck-3.svg">
+  </div>
+</div>
+
+<div id="OR_Sanderling_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sanderling-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sanderling-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sanderling-3.svg">
+  </div>
+</div>
+
+<div id="OR_Sandhill-Crane_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sandhill-Crane-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sandhill-Crane-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sandhill-Crane-3.svg">
+  </div>
+</div>
+
+<div id="OR_Sharp-shinned-Hawk_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sharp-shinned-Hawk-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sharp-shinned-Hawk-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Sharp-shinned-Hawk-3.svg">
+  </div>
+</div>
+
+<div id="OR_Wild-Turkey_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Wild-Turkey-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Wild-Turkey-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-OR-Wild-Turkey-3.svg">
+  </div>
+</div>
+
+<!-- VT plots -->
+<div id="VT_Belted-Kingfisher_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Belted-Kingfisher-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Belted-Kingfisher-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Belted-Kingfisher-3.svg">
+  </div>
+</div>
+
+<div id="VT_Cedar-Waxwing_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Cedar-Waxwing-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Cedar-Waxwing-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Cedar-Waxwing-3.svg">
+  </div>
+</div>
+
+<div id="VT_Downy-Woodpecker_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Downy-Woodpecker-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Downy-Woodpecker-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Downy-Woodpecker-3.svg">
+  </div>
+</div>
+
+<div id="VT_Ruddy-Duck_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Ruddy-Duck-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Ruddy-Duck-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Ruddy-Duck-3.svg">
+  </div>
+</div>
+
+<div id="VT_Sanderling_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sanderling-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sanderling-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sanderling-3.svg">
+  </div>
+</div>
+
+<div id="VT_Sandhill-Crane_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sandhill-Crane-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sandhill-Crane-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sandhill-Crane-3.svg">
+  </div>
+</div>
+
+<div id="VT_Sharp-shinned-Hawk_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sharp-shinned-Hawk-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sharp-shinned-Hawk-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Sharp-shinned-Hawk-3.svg">
+  </div>
+</div>
+
+<div id="VT_Wild-Turkey_bioclim_plots" style="padding: 5px; overflow: auto; width:100%; min-height: 1400px; display:none;">
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Wild-Turkey-1.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Wild-Turkey-2.svg">
+  </div>
+  <div style="margin:5px;">
+    <img src="{{ site.baseurl }}/assets/plots/sdm-6-VT-Wild-Turkey-3.svg">
+  </div>
+</div>
+</div>
+
 ### Sampling (and Re-Sampling) Pseudo-Absences 
 
 This section focuses on the extraction of pseudo-absence points from regions identified as suitable for each bird species in distinct states. A multiple-resampling technique is employed to ensure robustness in the sample. Points are randomly selected without replacement from the non-masked areas of the suitability raster, with a minimum threshold of 200 points and up to 10 resampling iterations. These points are subsequently partitioned into training and test sets to facilitate model evaluation.
@@ -856,8 +1290,12 @@ var.imp <- purrr::map_df(1:nrow(spec.state), function(i) {
 })
 
 var.imp
-
 ```
+
+<div data-pagedtable="false" pagedtable-page="0" class="pagedtable-wrapper">
+<script src="{{ site.baseurl }}/assets/data/sdm-6-vi.js"></script>
+<script data-pagedtable-source data-global="sdm6VI" type="application/json"></script>
+</div>
 
 ### Select Final Pseudo-Absence Points Using Model Predictions
 

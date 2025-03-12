@@ -647,6 +647,12 @@ a.pagedtable-index-current:hover {
   line-break:loose;
 }
 
+#sdm-6-images img {
+  max-width: 700px;
+  min-width: 320px;
+  height: auto;
+}
+
 /* ============================================================
    Responsive Styles
 ============================================================ */

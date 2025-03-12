@@ -24,7 +24,7 @@ layout: home
     </p>
   </div>
   <div class="image-content">
-    <img style="width: 300px; height: auto;" src="{{ site.baseurl }}/assets/images/2024-headshot-edited-square.jpg" alt="Personal headshot">
+    <img style="width: 270px; height: auto;" src="{{ site.baseurl }}/assets/images/2024-headshot-edited.jpg" alt="Personal headshot">
     <div id="img-nav-menu">
         <a href="{{ site.baseurl }}/resume/" class="img-nav-menu-item">
             <i class="fa-regular fa-file"></i>
