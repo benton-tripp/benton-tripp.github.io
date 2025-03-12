@@ -643,6 +643,10 @@ a.pagedtable-index-current:hover {
   opacity: 0.3;
 }
 
+.post-content #clay-references a {
+  line-break:loose;
+}
+
 /* ============================================================
    Responsive Styles
 ============================================================ */

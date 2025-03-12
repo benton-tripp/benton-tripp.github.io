@@ -706,7 +706,7 @@ This study developed and evaluated a data-efficient framework for urban impervio
   
 ## References
 
-<ol>
+<ol id="clay-references">
     <li>
         Ayush, K., Uzkent, B., Meng, C., Kumar, T., Burke, M., Lobell, D., & Ermon, S. (2021).
         Geography-Aware Self-Supervised Learning. In Proceedings of the IEEE/CVF International

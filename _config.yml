@@ -65,3 +65,4 @@ exclude:
   - old/
   - .gitignore
   - jekyll_setup.md
+  - R/
