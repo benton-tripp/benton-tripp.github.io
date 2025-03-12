@@ -6,7 +6,7 @@
   <!-- SEO -->
 
   <meta name="description" content="{{ page.description | default: site.description }}">
-  <meta name="keywords" content="{{ page.keywords | join: ', ' | default: site.keywords }}">
+  <meta name="keywords" content="{{ site.keywords| join: ', ' }}">
   <link rel="canonical" href="{{ page.canonical | default: site.url | append: page.permalink }}">
 
   <meta property="og:title" content="{{ page.title | default: site.title }}">

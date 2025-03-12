@@ -1,23 +1,22 @@
-title: Benton Tripp' Portfolio & Blog
+title: "Benton Tripp's Portfolio & Blog"
 email: bentontripp@gmail.com
-description: >- 
-Benton Tripp is a data scientist specializing in geospatial 
-analytics, advanced statistical modeling, and machine learning. His work 
-includes developing data pipelines, cloud analytics solutions, and web 
-applications using Python and R, with a focus on applying spatial data 
-science to real-world challenges in environmental conservation and urban analysis.
+description: >-
+  Benton Tripp is a data scientist specializing in geospatial 
+  analytics, advanced statistical modeling, and machine learning. His work 
+  includes developing data pipelines, cloud analytics solutions, and web 
+  applications using Python and R, with a focus on applying spatial data 
+  science to real-world challenges in environmental conservation and urban analysis.
 keywords:
-  - data science
-  - geospatial analytics
-  - machine learning
-  - statistical modeling
-  - deep learning
-  - Python
-  - R
-  - cloud analytics
-  - web applications
-  - environmental conservation
-  - spatial data science
+  - "data science"
+  - "geospatial analytics"
+  - "machine learning"
+  - "statistical modeling"
+  - "deep learning"
+  - "Python"
+  - "R"
+  - "cloud analytics"
+  - "web applications"
+  - "gospatial data science"
 url: "http://benton-tripp.github.io" 
 baseurl: "" 
 
