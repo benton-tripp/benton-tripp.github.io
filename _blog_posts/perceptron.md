@@ -498,21 +498,3 @@ https://en.wikipedia.org/wiki/Perceptron <br>
 https://bitbucket.org/syncfusiontech/svm-succinctly/src/master/
 
 
-<!-- Import Plotly
-<script src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>
- -->
-
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: {
-    fontCache: 'global'
-  }
-};
-</script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-</script>
-

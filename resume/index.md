@@ -6,7 +6,7 @@ permalink: /resume/
 
 # Resume
 
-<a class="resume-link" href="{{site.baseurl}}/resume.pdf" target="_blank"><i>View PDF Version</i></a>
+<a class="resume-link" href="{{site.baseurl}}/docs/resume.pdf" target="_blank"><i>View PDF Version</i></a>
 
 **Benton Tripp**
 
