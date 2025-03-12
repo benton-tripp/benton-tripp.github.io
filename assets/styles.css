@@ -186,32 +186,32 @@ code {
 Contact Page Styles
 ============================================================ */
 
-.contact-page-section {
+#contact-page-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   color: var(--color-link);
 }
 
-.contact-page-section  ul {
+#contact-page-section  ul {
   list-style: none;
   padding: 0;
   margin: 0;
   font-size: 22px;
 }
 
-.contact-page-section  li {
+#contact-page-section  li {
   margin: 2.5px 0;
 }
 
-.contact-page-section  a {
+#contact-page-section  a {
   color: var(--color-link);
   text-decoration: none;
   transition: color 0.05s;
 }
 
-.contact-page-section a:hover,
-.contact-page-section a:active {
+#contact-page-section a:hover,
+#contact-page-section a:active {
   color: var(--color-link-hover);
 }
 
