@@ -7,6 +7,7 @@ permalink: /contact/
 # Contact
 
 <div id="contact-page-section" style="margin:10px;">
+<ul>
 <li><a href="mailto:bentontripp@gmail.com">
     <i class="fa-solid fa-envelope"></i>
     <span>bentontripp@gmail.com</span>
@@ -17,4 +18,5 @@ permalink: /contact/
     <span>/bentontripp</span>
 </a>
 </li>
+</ul>
 </div>
