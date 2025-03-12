@@ -928,11 +928,36 @@ DT::datatable(
           { data: function(row) { return row["common.name"]; } },
           { data: "state" },
           { data: function(row) { return row["covariate.count"]; } },
-          { data: function(row) { return row["optimal.threshold"]; } },
-          { data: "Accuracy" },
-          { data: "Sensitivity" },
-          { data: "Specificity" },
-          { data: function(row) { return row["F1"] === null ? "" : row["F1"]; } }
+          { 
+            data: function(row) { return row["optimal.threshold"]; },
+            render: function(data, type, row, meta) {
+              return type === 'display' && !isNaN(data) ? parseFloat(data).toFixed(2) : data;
+            }
+          },
+          { 
+            data: "Accuracy",
+            render: function(data, type, row, meta) {
+              return type === 'display' && !isNaN(data) ? parseFloat(data).toFixed(2) : data;
+            }
+          },
+          { 
+            data: "Sensitivity",
+            render: function(data, type, row, meta) {
+              return type === 'display' && !isNaN(data) ? parseFloat(data).toFixed(2) : data;
+            }
+          },
+          { 
+            data: "Specificity",
+            render: function(data, type, row, meta) {
+              return type === 'display' && !isNaN(data) ? parseFloat(data).toFixed(2) : data;
+            }
+          },
+          { 
+            data: function(row) { return row["F1"] === null ? "" : row["F1"]; },
+            render: function(data, type, row, meta) {
+              return type === 'display' && data !== "" && !isNaN(data) ? parseFloat(data).toFixed(2) : data;
+            }
+          }
         ],
         scrollX: true,
         scrollY: true,
