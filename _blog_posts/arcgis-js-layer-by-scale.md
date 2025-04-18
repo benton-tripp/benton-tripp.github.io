@@ -6,17 +6,17 @@ permalink: /blog_posts/arcgis-js-layer-by-scale
 
 Switching between ArcGIS layers based on the map scale is a common technique to ensure efficient performance in web mapping applications. This post illustrates how you can dynamically alternate between a feature layer and a map image layer as users zoom in and out, maintaining popup functionality through spatial queries.
 
-### Problem
+## Problem
 
 Rendering complex polygon layers at various scales can significantly impact application performance. Feature layers provide detailed interactivity at large scales (zoomed-in views) but can be resource-intensive for large geographic areas. Map image layers render quickly at small scales (zoomed-out views) but typically lack direct interactive popup capabilities.
 
 The solution is to intelligently switch between these layer types based on the map scale and retain popup interactions by querying the underlying data.
 
-### Implementation
+## Implementation
 
 We use the ArcGIS JavaScript SDK to achieve scale-dependent layer visibility:
 
-1. **Define Scale Threshold**
+### Define Scale Threshold
 
 Set a specific scale (`breakScale`) at which layers switch visibility:
 
@@ -24,7 +24,7 @@ Set a specific scale (`breakScale`) at which layers switch visibility:
 const breakScale = 50000; // Layers switch visibility at this scale threshold
 ```
 
-2. **Feature Layer Setup**
+### Feature Layer Setup
 
 Configure the feature layer for detailed zoomed-in interactions, popups, and rendering:
 
@@ -40,7 +40,7 @@ const featureLayer = new FeatureLayer({
 });
 ```
 
-3. **Map Image Layer Setup**
+### Map Image Layer Setup
 
 The map image layer ensures quick rendering for zoomed-out views:
 
@@ -59,7 +59,7 @@ const imageLayer = new MapImageLayer({
 
 Both layers are added simultaneously, but only one is visible at any given scale.
 
-### Retaining Popup Functionality
+## Retaining Popup Functionality
 
 Popups at smaller scales (map image layer visibility) are achieved by executing spatial queries against the feature layer:
 
@@ -86,7 +86,9 @@ view.on("click", function (event) {
 });
 ```
 
-### Full Example
+## Full Example
+
+Below is the full implementation of a web map with layers that dynamically render depending on the scale. *This example uses data provided by [Wake County, NC Flood Zones](https://maps.wake.gov/arcgis/rest/services/Boundaries/ZipCodes/MapServer/0).*
 
 ```
 <!DOCTYPE html>
@@ -287,10 +289,6 @@ Interact with the embedded map below to see the implementation of the code above
     </iframe>
 </div>
 
-<h3>Data</h3>
-
-This example uses data provided by [Wake County, NC Flood Zones](https://maps.wake.gov/arcgis/rest/services/Boundaries/ZipCodes/MapServer/0).
-
-### Summary
+## Summary
 
 Implementing scale-dependent layers significantly enhances application responsiveness, combining fast rendering at smaller scales with detailed interactivity at larger scales. Using spatial queries ensures that popups can still be used within the `MapImageLayer` as well as the `FeatureLayer`.
