@@ -7,6 +7,20 @@ permalink: /blog/
 <h1>Blog</h1>
 
 <section id="blog-page-dir">
+  <!-- April 2025 -->
+  <article class="blog-month">
+    <header>
+      <h2>April 2025</h2>
+    </header>
+    <ul>
+      <li>
+        <a href="/blog_posts/arcgis-js-layer-by-scale">
+          Efficient Scale-Dependent Layer Switching with ArcGIS JavaScript
+        </a>
+      </li>
+    </ul>
+  </article>
+
   <!-- December 2024 -->
   <article class="blog-month">
     <header>
