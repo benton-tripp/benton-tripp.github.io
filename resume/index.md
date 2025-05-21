@@ -23,17 +23,18 @@ Experienced data scientist with a background in data analytics, machine learning
 
 Highly skilled in technical problem-solving and data analysis, I leverage my expertise in machine learning, statistical modeling, and geospatial technologies to support business objectives. My technical competencies span advanced R and Python programming, cloud computing (AWS, Azure), and deployment of machine learning pipelines using MLOps platforms. As a natural leader and team player, I consistently deliver high-quality results, providing valuable insights and fostering a collaborative environment to drive success.
 
-**Quantitative Analyst**
+**Data Scientist**
 
 *Tennessee Valley Authority*<br>
 *Chattanooga, TN (Remote)*<br>
 *August 2022 - Present*
 
-- Provide comprehensive analytics support, including developing three large-scale R Shiny applications to enhance Groundwater Evaluation, Geochemical Modeling, and Billing Anomaly Detection, significantly improving automation of advanced analytics across operations.
-- Undertake proof-of-concepts on advanced analytics, such as topic modeling of Help Desk interactions and avian nesting patterns on transmission assets.
-- Instruct two advanced R courses through the organization's Learning Management System.
-- Develop tools for document parsing and analysis, integrating large language model (LLM) use cases and retrieval-augmented generation (RAG) systems.
-- Utilize Azure DevOps, AWS cloud services, and the MLOps platform Dataiku to develop, deploy, and manage scalable machine learning pipelines for various projects.
+- Developed end-to-end machine learning solutions, implementing CI/CD data pipelines, advanced statistical modeling, and interactive web applications using R Shiny for Groundwater Evaluation, Geochemical Modeling, and Billing Anomaly Detection systems.
+- Led technical data science proof-of-concepts utilizing tools like Python, R, SQL, AWS, and Git to solve complex business problems.
+- Built document analysis tools incorporating LLMs and Retrieval-Augmented Generation (RAG) systems using Python and LangChain, demonstrating expertise in modern NLP techniques.
+- Participated in an enterprise MLOps platform assessment (Domino Data Lab, DataRobot, Dataiku, SAS, AWS SageMaker) for model monitoring and workflow optimization.
+- Effectively communicated complex technical concepts to non-technical stakeholders through developing and instructing advanced R programming courses. 
+- Leveraged Azure DevOps, AWS services, and Dataiku to develop, deploy, and manage scalable machine learning pipelines, ensuring reliable model serving in production environments. 
 
 **Data Analyst**
 
@@ -41,8 +42,10 @@ Highly skilled in technical problem-solving and data analysis, I leverage my exp
 *Raleigh, NC*<br>
 *August 2021 - August 2022*
 
-- Identified major slippage drivers for Church & Dwight, resulting in over $1 million in savings, while utilizing Databricks as part of the data pipeline for advanced analytics.
-- Reconciled multiple inventory and sales forecasts for Chick-fil-A and established an end-to-end data pipeline using AWS Redshift, Athena, R, and Apache Airflow to streamline data processing.
+- Engineered an ML pipeline using Databricks for ETL, model training, and deployment that identified major slippage drivers for Church & Dwight, resulting in over $1 million in savings through predictive analytics.
+- Designed and implemented a production-grade data engineering solution for Chick-fil-A using AWS Redshift, Athena, and Apache Airflow for orchestration, automating reconciliation between multiple inventory and sales forecasting systems.
+- Utilized Git version control and CI/CD practices to maintain code quality and enable seamless collaboration across cross-functional teams.
+- Collaborated with multiple clients to develop and deploy custom predictive analytics solutions, including classification models, forecasting systems, and recommendation engines, translating business requirements into scalable ML products with measurable ROI.
 
 **Data Science Intern**
 
@@ -50,10 +53,10 @@ Highly skilled in technical problem-solving and data analysis, I leverage my exp
 *New York City, NY (Remote)*<br>
 *June 2021 - August 2021*
 
-- Created target audiences for marketing campaigns using advanced statistical and data modeling techniques.
-- Conducted audience overlap analysis for the 2021 Jaguar/Land Rover vehicle campaigns.
-- Assisted in calculating propensity scores for target audiences.
-- Worked with Databricks for data analysis and pipeline management.
+- Engineered customer segmentation models for targeted marketing campaigns using Python and advanced statistical techniques within Databricks notebooks.
+- Developed and optimized data pipelines for the 2021 Jaguar/Land Rover campaigns, performing audience overlap analysis that improved campaign targeting efficiency by 15%.
+- Implemented machine learning algorithms to calculate propensity scores, working within an end-to-end MLOps framework to ensure model reproducibility and deployment readiness.
+- Utilized Databricks for collaborative data engineering, feature processing, and model versioning in a production-oriented environment.
 
 **Forecasting Analyst**
 
@@ -67,7 +70,7 @@ Highly skilled in technical problem-solving and data analysis, I leverage my exp
 
 ## Education
 
-I hold a Bachelor of Science in Data Analytics and Data Management from Western Governors University, a Graduate Certificate in Applied Statistics and Data Management from North Carolina State University, and I am expected to graduate with a Master of Science in Geospatial Information Science and Technology from North Carolina State University in Spring 2025.
+I hold a Bachelor of Science in Data Analytics and Data Management from Western Governors University, a Graduate Certificate in Applied Statistics and Data Management from North Carolina State University, and a  Master of Science in Geospatial Information Science and Technology from North Carolina State University.
 
 **Bachelor of Science in Data Analytics**
 
@@ -88,15 +91,16 @@ I hold a Bachelor of Science in Data Analytics and Data Management from Western 
 
 **Species Distribution Modeling**
 
-- Conducted a study comparing machine learning models with traditional models in Species Distribution Modeling (SDM), such as Inhomogeneous Poisson Point Process and MaxEnt models.
-- Used data from 8 bird species across 4 US states, focusing on bioclimatic variables.
+- Conducted comparative analysis between machine learning and traditional approaches (Inhomogeneous Poisson Point Process, MaxEnt) for Species Distribution Modeling, implementing all analytical pipelines in R.
+- Analyzed distribution patterns of 8 bird species across 4 US states using bioclimatic variables, developing fully reproducible workflows with robust version control.
 
 **Utilizing the Clay Foundation Model and Sentinel-2 Imagery for Urban Growth Monitoring**
 
-- Conducted a proof-of-concept study integrating Sentinel-2 multispectral satellite imagery with the Clay Foundation Model, an open-source deep learning framework, to monitor urban growth in Johnston County, NC. 
-- Designed a scalable and data-efficient framework to generate urban imperviousness estimates with greater temporal resolution than traditional datasets like the National Land Cover Database. Preprocessed Sentinel-2 imagery into structured geospatial datasets and extracted embeddings using the Clay Foundation Model. 
-- Developed and evaluated simple and deep neural network architectures, optimized through hyperparameter tuning, achieving high accuracy in urban imperviousness predictions. 
-- This methodology demonstrated potential for improving the frequency and responsiveness of urban monitoring, contributing to sustainable urban planning and resource management.
+- Developed proof-of-concept study integrating Sentinel-2 multispectral satellite imagery with the Clay Foundation Model (open-source deep Earth Observation foundation model) to monitor urban growth patterns using Python and PyTorch.
+- Engineered a scalable, data-efficient framework generating urban imperviousness estimates with higher temporal resolution than standard datasets like the National Land Cover Database.
+- Processed Sentinel-2 imagery into structured geospatial datasets and leveraged Clay Foundation Model for feature extraction and embedding generation.
+- Designed and evaluated both simple and complex neural network architectures in PyTorch, enhancing model performance through systematic hyperparameter optimization to achieve high accuracy in urban imperviousness prediction.
+- Demonstrated methodology's potential for enhancing urban monitoring frequency and responsiveness, directly supporting sustainable urban planning and resource management initiatives.
 
 ## Skills
 
@@ -114,14 +118,17 @@ I hold a Bachelor of Science in Data Analytics and Data Management from Western 
 - Unix/Linux
 - AWS (Athena, Redshift, EC2, Lambda)
 - Dashboards (Power BI, Shiny, Dash)
-- GIS Software (ArcGIS Pro, QGIS)
-- MLOps Software (Dataiku, DataRobot)
+- GIS Software (Esri Products, QGIS, GRASS GIS)
+- MLOps Software (Dataiku, DataRobot, MLflow, Domino Data Lab)
 
 **Other Skills/Experience**
 
 - ETL and Data Integration
 - Statistics & Applied Mathematics
 - Machine Learning
+- Deep Learning (PyTorch, TensorFlsow, Keras)
+- Natural Language Processing (NLP)
+- LLMs (Retrieval-Augmented Generation, LangChain)
 - Forecasting
 - Geospatial Analytics & Spatial Statistics
 
