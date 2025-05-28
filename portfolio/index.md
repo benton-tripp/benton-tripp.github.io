@@ -9,6 +9,14 @@ permalink: /portfolio/
 <i>This is my portfolio page - browse through the projects below to learn more about some of my work.</i>
 
 <div class="portfolio-col">
+
+  <article class="portfolio-item">
+    <a href="{{site.baseurl}}/docs/mgist-capstone-poster.pdf" target="_blank">
+      <img src="{{ site.baseurl }}/assets/images/Land-Use-Full.jpg" alt="Henderson County, NC Land Use by Parcel" class="portfolio-thumbnail">
+      <h2 class="portfolio-title">Enhancing the Land Use & Zoning Strategy of Henderson County, NC through Geospatial Data Modeling (MGIST Capstone Poster)</h2>
+    </a>
+  </article>
+
   <article class="portfolio-item">
     <a href="{{ site.baseurl }}/portfolio/utilizing-the-clay-foundation-model">
       <img src="{{ site.baseurl }}/assets/images/tripp_b_image3.png" alt="Utilizing the Clay Foundation Model" class="portfolio-thumbnail">
