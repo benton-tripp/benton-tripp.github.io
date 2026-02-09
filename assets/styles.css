@@ -81,6 +81,14 @@ code {
 
 .wrapper a {
   font-size: 18px;
+  color: #7ecfcf;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.wrapper a:hover,
+.wrapper a:active {
+  color: #a8e6e6;
 }
 
 /* ============================================================
