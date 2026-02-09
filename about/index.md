@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-I’m Benton, a data scientist living in Johnston County, North Carolina, with my wife and two young daughters. My work revolves around geospatial analytics, advanced statistical modeling, and machine learning. Over the past five years, I’ve developed large-scale data pipelines and deployed cloud-based analytics solutions, ultimately focusing my career on spatial data science. I’m also pursuing a master’s in Geospatial Information Science and Technology at NC State University.
+I’m Benton, a data scientist living in Johnston County, North Carolina, with my wife and two young daughters. My work revolves around geospatial analytics, advanced statistical modeling, and machine learning. Over the past six years, I’ve developed large-scale data pipelines and deployed cloud-based analytics solutions, ultimately focusing my career on spatial data science. I’m also pursuing a master’s in Geospatial Information Science and Technology at NC State University.
 
 My career path has included roles as a Data Analyst and Quantitative Analyst, where I’ve built R Shiny applications, developed machine learning models (including forecasting and NLP), integrated advanced language models, and managed ML pipelines in MLOps environments. I’ve also pursued personal research in species distribution modeling and urban growth monitoring. These experiences have sharpened my command of Python, R, and various data management and software development tools.
 

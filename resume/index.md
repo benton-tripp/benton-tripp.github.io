@@ -17,7 +17,7 @@ permalink: /resume/
     <li>LinkedIn: <a class="resume-link" href="https://www.linkedin.com/in/bentontripp" target="_blank">linkedin.com/in/bentontripp</a></li>
 </ul>
 
-Experienced data scientist with a background in data analytics, machine learning, statistical modeling, and geospatial analytics. I bring over five years of professional experience across various industries, specializing in the development and implementation of analytics-driven solutions. Known for my self-motivation, strong communication skills, and ability to learn and apply new methodologies efficiently, I strive to deliver innovative insights and exceed expectations in both team-oriented and independent settings.
+Experienced data scientist with a background in data analytics, machine learning, statistical modeling, and geospatial analytics. I bring over six years of professional experience across various industries, specializing in the development and implementation of analytics-driven solutions. Known for my self-motivation, strong communication skills, and ability to learn and apply new methodologies efficiently, I strive to deliver innovative insights and exceed expectations in both team-oriented and independent settings.
 
 ## Work Experience
 
