@@ -30,13 +30,14 @@ Highly skilled in technical problem-solving and data analysis, I leverage my exp
 *June 2025 - Present*
 
 - Evaluate and assess department data systems and analytical processes to recommend improvements aligned with business goals, collaborating with cross-functional teams to deploy data-driven solutions.
+- Built a computer vision application using PyTorch and a YOLO-based model to detect engineering seals and other sensitive information in large PDF plan sets and permit documents, enabling automatic redaction and significantly reducing manual review burden for the records team.
+- Developed and maintain city population estimates and projections using statistical and spatial modeling methods, integrating census data, housing unit inventories, and permit activity to support planning decisions and long-range forecasting.
 - Designed and developed public-facing Power BI dashboards for the [Review Turnaround Times and Performance Dashboards](https://raleighnc.gov/permits/services/how-get-residential-permit/review-turnaround-times-and-performance-dashboards) webpage, enabling residents and developers to track permit and site plan review times, benchmark compliance, and intake durations across residential and non-residential applications.
 - Built interactive dashboards for the [Blueprint for Development: An 8-Stage Framework](https://raleighnc.gov/permits/services/blueprint-development-8-stage-framework), providing citywide performance metrics across the full development lifecycle—from comprehensive planning and annexations through building permits, inspections, and surety release.
+- Created over 20 internal Power BI dashboards for operational data analyis and reporting.
 - Conduct data analysis to identify areas for process enhancement, including the [suburban and urban development trends analysis](https://cityofraleigh0drupal.blob.core.usgovcloudapi.net/drupal-prod/COR13/managers-update-2026-02.pdf) presented to City Council and senior leadership.
-- Created internal Power BI dashboards for operational tracking including Ops Data, Expired Permits, AskRaleigh CRM metrics, Owner Exemption Affidavits, and Supportive Housing Permit Inactivity monitoring.
-- Developed SharePoint solutions and Power Automate workflows to streamline department operations, including council meeting trackers, event calendars, and automated email processing for customer intake queues.
+- Developed and maintain automated workflows to streamline department operations, including council meeting trackers, event calendars, and automated email processing for customer intake queues.
 - Prepare reports and technical documentation; provide support and training to end-users on dashboard tools and data visualization best practices.
-- Provided SQL-based data extraction and analysis support for the UNC School of Government Benchmarking Project and Matrix Consulting staffing studies, delivering plans, permits, and inspections datasets.
 
 **Data Scientist**
 
