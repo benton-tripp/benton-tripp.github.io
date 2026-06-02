@@ -1,4 +1,8 @@
-# Using PyTorch to Fit an Inhomogeneous Poisson Point Process
+---
+layout: post
+title: "Using PyTorch to Fit an Inhomogeneous Poisson Point Process"
+permalink: /blog_posts/blog-ippp-longleaf
+---
 
 Spatial point patterns show up whenever the data are locations of events: trees in a plot, disease cases in a region, wildfire ignitions, animal observations, crime incidents, or defects on a manufactured surface. A basic modeling question is whether those events occur with roughly constant intensity over the study window, or whether the expected event density changes with location.
 
@@ -132,23 +136,23 @@ $$
 
 The intensity varies mainly along the standardized $y$-axis.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/longleaf/longleaf_intensity_comparison.png" alt="A side-by-side comparison of HPPP constant intensity surface and Linear IPPP fitted intensity surface">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/longleaf/longleaf_intensity_comparison.png" alt="A side-by-side comparison of HPPP constant intensity surface and Linear IPPP fitted intensity surface">
 
 The likelihood ratio statistic against the homogeneous model is 34.2949 with 2 degrees of freedom, giving a p-value of $3.57 \times 10^{-8}$. I read that as evidence that the linear model fits this observed window better than the homogeneous model. I do not read it as a complete explanation of the point pattern.
 
 After fitting, I used the fitted intensity to simulate total point counts from the approximate IPPP. The observed count is 584, and 500 simulations from the fitted linear model have a mean total count of 584.28 with a 2.5 percent to 97.5 percent interval from 536.9 to 632.05. The observed count falls well inside that envelope.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/longleaf/longleaf_simulated_total_count.png" alt="A histogram of simulated total counts with observed and expected counts">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/longleaf/longleaf_simulated_total_count.png" alt="A histogram of simulated total counts with observed and expected counts">
 
 That simulation check is useful because it tests whether the fitted intensity is on the right overall count scale. It does not test whether the spatial pattern is fully explained. For that, I looked at spatial block cross-validation and an approximate inhomogeneous K-function.
 
 Spatial block cross-validation was less favorable to the linear model. Across five folds, the HPPP held-out total is $-3075.0311$, while the linear IPPP held-out total is $-3102.2426$. The linear trend improves the full-window likelihood, but it does not improve held-out likelihood when entire spatial regions are withheld.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/longleaf/longleaf_spatial_block_cv.png" alt="A spatial block cross-validation plot">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/longleaf/longleaf_spatial_block_cv.png" alt="A spatial block cross-validation plot">
 
 The inhomogeneous K diagnostic also remains above the Poisson reference curve at short radii. That suggests residual clustering after accounting for the fitted first-order intensity trend.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/longleaf/longleaf_inhomogeneous_k.png" alt="An approximate inhomogeneous K-function diagnostic plot">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/longleaf/longleaf_inhomogeneous_k.png" alt="An approximate inhomogeneous K-function diagnostic plot">
 
 The Longleaf data are also a marked point pattern. Each tree has a location and an associated mark. In this dataset the mark is DBH, or diameter at breast height. The spatial intensity model describes where trees occur. A mark model describes how the extra tree-level measurement varies among the observed trees.
 

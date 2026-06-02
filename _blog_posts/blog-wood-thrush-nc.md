@@ -1,4 +1,8 @@
-# Modeling Reported Wood Thrush Intensity with a PyTorch IPPP
+---
+layout: post
+title: "Modeling Reported Wood Thrush Intensity with a PyTorch IPPP"
+permalink: /blog_posts/blog-wood-thrush-nc
+---
 
 In a prior post, I used a controlled spatial point pattern to check that a PyTorch IPPP could reproduce a classical homogeneous baseline and fit a simple inhomogeneous model. Here I use the same framework on a less controlled presence-only dataset, where the points are reported wildlife observations rather than mapped events from a designed study plot.
 
@@ -174,9 +178,9 @@ Nonlinear IPPP: -16386.8575
 
 The diagnostic suggests that the coordinate-only nonlinear model is less reliable when entire spatial regions are held out. The justified conclusion is narrow: reported Wood Thrush observations are not spatially homogeneous, but the more flexible coordinate-only model is not automatically the better predictive model.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp/wood_thrush_point_pattern.png" alt="Wood Thrush observations in North Carolina">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp/wood_thrush_point_pattern.png" alt="Wood Thrush observations in North Carolina">
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp/wood_thrush_intensity_comparison.png" alt="Coordinate-only intensity comparison">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp/wood_thrush_intensity_comparison.png" alt="Coordinate-only intensity comparison">
 
 The temporal run adds cyclic day-of-year terms and no raster covariates. Within that run, the nonlinear model has the best full-window likelihood and AIC. The fitted linear temporal model is
 
@@ -212,29 +216,29 @@ simulated_totals = simulated_counts.sum(axis=1)
 
 This tests whether the fitted intensity is on the right total-count scale. It does not prove that the reported observation intensity surface represents habitat quality or abundance.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_temporal/wood_thrush_temporal_intensity_curve.png" alt="Temporal seasonal intensity curve">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_temporal/wood_thrush_temporal_intensity_curve.png" alt="Temporal seasonal intensity curve">
 
 The GIFs are useful visual diagnostics for the fitted annual cycle. They show how the reported observation intensity surface changes over day of year under the fitted model.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_temporal/gifs/wood_thrush_linear_temporal_intensity.gif" alt="Linear temporal Wood Thrush intensity animation">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_temporal/gifs/wood_thrush_linear_temporal_intensity.gif" alt="Linear temporal Wood Thrush intensity animation">
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_temporal/gifs/wood_thrush_nonlinear_temporal_intensity.gif" alt="Nonlinear temporal Wood Thrush intensity animation">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_temporal/gifs/wood_thrush_nonlinear_temporal_intensity.gif" alt="Nonlinear temporal Wood Thrush intensity animation">
 
 I also fit models with static raster covariates. The documented static covariate run uses median canopy cover, elevation matched to the canopy grid, distance to nearest waterbody, and distance to nearest coastline.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/raster_previews/canopy_preview.png" alt="Canopy raster preview">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/raster_previews/canopy_preview.png" alt="Canopy raster preview">
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/raster_previews/elevation_preview.png" alt="Elevation raster preview">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/raster_previews/elevation_preview.png" alt="Elevation raster preview">
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/raster_previews/waterbody_distance_preview.png" alt="Distance to nearest waterbody raster preview">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/raster_previews/waterbody_distance_preview.png" alt="Distance to nearest waterbody raster preview">
 
 The static covariate run improves full-window likelihood. The nonlinear covariate model improves it the most, from $-16454.7522$ for the HPPP to $-15518.5381$. The spatial block diagnostic is more restrained. The linear static covariate model has held-out total $-16303.8328$, which is better than the HPPP but worse than the coordinate-only linear model. The nonlinear covariate model has held-out total $-16412.7032$ and is poorly calibrated in total-count simulation: the observed count is 825, while the simulated mean is 709.44.
 
 The justified conclusion is that these covariates improve in-sample fit, especially for the nonlinear model, but they do not by themselves solve the validation problem. With presence-only reported observations, covariates, broad geography, observer behavior, and reporting hotspots can be confounded.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_covariates/wood_thrush_intensity_comparison.png" alt="Static covariate intensity comparison">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_covariates/wood_thrush_intensity_comparison.png" alt="Static covariate intensity comparison">
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_covariates/wood_thrush_nonlinear_simulated_total_count.png" alt="Static covariate nonlinear simulation diagnostic">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_covariates/wood_thrush_nonlinear_simulated_total_count.png" alt="Static covariate nonlinear simulation diagnostic">
 
 The completed temporal-plus-covariate run combines coordinates, cyclic day-of-year terms, and the selected raster covariates. In that run, the nonlinear model has the best full-window likelihood:
 
@@ -249,9 +253,9 @@ Spatial block cross-validation again gives a more cautious ranking. The linear m
 
 The metric says the nonlinear temporal-plus-covariate model can fit the observed data very closely in-sample. The diagnostics suggest that this fit does not generalize as well spatially and is not calibrated to the total reported count. The justified conclusion is that the linear temporal-plus-covariate model is currently the more stable fit among these completed runs, even though it is less flexible.
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_temporal_covariates/wood_thrush_intensity_comparison.png" alt="Temporal plus covariate intensity comparison">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_temporal_covariates/wood_thrush_intensity_comparison.png" alt="Temporal plus covariate intensity comparison">
 
-<img class="sdm-eda-img" src="{{ site.baseurl }}/wood_thrush_nippp_temporal_covariates/wood_thrush_spatial_block_cv.png" alt="Temporal plus covariate spatial block cross-validation">
+<img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/wood_thrush_nippp_temporal_covariates/wood_thrush_spatial_block_cv.png" alt="Temporal plus covariate spatial block cross-validation">
 
 The main result is not that the neural IPPP is better. The nonlinear models often improve full-window likelihood, but the linear models validate more cleanly under spatial block cross-validation and total-count simulation. For eBird-style data, that distinction matters. A flexible model can fit real seasonality, broad spatial structure, habitat covariates, observer effort, reporting hotspots, and residual clustering. The likelihood alone does not separate those explanations.
 
