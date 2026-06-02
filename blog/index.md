@@ -7,6 +7,25 @@ permalink: /blog/
 <h1>Blog</h1>
 
 <section id="blog-page-dir">
+  <!-- June 2026 -->
+  <article class="blog-month">
+    <header>
+      <h2>June 2026</h2>
+    </header>
+    <ul>
+      <li>
+        <a href="/blog_posts/blog-wood-thrush-nc">
+          Modeling Reported Wood Thrush Intensity with a PyTorch IPPP
+        </a>
+      </li>
+      <li>
+        <a href="/blog_posts/blog-ippp-longleaf">
+          Using PyTorch to Fit an Inhomogeneous Poisson Point Process
+        </a>
+      </li>
+    </ul>
+  </article>
+
   <!-- April 2025 -->
   <article class="blog-month">
     <header>
