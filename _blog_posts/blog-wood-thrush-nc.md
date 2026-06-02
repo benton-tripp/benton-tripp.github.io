@@ -263,8 +263,8 @@ The current conclusion is modest. Reported Wood Thrush intensity in North Caroli
 
 References:
 
-Renner et al., "Point process models for presence-only analysis," Methods in Ecology and Evolution, 2015. https://doi.org/10.1111/2041-210X.12352
+Renner et al., ["Point process models for presence-only analysis"](https://doi.org/10.1111/2041-210X.12352), Methods in Ecology and Evolution, 2015.
 
-Bernabeu, Zhuang, and Mateu, "Spatio-Temporal Hawkes Point Processes: A Review," Journal of Agricultural, Biological and Environmental Statistics, 2025. https://link.springer.com/article/10.1007/s13253-024-00653-7
+Bernabeu, Zhuang, and Mateu, ["Spatio-Temporal Hawkes Point Processes: A Review"](https://link.springer.com/article/10.1007/s13253-024-00653-7), Journal of Agricultural, Biological and Environmental Statistics, 2025.
 
-Zuo et al., "Transformer Hawkes Process," ICML 2020. https://proceedings.mlr.press/v119/zuo20a/zuo20a.pdf
+Zuo et al., ["Transformer Hawkes Process"](https://proceedings.mlr.press/v119/zuo20a/zuo20a.pdf), ICML 2020.

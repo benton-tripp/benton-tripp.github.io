@@ -189,6 +189,6 @@ The statistical conclusion is deliberately modest. The Longleaf point pattern sh
 
 References:
 
-Renner et al., "Point process models for presence-only analysis," Methods in Ecology and Evolution, 2015. https://doi.org/10.1111/2041-210X.12352
+Renner et al., ["Point process models for presence-only analysis"](https://doi.org/10.1111/2041-210X.12352), Methods in Ecology and Evolution, 2015.
 
-Bernabeu, Zhuang, and Mateu, "Spatio-Temporal Hawkes Point Processes: A Review," Journal of Agricultural, Biological and Environmental Statistics, 2025. https://link.springer.com/article/10.1007/s13253-024-00653-7
+Bernabeu, Zhuang, and Mateu, ["Spatio-Temporal Hawkes Point Processes: A Review"](https://link.springer.com/article/10.1007/s13253-024-00653-7), Journal of Agricultural, Biological and Environmental Statistics, 2025.
