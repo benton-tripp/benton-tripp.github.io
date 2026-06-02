@@ -7,4 +7,4 @@ R/
 !R/sdm-eda-3.R
 scripts/env/
 scripts/create-env.bat
-
+vendor/bundle/
