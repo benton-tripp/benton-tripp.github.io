@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using PyTorch to Fit an Inhomogeneous Poisson Point Process"
-permalink: /blog_posts/blog-ippp-longleaf
+permalink: /blog_posts/ippp-longleaf
 ---
 
 Spatial point patterns show up whenever the data are locations of events: trees in a plot, disease cases in a region, wildfire ignitions, animal observations, crime incidents, or defects on a manufactured surface. A basic modeling question is whether those events occur with roughly constant intensity over the study window, or whether the expected event density changes with location.

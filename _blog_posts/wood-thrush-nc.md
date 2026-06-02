@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Modeling Reported Wood Thrush Intensity with a PyTorch IPPP"
-permalink: /blog_posts/blog-wood-thrush-nc
+permalink: /blog_posts/wood-thrush-nc
 ---
 
 In a prior post, I used a controlled spatial point pattern to check that a PyTorch IPPP could reproduce a classical homogeneous baseline and fit a simple inhomogeneous model. Here I use the same framework on a less controlled presence-only dataset, where the points are reported wildlife observations rather than mapped events from a designed study plot.

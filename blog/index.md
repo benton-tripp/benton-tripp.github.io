@@ -14,12 +14,12 @@ permalink: /blog/
     </header>
     <ul>
       <li>
-        <a href="/blog_posts/blog-wood-thrush-nc">
+        <a href="/blog_posts/wood-thrush-nc">
           Modeling Reported Wood Thrush Intensity with a PyTorch IPPP
         </a>
       </li>
       <li>
-        <a href="/blog_posts/blog-ippp-longleaf">
+        <a href="/blog_posts/ippp-longleaf">
           Using PyTorch to Fit an Inhomogeneous Poisson Point Process
         </a>
       </li>
