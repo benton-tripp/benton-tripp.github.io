@@ -86,7 +86,7 @@ class ConstantIPPP(nn.Module):
 The module stores the log-intensity as its only trainable parameter. The `forward` method ignores the input coordinates because the intensity is constant across the whole window. It returns the same positive value for every quadrature cell. The closed-form maximum likelihood estimate for this model is
 
 $$
-\hat{\lambda}=\frac{n}{|W|}.
+\hat{\lambda}=\frac{n}{\lvert W \rvert}.
 $$
 
 This gives a simple sanity check for the implementation. On the Longleaf data, the closed-form HPPP log-likelihood is $-3052.4124$, and the constant PyTorch model gives $-3052.4128$. That near match confirms that the intensity scale, quadrature weights, and optimizer are aligned closely enough for the rest of the analysis.
@@ -96,10 +96,10 @@ The second check was a log-linear IPPP:
 $$
 \lambda(s)
 =
-\exp(\beta_0 + \beta_1 x^* + \beta_2 y^*),
+\exp(\beta_0 + \beta_1 x^\ast + \beta_2 y^\ast),
 $$
 
-where $x^*$ and $y^*$ are standardized coordinates. This is still a classical log-linear IPPP. The implementation detail is that the linear predictor is written as a small PyTorch module:
+where $x^\ast$ and $y^\ast$ are standardized coordinates. This is still a classical log-linear IPPP. The implementation detail is that the linear predictor is written as a small PyTorch module:
 
 ```python
 class LinearIPPP(nn.Module):
@@ -115,7 +115,7 @@ class LinearIPPP(nn.Module):
         return torch.exp(eta)
 ```
 
-This module is the log-linear intensity model. `nn.Linear(input_dim, 1)` represents the linear predictor $\eta=\beta_0+\beta_1x^*+\beta_2y^*$ when the input features are standardized coordinates. The weights are initialized at zero and the bias is initialized at the homogeneous intensity estimate, so the model starts from the HPPP baseline. The `forward` method computes the linear predictor, clamps it to avoid numerical overflow, and exponentiates it so the returned intensity is positive. The clamp bounds, `-20` and `20`, are not model parameters and do not have a statistical interpretation. They are a conservative implementation guard that keeps the exponentiation from producing extreme values if optimization briefly wanders into a bad part of parameter space. In the fitted Longleaf model, the linear predictor stays far from those bounds, so the clamp is not driving the reported estimates. In pseudocode:
+This module is the log-linear intensity model. `nn.Linear(input_dim, 1)` represents the linear predictor $\eta=\beta_0+\beta_1x^\ast+\beta_2y^\ast$ when the input features are standardized coordinates. The weights are initialized at zero and the bias is initialized at the homogeneous intensity estimate, so the model starts from the HPPP baseline. The `forward` method computes the linear predictor, clamps it to avoid numerical overflow, and exponentiates it so the returned intensity is positive. The clamp bounds, `-20` and `20`, are not model parameters and do not have a statistical interpretation. They are a conservative implementation guard that keeps the exponentiation from producing extreme values if optimization briefly wanders into a bad part of parameter space. In the fitted Longleaf model, the linear predictor stays far from those bounds, so the clamp is not driving the reported estimates. In pseudocode:
 
 ```text
 start with the homogeneous intensity
@@ -124,14 +124,14 @@ compute log_intensity = intercept + slope_x * x + slope_y * y
 return exp(log_intensity)
 ```
 
-Initializing the slope coefficients at zero and the intercept at $\log(\frac{n}{|W|})$ makes the model start at the homogeneous solution. Training then estimates whether a first-order spatial trend improves the likelihood.
+Initializing the slope coefficients at zero and the intercept at $\log(\frac{n}{\lvert W \rvert})$ makes the model start at the homogeneous solution. Training then estimates whether a first-order spatial trend improves the likelihood.
 
 For Longleaf, the fitted linear IPPP improves the full-window Berman-Turner log-likelihood from $-3052.4124$ to $-3035.2649$. The fitted model is approximately
 
 $$
 \lambda(s)
 =
-\exp(-4.1976 - 0.0205x^* + 0.2100y^*).
+\exp(-4.1976 - 0.0205x^\ast + 0.2100y^\ast).
 $$
 
 The intensity varies mainly along the standardized $y$-axis.
@@ -181,7 +181,7 @@ class LinearGaussianMarkModel(nn.Module):
 
 Here, `self.linear` estimates the conditional mean of standardized log-DBH as a function of location. The separate `log_sigma` parameter estimates the residual spread around that mean. As with the intensity models, the variance parameter is stored on the log scale and exponentiated so the returned standard deviation is positive. The Gaussian log-likelihood is then evaluated at the observed tree locations, not over the quadrature grid, because this part of the model is conditional on the trees that were observed.
 
-This conditional mark model does not change the fitted spatial intensity. It describes diameter variation among trees after conditioning on their observed locations. In this run, standardized log-DBH decreases with both standardized coordinates, with fitted coefficients $-0.3670$ for $x^*$ and $-0.1552$ for $y^*$.
+This conditional mark model does not change the fitted spatial intensity. It describes diameter variation among trees after conditioning on their observed locations. In this run, standardized log-DBH decreases with both standardized coordinates, with fitted coefficients $-0.3670$ for $x^\ast$ and $-0.1552$ for $y^\ast$.
 
 The useful outcome is mostly methodological. A one-parameter PyTorch model recovers the closed-form homogeneous Poisson point process baseline. A PyTorch log-linear model fits a simple inhomogeneous Poisson point process. The fitted model can then be used for likelihood comparison, simulation checks, residual maps, spatial block validation, and second-order diagnostics.
 
