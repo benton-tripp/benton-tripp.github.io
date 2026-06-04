@@ -232,7 +232,7 @@ I also fit models with static raster covariates. The documented static covariate
 
 <img class="sdm-eda-img" src="{{ site.baseurl }}/assets/images/raster_previews/waterbody_distance_preview.png" alt="Distance to nearest waterbody raster preview">
 
-The static covariate run improves full-window likelihood. The nonlinear covariate model improves it the most, from $-16454.7522$ for the HPPP to $-15518.5381$. The spatial block diagnostic is more restrained. The linear static covariate model has held-out total $-16303.8328$, which is better than the HPPP but worse than the coordinate-only linear model. The nonlinear covariate model has held-out total $-16412.7032$ and is poorly calibrated in total-count simulation: the observed count is 825, while the simulated mean is 709.44.
+The static covariate run improves full-window likelihood. The nonlinear covariate model improves it the most, from $-16454.7522$ for the HPPP to $-15517.5254$. The spatial block diagnostic is more restrained. The linear static covariate model has held-out total $-16308.2251$, which is better than the HPPP but worse than the coordinate-only linear model. The nonlinear covariate model has held-out total $-16422.6430$ and is poorly calibrated in total-count simulation: the observed count is 825, while the simulated mean is 715.95.
 
 The justified conclusion is that these covariates improve in-sample fit, especially for the nonlinear model, but they do not by themselves solve the validation problem. With presence-only reported observations, covariates, broad geography, observer behavior, and reporting hotspots can be confounded.
 

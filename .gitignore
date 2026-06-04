@@ -2,6 +2,7 @@ _site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
+.bundle/user/
 vendor
 R/
 !R/sdm-eda-3.R
