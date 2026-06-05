@@ -3,6 +3,7 @@ _site
 .jekyll-cache
 .jekyll-metadata
 .bundle/user/
+~$*.docx
 vendor
 R/
 !R/sdm-eda-3.R
