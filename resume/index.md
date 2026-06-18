@@ -112,7 +112,7 @@ Highly skilled in technical problem-solving and data analysis, I leverage my exp
 - R
 - SAS
 - SQL/NoSQL
-- Javascript/HTML/CSS
+- JavaScript/HTML/CSS
 
 **Software/Technologies**
 
@@ -128,7 +128,7 @@ Highly skilled in technical problem-solving and data analysis, I leverage my exp
 - ETL and Data Integration
 - Statistics & Applied Mathematics
 - Machine Learning
-- Deep Learning (PyTorch, TensorFlsow, Keras)
+- Deep Learning (PyTorch, TensorFlow, Keras)
 - Natural Language Processing (NLP)
 - LLMs (Retrieval-Augmented Generation, LangChain)
 - Forecasting
