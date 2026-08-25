@@ -17,11 +17,9 @@ permalink: /resume/
     <li>LinkedIn: <a class="resume-link" href="https://www.linkedin.com/in/bentontripp" target="_blank">linkedin.com/in/bentontripp</a></li>
 </ul>
 
-Data scientist with more than six years of experience across local government, utilities, consulting, marketing, and forecasting. My work has included machine learning, statistical modeling, dashboards, data pipelines, GIS, and software development. I am comfortable working independently or with a team, explaining technical work clearly, and learning new tools and methods as projects require.
+Data scientist and software developer with more than six years of experience across local government, utilities, consulting, and marketing. The analytical work has covered forecasting, machine learning, statistics, and geospatial analysis, while the development side has included dashboards, web applications, GIS tools, data pipelines, and automation.
 
 ## Work Experience
-
-My experience includes solving technical and analytical problems with Python, R, SQL, GIS, and cloud-based tools. I have built and maintained machine learning models, data pipelines, dashboards, geospatial applications, and AI-assisted document analysis tools, including retrieval-augmented generation (RAG) workflows. I focus on producing clear, well-documented work that others can understand, maintain, and extend.
 
 **Technology Analyst**
 
@@ -29,12 +27,13 @@ My experience includes solving technical and analytical problems with Python, R,
 *Raleigh, NC*<br>
 *June 2025 - Present*
 
-- Analyze department systems and processes, build dashboards, and automate recurring work for Planning and Development.
+- Build dashboards, automate recurring work, and investigate system and process problems for Planning and Development.
 - Built a PyTorch computer vision application that detects and redacts engineering seals and other sensitive information in large PDF plan sets, reducing manual review.
 - Produce city population estimates and long-range forecasts using census data, housing inventories, permit activity, and spatial modeling.
-- Developed public and internal Power BI dashboards covering review timelines, permitting, inspections, annexations, workload, and development activity, including more than 20 internal dashboards used across multiple divisions.
-- Analyzed development and demographic trends, including suburban and urban growth patterns presented to City Council and senior leadership.
-- Built workflows for meeting tracking, event management, and customer intake, and prepared documentation and training for staff using department dashboards and data tools.
+- Developed an ArcGIS Pro Python toolbox for internal use that downloads Census ACS 5-year tables, lists variable definitions, and creates feature classes with TIGERweb geometry for states, counties, places, tracts, and block groups.
+- Built public dashboards and more than 20 internal Power BI dashboards on review timelines, permitting, inspections, annexations, staff workload, and development activity.
+- Analyzed suburban and urban growth patterns and presented the findings to City Council and senior leadership.
+- Automated meeting tracking, event management, and customer intake, and prepared staff documentation and training materials for department dashboards and data tools.
 
 **Data Scientist**
 
@@ -44,9 +43,9 @@ My experience includes solving technical and analytical problems with Python, R,
 
 - Developed machine learning models, statistical analyses, data pipelines, and R Shiny applications for environmental, geochemical, and operational projects.
 - Built applications for groundwater evaluation, geochemical modeling, and billing anomaly detection.
-- Developed document analysis tools using large language models, retrieval-augmented generation, embeddings, and LangChain.
-- Built technical prototypes using Python, R, SQL, AWS, Azure DevOps, and Dataiku to test new analytical methods and applications.
-- Participated in an enterprise MLOps platform assessment covering Domino Data Lab, DataRobot, Dataiku, SAS, and AWS SageMaker, with emphasis on model monitoring, reproducibility, workflow management, and deployment.
+- Built document-search and analysis tools with large language models, embeddings, retrieval-augmented generation, and LangChain.
+- Prototyped new analytical methods and applications in Python, R, SQL, AWS, Azure DevOps, and Dataiku.
+- Helped assess Domino Data Lab, DataRobot, Dataiku, SAS, and AWS SageMaker for an enterprise MLOps platform, focusing on model monitoring, reproducibility, workflow management, and deployment.
 - Developed and taught advanced R programming courses for technical and non-technical employees.
 
 **Data Analyst**
@@ -58,7 +57,7 @@ My experience includes solving technical and analytical problems with Python, R,
 - Built a Databricks machine learning pipeline for ETL, model training, and deployment that identified supplier slippage drivers for Church & Dwight and supported more than $1 million in savings.
 - Designed an AWS workflow for Chick-fil-A using Redshift, Athena, and Apache Airflow to automate reconciliation between inventory and sales forecasting systems.
 - Developed classification, forecasting, recommendation, and data integration solutions for commercial clients using Python, R, SQL, and cloud platforms.
-- Gathered requirements, documented methods, maintained code, checked data quality, and presented findings to technical and nontechnical teams.
+- Worked with technical and nontechnical teams to define requirements, check data quality, document methods, and present findings.
 
 **Data Science Intern**
 
@@ -68,7 +67,6 @@ My experience includes solving technical and analytical problems with Python, R,
 
 - Developed customer segmentation and propensity models for targeted marketing campaigns using Python, Databricks, and statistical modeling.
 - Built data pipelines and an audience overlap analysis for the 2021 Jaguar and Land Rover campaigns, improving targeting efficiency by 15%.
-- Prepared features, trained models, generated propensity scores, and supported campaign analysis and audience selection.
 
 **Forecasting Analyst**
 
@@ -77,7 +75,7 @@ My experience includes solving technical and analytical problems with Python, R,
 *January 2020 - March 2021*
 
 - Developed time-series models to forecast call volume and staffing needs using Python and PostgreSQL.
-- Modeled trends, seasonality, day-of-week patterns, and other factors affecting incoming and outgoing call volume.
+- Accounted for seasonality and day-of-week effects in forecasts for incoming and outgoing call volume.
 - Updated forecasts during the COVID-19 pandemic and communicated results for staffing, scheduling, and operational planning.
 
 ## Education
@@ -115,24 +113,24 @@ My experience includes solving technical and analytical problems with Python, R,
 - Dashboards (Power BI, Shiny, Dash)
 - GIS Software (Esri Products, QGIS, GRASS GIS)
 - MLOps Software (Dataiku, DataRobot, MLflow, Domino Data Lab)
-- Docker and Containerized Development
+- Docker
 
 **Other Skills/Experience**
 
 - ETL and Data Integration
-- Statistics and Applied Mathematics
+- Applied Statistics
 - Machine Learning
 - Deep Learning (PyTorch, TensorFlow, Keras)
 - Natural Language Processing
 - LLMs (Retrieval-Augmented Generation, LangChain)
-- AI-Assisted Development and Agentic Workflows
+- AI-Assisted Software Development
 - Web Application Development (Flask, Streamlit, React, HTML/CSS/JavaScript)
 - Forecasting
 - Geospatial Analytics and Spatial Statistics
 - Agile Development and Technical Project Coordination
 - CI/CD and Version Control
 
-## Certifications/Achievements
+## Certification
 
 - AWS Cloud Practitioner, July 2024 - *Amazon Web Services (AWS)*
 
@@ -140,17 +138,11 @@ My experience includes solving technical and analytical problems with Python, R,
 
 **Species Distribution Modeling**
 
-- Conducted comparative analysis between machine learning and traditional approaches (Inhomogeneous Poisson Point Process, MaxEnt) for Species Distribution Modeling, implementing all analytical pipelines in R.
-- Analyzed distribution patterns of 8 bird species across 4 US states using bioclimatic variables, developing fully reproducible workflows with robust version control.
+- Benchmarked inhomogeneous Poisson point process and MaxEnt models against logistic regression, KNN, classification tree, random forest, and XGBoost for eight bird species across four states.
+- Built a version-controlled R workflow to prepare eBird observations and environmental rasters, fit the models, and compare accuracy, sensitivity, specificity, and F1 score.
 
-**Utilizing the Clay Foundation Model and Sentinel-2 Imagery for Urban Growth Monitoring**
+**Urban Growth Monitoring with Clay and Sentinel-2**
 
-- Developed proof-of-concept study integrating Sentinel-2 multispectral satellite imagery with the Clay Foundation Model (open-source deep Earth Observation foundation model) to monitor urban growth patterns using Python and PyTorch.
-- Engineered a scalable, data-efficient framework generating urban imperviousness estimates with higher temporal resolution than standard datasets like the National Land Cover Database.
-- Processed Sentinel-2 imagery into structured geospatial datasets and leveraged Clay Foundation Model for feature extraction and embedding generation.
-- Designed and evaluated both simple and complex neural network architectures in PyTorch, enhancing model performance through systematic hyperparameter optimization to achieve high accuracy in urban imperviousness prediction.
-- Demonstrated methodology's potential for enhancing urban monitoring frequency and responsiveness, directly supporting sustainable urban planning and resource management initiatives.
-
-## Personal Attributes
-
-I am dependable, organized, and comfortable working independently or as part of a team. I learn new tools quickly, communicate clearly, and make an effort to leave my work documented and easy for others to understand.
+- Used Sentinel-2 imagery and the Clay Earth observation model to estimate impervious surface between National Land Cover Database releases for Johnston County, North Carolina.
+- Generated 768-dimensional Clay embeddings from 10-meter imagery and trained simple and deep PyTorch neural networks against NLCD imperviousness data.
+- The resulting model estimated an average 2.44% annual increase in impervious surface from 2016 to 2023.
