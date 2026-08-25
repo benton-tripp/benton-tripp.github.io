@@ -3,18 +3,27 @@
 1. **Install Ruby:**  
    Jekyll is written in Ruby, so you need a recent version of Ruby installed on your system. You can download Ruby from [ruby-lang.org](https://www.ruby-lang.org/) or use a version manager like [rbenv](https://github.com/rbenv/rbenv) or [RVM](https://rvm.io/).
 
+   You might need to do something like this to add to path:
+
+   ```cmd
+   set "PATH=C:\Ruby40-x64\bin;%PATH%"
+   ```
+
 2. **Install Bundler and Jekyll:**  
    Once Ruby is installed, open your terminal (or command prompt) and run:  
+   
    ```bash
    gem install bundler jekyll
    ```
 
 3. **Create a New Jekyll Site:**  
    Navigate to the directory where you want your site and run:  
+
    ```bash
    jekyll new portfolio-site
    cd portfolio-site
    ```
+
    This command creates a new directory named `portfolios-site` with a default structure (including a `_layouts` folder, `_posts` folder, etc.).
 
 4. **Customize Your Layout:**  
